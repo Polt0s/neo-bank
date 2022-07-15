@@ -1,0 +1,15 @@
+.Header {
+    width: 100%;
+    min-height: 4rem;
+    display: flex;
+    align-items: center;
+    padding: 0 2rem;;
+}
+
+.Header__link:hover {
+    color: #b2a35f
+}
+
+.BtnSign:hover {
+    background-color: #7796c0 !important;
+}
