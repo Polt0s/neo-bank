@@ -1,0 +1,46 @@
+.Button {
+    margin: 0;
+    padding: 0 1rem;
+    height: 2.5rem;
+    display: inline-flex;
+    appearance: none;
+    align-items: center;
+    position: relative;
+    white-space: nowrap;
+    vertical-align: middle;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    line-height: 1.2;
+    border-radius: 8px;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    cursor: pointer;
+    text-transform: none;
+    background-color: #EDF2F7;
+}
+
+.Button:hover {
+    background: #e2e8f0;
+    background-color: #7796c0;
+}
+
+.Background-blue {
+    background-color: #003CFF;
+}
+
+.Background-grey {
+    background-color: #F6F6F6;   
+}
+
+.Color-black {
+    color: black;
+}
+
+.Color-white {
+    color: white;
+}
+
+.Color-blue {
+    color: #003CFF;
+}
