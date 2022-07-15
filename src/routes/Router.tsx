@@ -1,6 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { CreditPage, HomePage } from 'pages';
 
+import { PageHOC } from './PageHOC';
+
 export enum ROUTER_NAMES {
     Home = '/',
     Account = '/account',
@@ -12,8 +14,8 @@ export enum ROUTER_NAMES {
 export const Router = () => {
     return (
         <Routes>
-            <Route path={ROUTER_NAMES.Home} element={<HomePage />} />
-            <Route path={ROUTER_NAMES.Credit} element={<CreditPage />} />
+            <Route path={ROUTER_NAMES.Home} element={PageHOC(HomePage)} />
+            <Route path={ROUTER_NAMES.Credit} element={PageHOC(CreditPage)} />
             <Route path={ROUTER_NAMES.Product} element={<></>} />
             <Route path={ROUTER_NAMES.Account} element={<></>} />
 

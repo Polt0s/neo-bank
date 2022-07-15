@@ -36,3 +36,11 @@
 #root {
   background-color: #F7F8FD;
 }
+
+#grid-layout {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto;
+}

@@ -1,10 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
-import { Application } from 'Application';
+import { Router } from 'routes/Router';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -12,7 +11,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <ChakraProvider>
         <BrowserRouter>
-            <Application />
+            <div id="grid-layout">
+                <Router />
+            </div>
         </BrowserRouter>
     </ChakraProvider>
 );
