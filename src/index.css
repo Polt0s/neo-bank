@@ -38,9 +38,16 @@
 }
 
 #grid-layout {
-  width: 100%;
-  max-width: 1440px;
+  width: 90%;
+  max-width: 1300px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: auto;
+}
+
+@media screen and (max-width: 768px) {
+  #root {
+    width: 100vh;
+    /* height: 100vh; */
+  }
 }
