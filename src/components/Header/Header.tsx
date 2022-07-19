@@ -1,5 +1,5 @@
-import { Logo } from 'shared';
-import { Button, Container, Flex, Stack, Text } from '@chakra-ui/react';
+import { Button, Logo } from 'shared';
+import { Container, Flex, Stack, Text } from '@chakra-ui/react';
 
 import { Link } from 'react-router-dom';
 
@@ -24,10 +24,10 @@ export const Header = ({ routesPaths }: IHeader) => {
             </Container>
 
             <Stack direction="row" spacing={4} align="center">
-                <Button color="#003CFF">
+                <Button colorText="blue">
                     Login
                 </Button>
-                <Button background="#003CFF" color="white" className={styles.BtnSign}>Sign up</Button>
+                <Button background="blue" colorText="white" className={styles.BtnSign}>Sign up</Button>
             </Stack>
         </header>
     );
