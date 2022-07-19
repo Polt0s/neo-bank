@@ -1,0 +1,17 @@
+.Form-container {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .Form-container {
+        grid-template-rows: repeat(1, 1fr);
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.Form-container__Button-block {
+    grid-column: 3 / 3;
+}

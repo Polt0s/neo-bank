@@ -1,0 +1,1 @@
+export { SliderReview } from './SliderReview';
