@@ -1,4 +1,4 @@
-import { HeaderContainer } from 'container';
+import { HeaderContainer } from 'containers';
 
 import { ROUTER_NAMES } from './Router';
 
