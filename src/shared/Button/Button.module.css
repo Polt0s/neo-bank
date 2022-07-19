@@ -17,6 +17,8 @@
     font-style: normal;
     cursor: pointer;
     text-transform: none;
+    text-align: center;
+    justify-content: center;
     background-color: #EDF2F7;
 }
 
@@ -31,6 +33,11 @@
 
 .Background-grey {
     background-color: #F6F6F6;   
+}
+
+.Background-disabled {
+    cursor: not-allowed;
+    background-color: #7796c0;
 }
 
 .Color-black {
