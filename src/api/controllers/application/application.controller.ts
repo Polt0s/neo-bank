@@ -5,7 +5,7 @@ import type { IPostApplicationRequest } from './response.types';
 class ApplicationController extends Controller {
     public constructor() {
         super({
-            requestUrl: 'application/'
+            requestUrl: 'application'
         });
     }
 

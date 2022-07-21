@@ -17,10 +17,6 @@ class AdminController extends Controller {
     public async getAdminId({ id }: IGetAdminIdRequest) {
         return this.get<IGetAdminResponse>(`application/${id}`);
     }
-
-    // public async postApplication() {
-    //     return this.post<IPostApplicationRequest>('/application');
-    // }
 }
 
 export const adminAPI = new AdminController();
