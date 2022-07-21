@@ -1,6 +1,6 @@
 import { HeaderContainer } from 'containers';
 
-import { ROUTER_NAMES } from './Router';
+import { ERouterName } from './Router';
 
 interface IPageProps {
     routesPaths: Record<string, string>;
@@ -9,10 +9,8 @@ interface IPageProps {
 export const PageHOC = (Page: ({ routesPaths }: IPageProps) => JSX.Element) => {
     return (
         <>
-            <HeaderContainer routesPaths={ROUTER_NAMES} />
-            <Page routesPaths={ROUTER_NAMES} />
-
-            {/* footer container */}
+            <HeaderContainer routesPaths={ERouterName} />
+            <Page routesPaths={ERouterName} />
         </>
     );
 };

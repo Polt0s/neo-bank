@@ -3,7 +3,7 @@ import { CreditPage, HomePage } from 'pages';
 
 import { PageHOC } from './PageHOC';
 
-export enum ROUTER_NAMES {
+export enum ERouterName {
     Home = '/',
     Account = '/account',
     Credit = '/credit',
@@ -14,12 +14,12 @@ export enum ROUTER_NAMES {
 export const Router = () => {
     return (
         <Routes>
-            <Route path={ROUTER_NAMES.Home} element={PageHOC(HomePage)} />
-            <Route path={ROUTER_NAMES.Credit} element={PageHOC(CreditPage)} />
-            <Route path={ROUTER_NAMES.Product} element={<></>} />
-            <Route path={ROUTER_NAMES.Account} element={<></>} />
+            <Route path={ERouterName.Home} element={PageHOC(HomePage)} />
+            <Route path={ERouterName.Credit} element={PageHOC(CreditPage)} />
+            <Route path={ERouterName.Product} element={<></>} />
+            <Route path={ERouterName.Account} element={<></>} />
 
-            <Route path="*" element={<Navigate replace to={ROUTER_NAMES.Home} />} />
+            <Route path="*" element={<Navigate replace to={ERouterName.Home} />} />
         </Routes>
     );
 };
