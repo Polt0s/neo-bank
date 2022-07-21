@@ -13,129 +13,174 @@ import {
     NumberDecrementStepper,
     Flex,
     Text,
-    FormErrorMessage
+    FormErrorMessage,
+    InputGroup,
+    InputRightElement
 } from '@chakra-ui/react';
-import { Button, Card, FormInput, Label } from 'shared';
-import { onlyNumbers } from 'utils';
+// import { useForm, Controller } from 'react-hook-form';
+import { useFormik } from 'formik';
+
+import { Button, Card, CompleteIcon, FormInput, Label, RejectIcon } from 'shared';
+import { checkEmail, onlyNumbers } from 'utils';
+
+import type { IPostApplicationRequest } from 'api/controllers/application/response.types';
+
+import { useNavigate } from 'react-router';
 
 import styles from './FormApplication.module.css';
 
 interface IInitialFormState {
-    lastName: { value: string; check: boolean };
-    firstName: { value: string; check: boolean };
-    middleName: { value: string; check: boolean };
-    term: { value: number; check: boolean };
-    amount: { value: number; check: boolean };
-    email: { value: string; check: boolean };
-    birthdate: { value: string; check: boolean };
-    passportSeries: { value: string; check: boolean };
-    passportNumber: { value: string; check: boolean };
+    amount: number;
+    term: number;
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    email: string;
+    birthdate: string;
+    passportSeries: string;
+    passportNumber: string;
 }
 
-const initialFormState = {
-    lastName: { value: '', check: false },
-    firstName: { value: '', check: false },
-    middleName: { value: '', check: false },
-    term: { value: 6, check: true },
-    amount: { value: 10000, check: true },
-    email: { value: '', check: false },
-    birthdate: { value: '', check: false },
-    passportSeries: { value: '', check: false },
-    passportNumber: { value: '', check: false },
-};
+type TFields = 'lastName' | 'firstName' | 'middleName' | 'email' | 'birthdate' | 'passportSeries' | 'passportNumber'
 
-type TFields = 'lastName' | 'firstName' | 'middleName' | 'term' | 'amount' | 'email' | 'birthdate' | 'passportSeries' | 'passportNumber'
+interface IFormApplication {
+    onSubmit: (values: IPostApplicationRequest) => void;
+    routesPaths: Record<string, string>;
+}
 
+export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => {
+    const navigate = useNavigate();
 
-export const FormApplication = () => {
-    const [formState, setFormState] = React.useState<IInitialFormState>(initialFormState);
-    // const [isCheckForm, isSetCheckForm] = React.useState<boolean>(false);
+    const formik = useFormik({
+        initialValues: {
+            lastName: '',
+            firstName: '',
+            middleName: '',
+            term: 6,
+            amount: 10000,
+            email: '',
+            birthdate: '',
+            passportSeries: '',
+            passportNumber: ''
+        },
+        validate: (values) => {
+            const errors: any = {};
 
-    // React.useEffect(() => {
-    //     const checkFields = Object.values(formState)
-    //         .map((item) => item.check)
-    //         .includes(false);
+            if (!values.lastName.length) {
+                errors.lastName = 'Enter your last name';
+            }
 
-    //     console.log(checkFields);
+            if (!values.firstName.length) {
+                errors.firstName = 'Enter your first name';
+            }
 
-    //     if (!checkFields) {
-    //         isSetCheckForm(true);
-    //     }
-    // }, [formState]);
+            if (!values.middleName.length) {
+                errors.middleName = 'Enter your  name';
+            }
 
-    const addData = (name: TFields, value: string) => {
-        setFormState({ ...formState, [name]: { value: value, check: formState[name].check } });
-    };
+            if (!checkEmail.test(values.email)) {
+                errors.email = 'Incorrect email address';
+            }
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(formState);
-    };
+            if (!values.birthdate.length) {
+                errors.birthdate = 'Enter your date of birth';
+            }
+
+            if (values.passportSeries.length < 4) {
+                errors.passportSeries = 'The series must be 4 digits';
+            }
+
+            if (values.passportNumber.length < 6) {
+                errors.passportNumber = 'The series must be 6 digits';
+            }
+            return errors;
+        },
+        onSubmit: (values) => {
+            const result = {
+                ...values,
+                amount: Number(values.amount),
+                term: Number(values.term)
+            };
+
+            console.log(result);
+            onSubmit({ items: result });
+            navigate(routesPaths['Credit']);
+        },
+    });
+
+    // console.log(formik.values);
 
     return (
-        <Card style={{ marginBottom: '200px', paddingBottom: 0 }}>
+        <Card style={{ marginBottom: '200px', paddingBottom: 0 }} id="formApplication">
             <Heading size="lg" marginBottom="2rem">Customize your card</Heading>
 
-            <form className={styles['Form-container']} onSubmit={onSubmit}>
+            <form className={styles['Form-container']} onSubmit={formik.handleSubmit}>
                 <Box>
-                    <Label htmlFor="last name" require>Your last name</Label>
+                    <Label htmlFor="lastName" require>Your last name</Label>
                     <FormInput
-                        value={formState.lastName.value}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => addData('lastName', event.target.value)}
+                        value={formik.values.lastName}
+                        onChange={formik.handleChange}
                         name="lastName"
+                        id="lastName"
                         type="text"
                         focusBorderColor="#5B35D5"
                         errorBorderColor="#FF5631"
-                        isInvalid={formState.lastName.value.length === 0}
+                        isInvalid={Boolean(formik.errors.lastName)}
                         background="#f9f5e3"
                         placeholder="For example Doe"
-                        textError="Enter your last name"
-                        conditionForShowError={formState.lastName.value.length === 0}
+                        isFocus={formik.touched.lastName}
+                        textError={formik.errors.lastName}
+                        conditionForShowError={Boolean(formik.errors.lastName)}
                     />
                 </Box>
 
                 <Box>
-                    <Label require htmlFor="first name">Your first name</Label>
+                    <Label require htmlFor="firstName">Your first name</Label>
                     <FormInput
-                        value={formState.firstName.value}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => addData('firstName', event.target.value)}
+                        value={formik.values.firstName}
+                        onChange={formik.handleChange}
                         name="firstName"
+                        id="firstName"
                         type="text"
                         focusBorderColor="#5B35D5"
                         errorBorderColor="#FF5631"
-                        isInvalid={formState.firstName.value.length === 0}
+                        isInvalid={Boolean(formik.errors.firstName)}
                         background="#f9f5e3"
+                        isFocus={formik.touched.firstName}
                         placeholder="For example Jhon"
-                        textError="Enter your first name"
-                        conditionForShowError={formState.firstName.value.length === 0}
+                        textError={formik.errors.firstName}
+                        conditionForShowError={Boolean(formik.errors.firstName)}
                     />
                 </Box>
 
                 <Box>
-                    <Label require htmlFor="middle name">Your patronymic</Label>
+                    <Label require htmlFor="middleName">Your patronymic</Label>
                     <FormInput
-                        value={formState.middleName.value}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => addData('middleName', event.target.value)}
+                        value={formik.values.middleName}
+                        onChange={formik.handleChange}
                         name="middleName"
+                        id="middleName"
                         type="text"
                         focusBorderColor="#5B35D5"
                         errorBorderColor="#FF5631"
-                        isInvalid={formState.middleName.value.length === 0}
+                        isInvalid={Boolean(formik.errors.middleName)}
                         background="#f9f5e3"
                         placeholder="For example Victorovich"
-                        textError="Enter your patronymic"
-                        conditionForShowError={formState.middleName.value.length === 0}
+                        isFocus={formik.touched.middleName}
+                        textError={formik.errors.middleName}
+                        conditionForShowError={Boolean(formik.errors.middleName)}
                     />
                 </Box>
 
                 <Box>
                     <Label require htmlFor="term">Select term</Label>
                     <Select
-                        value={formState.term.value}
-                        onChange={(event: React.ChangeEvent<HTMLSelectElement>) => addData('term', event.target.value)}
+                        value={formik.values.term}
+                        onChange={formik.handleChange}
                         background="#f9f5e3"
                         placeholder="6 month"
                         name="term"
+                        id="term"
                     >
                         <option value="12">12 month</option>
                         <option value="18">18 month</option>
@@ -146,9 +191,10 @@ export const FormApplication = () => {
                 <Box>
                     <Label require htmlFor="amount">Select amount</Label>
                     <NumberInput
-                        value={formState.amount.value}
-                        onChange={(valueAsString: string) => addData('amount', valueAsString)}
+                        value={formik.values.amount}
+                        onChange={formik.handleChange}
                         name="amount"
+                        id="amount"
                         step={5000}
                         defaultValue={10000}
                         min={10000}
@@ -166,10 +212,12 @@ export const FormApplication = () => {
                 <Box>
                     <Label require htmlFor="email">Your email</Label>
                     <FormInput
-                        value={formState.email.value}
+                        value={formik.values.email}
                         name="email"
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => addData('email', event.target.value)}
+                        id="email"
+                        onChange={formik.handleChange}
                         type="email"
+                        isFocus={formik.touched.email}
                         focusBorderColor="#5B35D5"
                         placeholder="test@gmail.com"
                         background="#f9f5e3"
@@ -179,54 +227,60 @@ export const FormApplication = () => {
                 <Box>
                     <Label require htmlFor="birthdate">Your date of birth</Label>
                     <FormInput
-                        value={formState.birthdate.value}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => addData('birthdate', event.target.value)}
+                        value={formik.values.birthdate}
+                        onChange={formik.handleChange}
                         name="birthdate"
+                        id="birthdate"
                         placeholder="Select Date and Time"
                         focusBorderColor="#5B35D5"
                         errorBorderColor="#FF5631"
-                        isInvalid={formState.birthdate.value.length === 0}
+                        isInvalid={Boolean(formik.errors.birthdate)}
+                        isFocus={formik.touched.birthdate}
                         size="md"
                         type="date"
                         background="#f9f5e3"
-                        textError="Enter your date of birth"
-                        conditionForShowError={formState.birthdate.value.length === 0}
+                        textError={formik.errors.birthdate}
+                        conditionForShowError={Boolean(formik.errors.birthdate)}
                     />
                 </Box>
 
                 <Box>
                     <Label require htmlFor="passportSeries">Your passport series</Label>
                     <FormInput
-                        value={formState.passportSeries.value}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => addData('passportSeries', event.target.value)}
+                        value={formik.values.passportSeries}
+                        onChange={formik.handleChange}
                         name="passportSeries"
+                        id="passportSeries"
                         type="number"
                         focusBorderColor="#5B35D5"
                         errorBorderColor="#FF5631"
-                        isInvalid={formState.passportSeries.value.length < 4}
+                        isInvalid={Boolean(formik.errors.passportSeries)}
+                        isFocus={formik.touched.passportSeries}
                         background="#f9f5e3"
                         placeholder="0000"
                         regExp={onlyNumbers}
-                        textError="The series must be 4 digits"
-                        conditionForShowError={formState.passportSeries.value.length < 4}
+                        textError={formik.errors.passportSeries}
+                        conditionForShowError={Boolean(formik.errors.passportSeries)}
                     />
                 </Box>
 
                 <Box>
                     <Label require htmlFor="passportNumber">Your passport number</Label>
                     <FormInput
-                        value={formState.passportNumber.value}
-                        onChange={(event: React.ChangeEvent<HTMLInputElement>) => addData('passportNumber', event.target.value)}
+                        value={formik.values.passportNumber}
+                        onChange={formik.handleChange}
                         name="passportNumber"
+                        id="passportNumber"
                         type="number"
                         focusBorderColor="#5B35D5"
                         errorBorderColor="#FF5631"
-                        isInvalid={formState.passportNumber.value.length < 6}
+                        isInvalid={Boolean(formik.errors.passportNumber)}
                         background="#f9f5e3"
                         placeholder="000000"
                         regExp={onlyNumbers}
-                        textError="The number must be 6 digits"
-                        conditionForShowError={formState.passportNumber.value.length < 6}
+                        isFocus={formik.touched.passportSeries}
+                        textError={formik.errors.passportNumber}
+                        conditionForShowError={Boolean(formik.errors.passportNumber)}
                     />
                 </Box>
 
@@ -236,7 +290,6 @@ export const FormApplication = () => {
                         width="9.3rem"
                         background="blue"
                         colorText="white"
-                    // disabled={!isCheckForm}
                     >
                         Continue
                     </Button>
