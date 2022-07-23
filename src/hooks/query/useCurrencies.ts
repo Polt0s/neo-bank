@@ -10,14 +10,14 @@ interface IUseCurrencies {
 }
 
 export const useCurrencies = (data: IUseCurrencies[]) => {
-    const [currencyList, setCurrencyList] = React.useState<TResultCurrencies>({});
+    const [currencyList, setCurrencyList] = React.useState<TCurrencyList[]>([]);
 
     const results = useQueries({
         queries: data.map((item) => ({
             queryKey: ['currency', item.index],
             queryFn: () => currencyAPI.getCurrency({ from: item.from, to: item.to, q: '1.0' })
                 .then((response) => {
-                    setCurrencyList(prev => ({ ...prev, [item.from]: response.data }));
+                    setCurrencyList((prev: any) => [...prev, { name: item.from, value: response.data }]);
                 }),
             staleTime: Infinity
         }))
@@ -28,4 +28,9 @@ export const useCurrencies = (data: IUseCurrencies[]) => {
     return { currencyList, isLoading };
 };
 
-type TResultCurrencies = Record<string, string>;
+type TCurrencies = 'USD' | 'EUR';
+
+export type TCurrencyList = {
+    name: TCurrencies;
+    value: number;
+}
