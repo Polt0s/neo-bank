@@ -1,0 +1,18 @@
+.Banner-card {
+    padding: 3rem 2rem;
+    margin-bottom: 3rem;
+}
+
+.Banner-card__image {
+    transform: rotate(10deg);
+    border-radius: 1.25rem;
+}
+
+.Banner-card__text-description {
+    cursor: pointer;
+}
+
+.Banner-card__tooltip {
+    padding: 1rem;
+    width: 12rem;
+}
