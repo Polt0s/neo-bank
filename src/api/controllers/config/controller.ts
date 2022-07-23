@@ -1,10 +1,22 @@
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import axiosBase from './axios.base';
+import { axiosBase, axiosBaseRapidAPI } from './axios.base';
 
 interface IProps {
     requestUrl?: string;
 }
+
+type TConfig = 'base' | 'rapidAPI';
+
+interface IConfigRoot {
+    base: AxiosInstance;
+    rapidAPI: AxiosInstance;
+}
+
+const configRoot: IConfigRoot = {
+    base: axiosBase,
+    rapidAPI: axiosBaseRapidAPI
+};
 
 export abstract class Controller {
     private readonly _requestUrl: IProps['requestUrl'];
@@ -13,9 +25,9 @@ export abstract class Controller {
         this._requestUrl = requestUrl;
     }
 
-    protected get<T>(path?: string, config?: IRequestConfig) {
+    protected get<T>(baseConfig: TConfig, path?: string, config?: IRequestConfig) {
         const request = () => {
-            return axiosBase.get<T>(
+            return configRoot[baseConfig].get<T>(
                 this.processPath(path),
                 config
             );
@@ -73,5 +85,5 @@ export abstract class Controller {
 }
 
 export interface IRequestConfig extends AxiosRequestConfig {
-    access_token: string | null;
+    access_token?: string | null;
 }

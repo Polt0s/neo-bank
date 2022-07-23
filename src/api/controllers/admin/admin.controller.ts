@@ -11,11 +11,11 @@ class AdminController extends Controller {
     }
 
     public async getAdmin() {
-        return this.get<IGetAdminResponse>('application');
+        return this.get<IGetAdminResponse>('base', 'application');
     }
 
     public async getAdminId({ id }: IGetAdminIdRequest) {
-        return this.get<IGetAdminResponse>(`application/${id}`);
+        return this.get<IGetAdminResponse>('base', `application/${id}`);
     }
 }
 
