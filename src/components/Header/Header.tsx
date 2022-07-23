@@ -7,12 +7,13 @@ import styles from './Header.module.css';
 
 interface IHeader {
     routesPaths: Record<string, string>;
+    goBackHome: () => void;
 }
 
-export const Header = ({ routesPaths }: IHeader) => {
+export const Header = ({ routesPaths, goBackHome }: IHeader) => {
     return (
         <header className={styles['Header']}>
-            <Logo />
+            <Logo onClick={goBackHome} />
 
             <Container maxW="md">
                 <Flex alignItems="center" gap="10" justifyContent="center">
