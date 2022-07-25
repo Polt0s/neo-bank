@@ -9,6 +9,8 @@ interface ICard {
     children: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
+    id?: string;
+    background?: 'gray' | 'brown';
 }
 
 export const Card = ({
@@ -16,11 +18,23 @@ export const Card = ({
     height,
     children,
     className,
+    id,
+    background,
     style
 }: ICard) => {
+    const configBackground = {
+        gray: 'Card__background-gray',
+        brown: 'Card__background-brown'
+    };
+
     return (
         <div
-            className={cn(styles['Card-container'], className)}
+            id={id}
+            className={cn(
+                styles['Card-container'],
+                background && styles[configBackground[background]],
+                className
+            )}
             style={{ width: width, height: height, ...style }}
         >
             {children}
