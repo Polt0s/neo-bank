@@ -8,7 +8,10 @@ import {
     Slider,
     SliderTrack,
     SliderFilledTrack,
-    SliderThumb
+    SliderThumb,
+    Container,
+    Divider,
+    Center
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 
@@ -106,200 +109,233 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths }: IFormAp
     });
 
     return (
-        <Card style={{ marginBottom: '200px', paddingBottom: 0 }} id="formApplication">
-            <Heading size="lg" marginBottom="2rem">Customize your card</Heading>
+        <Card className={styles['form-application']} id="formApplication">
 
-            <form className={styles['Form-container']} onSubmit={formik.handleSubmit}>
-                <Box>
-                    <Label htmlFor="lastName" require>Your last name</Label>
-                    <FormInput
-                        value={formik.values.lastName}
-                        onChange={formik.handleChange}
-                        name="lastName"
-                        id="lastName"
-                        type="text"
-                        focusBorderColor="#5B35D5"
-                        errorBorderColor="#FF5631"
-                        isInvalid={Boolean(formik.errors.lastName)}
-                        background="#f9f5e3"
-                        placeholder="For example Doe"
-                        isFocus={formik.touched.lastName}
-                        textError={formik.errors.lastName}
-                        conditionForShowError={Boolean(formik.errors.lastName)}
-                        onBlur={formik.handleBlur}
-                    />
-                </Box>
+            <Flex gap={10} marginBottom="2rem">
+                <Container margin={0} padding={0}>
+                    <Flex marginBottom="2rem" justifyContent="space-between" alignItems="center">
+                        <Heading size="lg">Customize your card</Heading>
+                        <Text>Step 1 of 4</Text>
+                    </Flex>
 
-                <Box>
-                    <Label require htmlFor="firstName">Your first name</Label>
-                    <FormInput
-                        value={formik.values.firstName}
-                        onChange={formik.handleChange}
-                        name="firstName"
-                        id="firstName"
-                        type="text"
-                        focusBorderColor="#5B35D5"
-                        errorBorderColor="#FF5631"
-                        isInvalid={Boolean(formik.errors.firstName)}
-                        background="#f9f5e3"
-                        isFocus={formik.touched.firstName}
-                        placeholder="For example Jhon"
-                        textError={formik.errors.firstName}
-                        conditionForShowError={Boolean(formik.errors.firstName)}
-                        onBlur={formik.handleBlur}
-                    />
-                </Box>
+                    <Box className={styles['form-application__limit']} >
+                        <Label paddingBottom="1rem" htmlFor="amount">Select amount</Label>
+                        <Text size="1.5rem" paddingBottom="0.5rem">{sliderValue.toLocaleString('ru')} ₽</Text>
+                        <Slider
+                            aria-label="slider-ex-2"
+                            colorScheme="#5B35D5"
+                            value={sliderValue}
+                            step={1000}
+                            min={15000}
+                            max={600000}
+                            onChange={(value) => setSliderValue(value)}
+                        >
+                            <SliderTrack>
+                                <SliderFilledTrack bg="#5B35D5" />
+                            </SliderTrack>
+                            <SliderThumb boxSize={6} bg="#5B35D5" />
+                        </Slider>
+                        <Flex justifyContent="space-between" alignItems="center" marginTop="-0.75rem">
+                            <Text color="#786d6d">15 000</Text>
+                            <Text color="#786d6d">600 000</Text>
+                        </Flex>
+                    </Box>
+                </Container>
 
-                <Box>
-                    <Label require htmlFor="middleName">Your patronymic</Label>
-                    <FormInput
-                        value={formik.values.middleName}
-                        onChange={formik.handleChange}
-                        name="middleName"
-                        id="middleName"
-                        type="text"
-                        focusBorderColor="#5B35D5"
-                        errorBorderColor="#FF5631"
-                        isInvalid={Boolean(formik.errors.middleName)}
-                        background="#f9f5e3"
-                        placeholder="For example Victorovich"
-                        isFocus={formik.touched.middleName}
-                        textError={formik.errors.middleName}
-                        conditionForShowError={Boolean(formik.errors.middleName)}
-                        onBlur={formik.handleBlur}
-                    />
-                </Box>
+                <Center>
+                    <Divider variant="dashed" orientation="vertical" bg="#968975b8" />
+                </Center>
 
-                <Box>
-                    <Label require htmlFor="term">Select term</Label>
-                    <Select
-                        value={formik.values.term}
-                        onChange={formik.handleChange}
-                        background="#f9f5e3"
-                        placeholder="6 month"
-                        name="term"
-                        id="term"
-                        focusBorderColor="#5B35D5"
+                <Container>
+                    <Heading marginBottom="1rem" size="md">You have chosen the amount</Heading>
+                    <Text size="1.5rem" paddingBottom="0.5rem">{sliderValue.toLocaleString('ru')} ₽</Text>
+                    <Divider width="40%" />
+                </Container>
+            </Flex>
+
+            <Container margin={0} padding={0} maxWidth="100%">
+                <Heading marginBottom="1.5rem" size="md">Contact Information</Heading>
+
+                <form onSubmit={formik.handleSubmit}>
+                    <Container margin={0} padding={0} maxWidth="100%" className={styles['Form-container']}>
+                        <Box>
+                            <Label htmlFor="lastName" require>Your last name</Label>
+                            <FormInput
+                                value={formik.values.lastName}
+                                onChange={formik.handleChange}
+                                name="lastName"
+                                id="lastName"
+                                type="text"
+                                focusBorderColor="#5B35D5"
+                                errorBorderColor="#FF5631"
+                                isInvalid={Boolean(formik.errors.lastName)}
+                                background="#f9f5e3"
+                                placeholder="For example Doe"
+                                isFocus={formik.touched.lastName}
+                                textError={formik.errors.lastName}
+                                conditionForShowError={Boolean(formik.errors.lastName)}
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+
+                        <Box>
+                            <Label require htmlFor="firstName">Your first name</Label>
+                            <FormInput
+                                value={formik.values.firstName}
+                                onChange={formik.handleChange}
+                                name="firstName"
+                                id="firstName"
+                                type="text"
+                                focusBorderColor="#5B35D5"
+                                errorBorderColor="#FF5631"
+                                isInvalid={Boolean(formik.errors.firstName)}
+                                background="#f9f5e3"
+                                isFocus={formik.touched.firstName}
+                                placeholder="For example Jhon"
+                                textError={formik.errors.firstName}
+                                conditionForShowError={Boolean(formik.errors.firstName)}
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+
+                        <Box>
+                            <Label require htmlFor="middleName">Your patronymic</Label>
+                            <FormInput
+                                value={formik.values.middleName}
+                                onChange={formik.handleChange}
+                                name="middleName"
+                                id="middleName"
+                                type="text"
+                                focusBorderColor="#5B35D5"
+                                errorBorderColor="#FF5631"
+                                isInvalid={Boolean(formik.errors.middleName)}
+                                background="#f9f5e3"
+                                placeholder="For example Victorovich"
+                                isFocus={formik.touched.middleName}
+                                textError={formik.errors.middleName}
+                                conditionForShowError={Boolean(formik.errors.middleName)}
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+
+                        <Box>
+                            <Label require htmlFor="term">Select term</Label>
+                            <Select
+                                value={formik.values.term}
+                                onChange={formik.handleChange}
+                                background="#f9f5e3"
+                                placeholder="6 month"
+                                name="term"
+                                id="term"
+                                focusBorderColor="#5B35D5"
+                            >
+                                <option value="12">12 month</option>
+                                <option value="18">18 month</option>
+                                <option value="24">24 month</option>
+                            </Select>
+                        </Box>
+
+                        <Box>
+                            <Label require htmlFor="email">Your email</Label>
+                            <FormInput
+                                value={formik.values.email}
+                                name="email"
+                                id="email"
+                                onChange={formik.handleChange}
+                                type="email"
+                                isFocus={formik.touched.email}
+                                isInvalid={Boolean(formik.errors.email)}
+                                focusBorderColor="#5B35D5"
+                                errorBorderColor="#FF5631"
+                                placeholder="test@gmail.com"
+                                background="#f9f5e3"
+                                textError={formik.errors.email}
+                                conditionForShowError={Boolean(formik.errors.email)}
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+
+                        <Box>
+                            <Label require htmlFor="birthdate">Your date of birth</Label>
+                            <FormInput
+                                value={formik.values.birthdate}
+                                onChange={formik.handleChange}
+                                name="birthdate"
+                                id="birthdate"
+                                placeholder="Select Date and Time"
+                                focusBorderColor="#5B35D5"
+                                errorBorderColor="#FF5631"
+                                isInvalid={Boolean(formik.errors.birthdate)}
+                                isFocus={formik.touched.birthdate}
+                                size="md"
+                                type="date"
+                                background="#f9f5e3"
+                                textError={formik.errors.birthdate}
+                                conditionForShowError={Boolean(formik.errors.birthdate)}
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+
+                        <Box>
+                            <Label require htmlFor="passportSeries">Your passport series</Label>
+                            <FormInput
+                                value={formik.values.passportSeries}
+                                onChange={formik.handleChange}
+                                name="passportSeries"
+                                id="passportSeries"
+                                type="number"
+                                focusBorderColor="#5B35D5"
+                                errorBorderColor="#FF5631"
+                                isInvalid={Boolean(formik.errors.passportSeries)}
+                                isFocus={formik.touched.passportSeries}
+                                background="#f9f5e3"
+                                placeholder="0000"
+                                regExp={onlyNumbers}
+                                textError={formik.errors.passportSeries}
+                                conditionForShowError={Boolean(formik.errors.passportSeries)}
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+
+                        <Box>
+                            <Label require htmlFor="passportNumber">Your passport number</Label>
+                            <FormInput
+                                value={formik.values.passportNumber}
+                                onChange={formik.handleChange}
+                                name="passportNumber"
+                                id="passportNumber"
+                                type="number"
+                                focusBorderColor="#5B35D5"
+                                errorBorderColor="#FF5631"
+                                isInvalid={Boolean(formik.errors.passportNumber)}
+                                background="#f9f5e3"
+                                placeholder="000000"
+                                regExp={onlyNumbers}
+                                isFocus={formik.touched.passportNumber}
+                                textError={formik.errors.passportNumber}
+                                conditionForShowError={Boolean(formik.errors.passportNumber)}
+                                onBlur={formik.handleBlur}
+                            />
+                        </Box>
+                    </Container>
+
+                    <Flex
+                        justifyContent="flex-end"
+                        marginTop="1.5rem"
+                        className={styles['Form-container__Button-block']}
                     >
-                        <option value="12">12 month</option>
-                        <option value="18">18 month</option>
-                        <option value="24">24 month</option>
-                    </Select>
-                </Box>
-
-                <Box>
-                    <Label require htmlFor="amount">Select amount</Label>
-                    <Text>{sliderValue.toLocaleString('ru')} ₽</Text>
-                    <Slider
-                        aria-label="slider-ex-2"
-                        colorScheme="#5B35D5"
-                        value={sliderValue}
-                        step={1000}
-                        min={15000}
-                        max={600000}
-                        onChange={(value) => setSliderValue(value)}
-                    >
-                        <SliderTrack>
-                            <SliderFilledTrack bg="#5B35D5" />
-                        </SliderTrack>
-                        <SliderThumb boxSize={6} bg="#5B35D5" />
-                    </Slider>
-                </Box>
-
-                <Box>
-                    <Label require htmlFor="email">Your email</Label>
-                    <FormInput
-                        value={formik.values.email}
-                        name="email"
-                        id="email"
-                        onChange={formik.handleChange}
-                        type="email"
-                        isFocus={formik.touched.email}
-                        isInvalid={Boolean(formik.errors.email)}
-                        focusBorderColor="#5B35D5"
-                        errorBorderColor="#FF5631"
-                        placeholder="test@gmail.com"
-                        background="#f9f5e3"
-                        textError={formik.errors.email}
-                        conditionForShowError={Boolean(formik.errors.email)}
-                        onBlur={formik.handleBlur}
-                    />
-                </Box>
-
-                <Box>
-                    <Label require htmlFor="birthdate">Your date of birth</Label>
-                    <FormInput
-                        value={formik.values.birthdate}
-                        onChange={formik.handleChange}
-                        name="birthdate"
-                        id="birthdate"
-                        placeholder="Select Date and Time"
-                        focusBorderColor="#5B35D5"
-                        errorBorderColor="#FF5631"
-                        isInvalid={Boolean(formik.errors.birthdate)}
-                        isFocus={formik.touched.birthdate}
-                        size="md"
-                        type="date"
-                        background="#f9f5e3"
-                        textError={formik.errors.birthdate}
-                        conditionForShowError={Boolean(formik.errors.birthdate)}
-                        onBlur={formik.handleBlur}
-                    />
-                </Box>
-
-                <Box>
-                    <Label require htmlFor="passportSeries">Your passport series</Label>
-                    <FormInput
-                        value={formik.values.passportSeries}
-                        onChange={formik.handleChange}
-                        name="passportSeries"
-                        id="passportSeries"
-                        type="number"
-                        focusBorderColor="#5B35D5"
-                        errorBorderColor="#FF5631"
-                        isInvalid={Boolean(formik.errors.passportSeries)}
-                        isFocus={formik.touched.passportSeries}
-                        background="#f9f5e3"
-                        placeholder="0000"
-                        regExp={onlyNumbers}
-                        textError={formik.errors.passportSeries}
-                        conditionForShowError={Boolean(formik.errors.passportSeries)}
-                        onBlur={formik.handleBlur}
-                    />
-                </Box>
-
-                <Box>
-                    <Label require htmlFor="passportNumber">Your passport number</Label>
-                    <FormInput
-                        value={formik.values.passportNumber}
-                        onChange={formik.handleChange}
-                        name="passportNumber"
-                        id="passportNumber"
-                        type="number"
-                        focusBorderColor="#5B35D5"
-                        errorBorderColor="#FF5631"
-                        isInvalid={Boolean(formik.errors.passportNumber)}
-                        background="#f9f5e3"
-                        placeholder="000000"
-                        regExp={onlyNumbers}
-                        isFocus={formik.touched.passportNumber}
-                        textError={formik.errors.passportNumber}
-                        conditionForShowError={Boolean(formik.errors.passportNumber)}
-                        onBlur={formik.handleBlur}
-                    />
-                </Box>
-
-                <Flex justifyContent="flex-end" className={styles['Form-container__Button-block']}>
-                    <Button
-                        type="submit"
-                        width="9.3rem"
-                        background="blue"
-                        colorText="white"
-                    >
+                        <Button
+                            type="submit"
+                            width="9.3rem"
+                            height="3rem"
+                            background="blue"
+                            colorText="white"
+                        >
                         Continue
-                    </Button>
-                </Flex>
-            </form>
-        </Card >
+                        </Button>
+                    </Flex>
+                </form>
+            </Container>
+        </Card>
     );
 };
