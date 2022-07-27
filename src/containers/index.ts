@@ -1,3 +1,3 @@
 export { HeaderContainer } from './HeaderContainer';
-export { FormApplicationContainer } from './FormApplicationContainer';
+export { FormApplicationPrescoringStepContainer } from './FormApplicationPrescoringStepContainer';
 export { CurrencyDisplayContainer } from './CurrencyDisplayContainer';

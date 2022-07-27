@@ -1,15 +1,15 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { applicationAPI } from 'api';
-import { FormApplication } from 'components';
+import { FormApplicationPrescoringStep } from 'components';
 
 import type { IPostApplicationRequest } from 'api/controllers/application/response.types';
 
-interface IFormApplicationContainer {
+interface IFormApplicationPrescoringStepContainer {
     routesPaths: Record<string, string>;
 }
 
-export const FormApplicationContainer = ({ routesPaths }: IFormApplicationContainer) => {
+export const FormApplicationPrescoringStepContainer = ({ routesPaths }: IFormApplicationPrescoringStepContainer) => {
     const { mutate } = useMutation((values: IPostApplicationRequest) => applicationAPI.postApplication(values));
 
     const onSubmit = (values: IPostApplicationRequest) => {
@@ -18,7 +18,7 @@ export const FormApplicationContainer = ({ routesPaths }: IFormApplicationContai
 
     return (
         <>
-            <FormApplication onSubmit={onSubmit} routesPaths={routesPaths} />
+            <FormApplicationPrescoringStep onSubmit={onSubmit} routesPaths={routesPaths} />
         </>
     );
 };

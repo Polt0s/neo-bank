@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Box,
     Container,
@@ -8,29 +9,32 @@ import {
     Text
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react';
-import { apiTest, getApiUsers } from 'store/apiTest';
+import { adminStore } from 'store/admin.module';
+import { NavLink } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
-import { Button } from 'shared';
-import { FormApplication, ListCardFeatures } from 'components';
+import { Button, FormInput } from 'shared';
+import { ListCardFeatures } from 'components';
+import { adminAPI } from 'api';
+import { CurrencyDisplayContainer } from 'containers';
 
 import cardImage1 from 'assets/image/cardImage1.jpg';
 import cardImage2 from 'assets/image/cardImage2.jpg';
 import cardImage3 from 'assets/image/cardImage3.jpg';
 import cardImage4 from 'assets/image/cardImage4.jpg';
 
-export const HomePage = () => {
-    // React.useEffect(() => {
-    //     getApiUsers();
-    // }, []);
+interface IHomePage {
+    routesPaths: Record<string, string>;
+}
 
+export const HomePage = ({ routesPaths }: IHomePage) => {
     return (
-        <main>
+        <main className="Grid-layout">
             <Flex style={{ margin: '7rem 0' }} justifyContent="space-between">
                 <Container margin={0} padding={0}>
                     <Heading size="lg" fontSize="48px" style={{ marginBottom: '2rem' }}>
                         Choose the design you like and apply for card right now
                     </Heading>
-
                     <Button background="blue" colorText="white">Apply for card</Button>
                 </Container>
 
@@ -52,11 +56,9 @@ export const HomePage = () => {
                 </Flex>
             </Flex>
 
-
             <ListCardFeatures />
 
-            <FormApplication />
-
+            <CurrencyDisplayContainer />
         </main>
     );
 };

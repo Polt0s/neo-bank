@@ -1,36 +1,27 @@
 import React from 'react';
 import {
-    FormControl,
-    FormHelperText,
-    Input,
     Box,
     Heading,
     Select,
-    NumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
     Flex,
     Text,
-    FormErrorMessage,
-    InputGroup,
-    InputRightElement
+    Slider,
+    SliderTrack,
+    SliderFilledTrack,
+    SliderThumb
 } from '@chakra-ui/react';
-// import { useForm, Controller } from 'react-hook-form';
 import { useFormik } from 'formik';
 
-import { Button, Card, CompleteIcon, FormInput, Label, RejectIcon } from 'shared';
+import { Button, Card, FormInput, Label } from 'shared';
 import { checkEmail, onlyNumbers } from 'utils';
 
 import type { IPostApplicationRequest } from 'api/controllers/application/response.types';
 
 import { useNavigate } from 'react-router';
 
-import styles from './FormApplication.module.css';
+import styles from './FormApplicationPrescoringStep.module.css';
 
 interface IInitialFormState {
-    amount: number;
     term: number;
     firstName: string;
     lastName: string;
@@ -43,21 +34,26 @@ interface IInitialFormState {
 
 type TFields = 'lastName' | 'firstName' | 'middleName' | 'email' | 'birthdate' | 'passportSeries' | 'passportNumber'
 
-interface IFormApplication {
+interface IFormApplicationPrescoringStep {
     onSubmit: (values: IPostApplicationRequest) => void;
     routesPaths: Record<string, string>;
 }
 
-export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => {
+function isValidEmail(email: string) {
+    return checkEmail.test(email);
+}
+
+export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths }: IFormApplicationPrescoringStep) => {
+    const [sliderValue, setSliderValue] = React.useState(150000);
+
     const navigate = useNavigate();
 
-    const formik = useFormik({
+    const formik = useFormik<IInitialFormState>({
         initialValues: {
             lastName: '',
             firstName: '',
             middleName: '',
             term: 6,
-            amount: 10000,
             email: '',
             birthdate: '',
             passportSeries: '',
@@ -75,10 +71,10 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
             }
 
             if (!values.middleName.length) {
-                errors.middleName = 'Enter your  name';
+                errors.middleName = 'Enter your name';
             }
 
-            if (!checkEmail.test(values.email)) {
+            if (!isValidEmail(values.email)) {
                 errors.email = 'Incorrect email address';
             }
 
@@ -95,20 +91,19 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
             }
             return errors;
         },
+        validateOnBlur: true,
         onSubmit: (values) => {
             const result = {
                 ...values,
-                amount: Number(values.amount),
+                amount: sliderValue,
                 term: Number(values.term)
             };
 
             console.log(result);
             onSubmit({ items: result });
-            navigate(routesPaths['Credit']);
+            // navigate(routesPaths['Credit']);
         },
     });
-
-    // console.log(formik.values);
 
     return (
         <Card style={{ marginBottom: '200px', paddingBottom: 0 }} id="formApplication">
@@ -131,6 +126,7 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
                         isFocus={formik.touched.lastName}
                         textError={formik.errors.lastName}
                         conditionForShowError={Boolean(formik.errors.lastName)}
+                        onBlur={formik.handleBlur}
                     />
                 </Box>
 
@@ -150,6 +146,7 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
                         placeholder="For example Jhon"
                         textError={formik.errors.firstName}
                         conditionForShowError={Boolean(formik.errors.firstName)}
+                        onBlur={formik.handleBlur}
                     />
                 </Box>
 
@@ -169,6 +166,7 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
                         isFocus={formik.touched.middleName}
                         textError={formik.errors.middleName}
                         conditionForShowError={Boolean(formik.errors.middleName)}
+                        onBlur={formik.handleBlur}
                     />
                 </Box>
 
@@ -181,6 +179,7 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
                         placeholder="6 month"
                         name="term"
                         id="term"
+                        focusBorderColor="#5B35D5"
                     >
                         <option value="12">12 month</option>
                         <option value="18">18 month</option>
@@ -190,23 +189,21 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
 
                 <Box>
                     <Label require htmlFor="amount">Select amount</Label>
-                    <NumberInput
-                        value={formik.values.amount}
-                        onChange={formik.handleChange}
-                        name="amount"
-                        id="amount"
-                        step={5000}
-                        defaultValue={10000}
-                        min={10000}
-                        max={100000}
-                        background="#f9f5e3"
+                    <Text>{sliderValue.toLocaleString('ru')} ₽</Text>
+                    <Slider
+                        aria-label="slider-ex-2"
+                        colorScheme="#5B35D5"
+                        value={sliderValue}
+                        step={1000}
+                        min={15000}
+                        max={600000}
+                        onChange={(value) => setSliderValue(value)}
                     >
-                        <NumberInputField />
-                        <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                        </NumberInputStepper>
-                    </NumberInput>
+                        <SliderTrack>
+                            <SliderFilledTrack bg="#5B35D5" />
+                        </SliderTrack>
+                        <SliderThumb boxSize={6} bg="#5B35D5" />
+                    </Slider>
                 </Box>
 
                 <Box>
@@ -218,9 +215,14 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
                         onChange={formik.handleChange}
                         type="email"
                         isFocus={formik.touched.email}
+                        isInvalid={Boolean(formik.errors.email)}
                         focusBorderColor="#5B35D5"
+                        errorBorderColor="#FF5631"
                         placeholder="test@gmail.com"
                         background="#f9f5e3"
+                        textError={formik.errors.email}
+                        conditionForShowError={Boolean(formik.errors.email)}
+                        onBlur={formik.handleBlur}
                     />
                 </Box>
 
@@ -241,6 +243,7 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
                         background="#f9f5e3"
                         textError={formik.errors.birthdate}
                         conditionForShowError={Boolean(formik.errors.birthdate)}
+                        onBlur={formik.handleBlur}
                     />
                 </Box>
 
@@ -261,6 +264,7 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
                         regExp={onlyNumbers}
                         textError={formik.errors.passportSeries}
                         conditionForShowError={Boolean(formik.errors.passportSeries)}
+                        onBlur={formik.handleBlur}
                     />
                 </Box>
 
@@ -278,9 +282,10 @@ export const FormApplication = ({ onSubmit, routesPaths }: IFormApplication) => 
                         background="#f9f5e3"
                         placeholder="000000"
                         regExp={onlyNumbers}
-                        isFocus={formik.touched.passportSeries}
+                        isFocus={formik.touched.passportNumber}
                         textError={formik.errors.passportNumber}
                         conditionForShowError={Boolean(formik.errors.passportNumber)}
+                        onBlur={formik.handleBlur}
                     />
                 </Box>
 
