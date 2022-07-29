@@ -1,0 +1,10 @@
+.Grid-item {
+    min-height: 10rem;
+    display: flex;
+}
+
+.Grid-item__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
