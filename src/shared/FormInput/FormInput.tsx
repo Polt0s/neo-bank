@@ -5,16 +5,14 @@ import type { InputProps } from '@chakra-ui/react';
 
 import { CompleteIcon, RejectIcon } from 'shared';
 
-import styles from './FormInput.module.css';
-
 interface IFormInput extends InputProps {
-    // value: string | number | readonly string[] | undefined;
     textError?: string;
     conditionForShowError?: boolean;
     isInvalid?: boolean;
     regExp?: RegExp;
     onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     type?: React.HTMLInputTypeAttribute;
+    isFocus?: boolean;
 }
 
 export const FormInput = ({
@@ -23,15 +21,10 @@ export const FormInput = ({
     isInvalid,
     regExp,
     onInput,
+    isFocus,
     type = 'string',
     ...rest
 }: IFormInput) => {
-    const [isFocus, setIsFocus] = React.useState<boolean>(false);
-
-    const handleBlur = () => {
-        setIsFocus(true);
-    };
-
     const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (regExp && type === 'number') {
             event.target.value = event.target.value.replace(regExp, '');
@@ -46,7 +39,6 @@ export const FormInput = ({
         <InputGroup style={{ display: 'flex', flexDirection: 'column' }}>
             <Input
                 isInvalid={isFocus && isInvalid}
-                onBlur={handleBlur}
                 onInput={handleChangeInput}
 
                 {...rest}
@@ -54,6 +46,7 @@ export const FormInput = ({
             {(conditionForShowError && isFocus) && (
                 <Text color="#FF5631">{textError}</Text>
             )}
+
             {isFocus && (
                 <>
                     {!isInvalid ? (

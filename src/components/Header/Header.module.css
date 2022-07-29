@@ -3,6 +3,7 @@
     min-height: 4rem;
     display: flex;
     align-items: center;
+    margin-bottom: 1.5rem;
 }
 
 .Header__link:hover {

@@ -10,7 +10,7 @@ interface ICard {
     className?: string;
     style?: React.CSSProperties;
     id?: string;
-    background?: 'gray' | 'brown';
+    background?: TBackground;
 }
 
 export const Card = ({
@@ -23,8 +23,10 @@ export const Card = ({
     style
 }: ICard) => {
     const configBackground = {
+        default: '',
         gray: 'Card__background-gray',
-        brown: 'Card__background-brown'
+        brown: 'Card__background-brown',
+        lightGray: 'Card__background-lightGray'
     };
 
     return (
@@ -41,3 +43,5 @@ export const Card = ({
         </div>
     );
 };
+
+type TBackground = 'default' | 'gray' | 'brown' | 'lightGray';
