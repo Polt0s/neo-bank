@@ -1,0 +1,14 @@
+.Table {
+    width: 80%;
+}
+
+.Table__tr {
+    vertical-align: baseline;
+    border-top: 1px solid #7f92aca8;
+    margin-top: 2rem;
+}
+
+.Table__rd-text {
+    white-space: break-spaces;
+    color: #434343e3
+}
