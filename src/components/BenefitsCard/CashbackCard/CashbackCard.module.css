@@ -1,0 +1,14 @@
+.Grid-item {
+    display: flex;
+    min-height: 9rem;
+}
+
+.Grid-item__card {
+    display: flex;
+    flex-direction: column;
+}
+
+.Grid-item__text {
+    color: #434343e3;
+    min-height: 3.5rem;
+}
