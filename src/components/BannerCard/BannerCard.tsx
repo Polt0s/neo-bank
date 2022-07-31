@@ -8,7 +8,7 @@ interface IBannerCard {
     title: string;
     background?: 'gray' | 'brown';
     imageCard: string;
-    direction: string;
+    description: string;
     dataParamsCard: TDataParamsCard[];
     idLink?: string;
 }
@@ -17,7 +17,7 @@ export const BannerCard = ({
     title,
     background,
     imageCard,
-    direction,
+    description,
     dataParamsCard,
     idLink,
 }: IBannerCard) => {
@@ -30,10 +30,10 @@ export const BannerCard = ({
                     </Heading>
 
                     <Text color="gray.700" marginBottom="2rem" w="80%">
-                        {direction}
+                        {description}
                     </Text>
 
-                    <Flex gap={20} marginBottom="3rem">
+                    <Flex gap={20} marginBottom="2rem">
                         {dataParamsCard.map((item, index) => (
                             <Flex direction="column" gap={2} key={index}>
                                 <Heading color="white" size="md">{item.title}</Heading>

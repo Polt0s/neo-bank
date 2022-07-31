@@ -9,7 +9,7 @@ interface IAboutCard {
 }
 
 export const AboutCard = ({ items }: IAboutCard) => (
-    <Box padding="2rem">
+    <Box padding="3rem 0">
         <Grid
             templateRows="repeat(2, 1fr)"
             templateColumns="repeat(6, 1fr)"

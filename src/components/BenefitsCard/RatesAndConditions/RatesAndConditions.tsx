@@ -11,7 +11,7 @@ export const RatesAndConditions = ({ items }: IRatesAndConditions) => (
         <table className={styles['Table']}>
             <tbody>
                 {items.map((item, index) => (
-                    <tr className={index !== 0 && styles['Table__tr']}>
+                    <tr key={index} className={index !== 0 ? styles['Table__tr'] : ''}>
                         <td style={{ padding: '24px 32px 25px 0px' }}>
                             <Text>{item.header}</Text>
                         </td>
