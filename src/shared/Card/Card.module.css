@@ -1,7 +1,7 @@
 .Card-container {
     width: 100%;
     background-color: white;
-    box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.1);
+    box-shadow: rgb(0 0 0 / 20%) 0px 2px 4px, rgb(0 0 0 / 8%) 0px 0px 8px;
     border-radius: 1.8rem;
     padding: 2rem;
     margin: 0;
@@ -17,4 +17,8 @@
 
 .Card__background-lightGray {
     background-color: #EAECEE;
+}
+
+.Card__background-ultramarine {
+    background-color: #88b3b8a6;
 }

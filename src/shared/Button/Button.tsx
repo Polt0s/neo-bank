@@ -10,10 +10,19 @@ interface IButton extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disable
     background?: 'blue' | 'red' | 'grey' | 'green' | 'white';
     isLoading?: boolean;
     width?: string;
+    height?: string;
     disabled?: boolean;
 }
 
-export const Button = React.memo(({ colorText, background, className, width, disabled, ...rest }: IButton) => {
+export const Button = React.memo(({
+    colorText,
+    background,
+    className,
+    width,
+    height,
+    disabled,
+    ...rest
+}: IButton) => {
     return (
         <button
             type="button"
@@ -24,7 +33,7 @@ export const Button = React.memo(({ colorText, background, className, width, dis
                 styles[`Color-${colorText}`],
                 className
             )}
-            style={{ width: width, ...rest.style }}
+            style={{ width: width, height: height, ...rest.style }}
             disabled={disabled}
             {...rest}
         >

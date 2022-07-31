@@ -7,26 +7,28 @@ interface ICard {
     width?: string;
     height?: string;
     children: React.ReactNode;
-    className?: string;
     style?: React.CSSProperties;
     id?: string;
+    className?: string;
     background?: TBackground;
 }
 
-export const Card = ({
+export const Card = React.forwardRef(({
     width,
     height,
     children,
-    className,
     id,
     background,
-    style
-}: ICard) => {
+    style,
+    className,
+    ...rest
+}: ICard, ref: React.ForwardedRef<HTMLDivElement>) => {
     const configBackground = {
         default: '',
         gray: 'Card__background-gray',
         brown: 'Card__background-brown',
-        lightGray: 'Card__background-lightGray'
+        lightGray: 'Card__background-lightGray',
+        ultramarine: 'Card__background-ultramarine'
     };
 
     return (
@@ -35,13 +37,15 @@ export const Card = ({
             className={cn(
                 styles['Card-container'],
                 background && styles[configBackground[background]],
-                className
+                className,
             )}
             style={{ width: width, height: height, ...style }}
+            ref={ref}
+            {...rest}
         >
             {children}
         </div>
     );
-};
+});
 
-type TBackground = 'default' | 'gray' | 'brown' | 'lightGray';
+type TBackground = 'default' | 'gray' | 'brown' | 'lightGray' | 'ultramarine';
