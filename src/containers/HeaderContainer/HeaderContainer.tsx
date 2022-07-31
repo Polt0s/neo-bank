@@ -10,7 +10,7 @@ export const HeaderContainer = ({ routesPaths }: IHeaderContainer) => {
     const navigate = useNavigate();
 
     const goBackHome = () => {
-        navigate(routesPaths.Home);
+        navigate(routesPaths['Home']);
     };
 
     return (

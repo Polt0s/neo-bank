@@ -17,9 +17,9 @@ export const Header = ({ routesPaths, goBackHome }: IHeader) => {
 
             <Container maxW="md">
                 <Flex alignItems="center" gap="10" justifyContent="center">
-                    <Link to={routesPaths.Credit} className={styles.Header__link}>Credit</Link>
-                    <Link to={routesPaths.Product} className={styles.Header__link}>Product</Link>
-                    <Link to={routesPaths.Account} className={styles.Header__link}>Account</Link>
+                    <Link to={routesPaths['CreditCard']} className={styles.Header__link}>Credit card</Link>
+                    <Link to={routesPaths['Product']} className={styles.Header__link}>Product</Link>
+                    <Link to={routesPaths['Account']} className={styles.Header__link}>Account</Link>
                     <Text className={styles.Header__link}>Resource</Text>
                 </Flex>
             </Container>
@@ -30,6 +30,6 @@ export const Header = ({ routesPaths, goBackHome }: IHeader) => {
                 </Button>
                 <Button background="blue" colorText="white" className={styles.BtnSign}>Sign up</Button>
             </Stack>
-        </header>
+        </header >
     );
 };
