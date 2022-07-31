@@ -1,5 +1,11 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+
 import { CreditCardPage, HomePage } from 'pages';
+
+import { observer } from 'mobx-react';
+import { appConfigStore } from 'store/appConfig.store';
+
+import React from 'react';
 
 import { PageHOC } from './PageHOC';
 
@@ -11,7 +17,13 @@ export enum ERouterName {
     NotFound = '/not-found'
 }
 
-export const Router = () => {
+export const Router = observer(() => {
+    const location = useLocation();
+
+    React.useEffect(() => {
+        appConfigStore.getCurrentLocation(location.pathname);
+    }, [location.pathname]);
+
     return (
         <Routes>
             <Route path={ERouterName.Home} element={PageHOC(HomePage)} />
@@ -22,4 +34,4 @@ export const Router = () => {
             <Route path="*" element={<Navigate replace to={ERouterName.Home} />} />
         </Routes>
     );
-};
+});
