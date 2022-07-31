@@ -7,9 +7,10 @@ import type { IPostApplicationRequest } from 'api/controllers/application/respon
 
 interface IFormApplicationPrescoringStepContainer {
     routesPaths: Record<string, string>;
+    refLink?: React.RefObject<HTMLDivElement>;
 }
 
-export const FormApplicationPrescoringStepContainer = ({ routesPaths }: IFormApplicationPrescoringStepContainer) => {
+export const FormApplicationPrescoringStepContainer = ({ routesPaths, refLink }: IFormApplicationPrescoringStepContainer) => {
     const { mutate } = useMutation((values: IPostApplicationRequest) => applicationAPI.postApplication(values));
 
     const onSubmit = (values: IPostApplicationRequest) => {
@@ -18,7 +19,11 @@ export const FormApplicationPrescoringStepContainer = ({ routesPaths }: IFormApp
 
     return (
         <>
-            <FormApplicationPrescoringStep onSubmit={onSubmit} routesPaths={routesPaths} />
+            <FormApplicationPrescoringStep
+                onSubmit={onSubmit}
+                routesPaths={routesPaths}
+                refLink={refLink}
+            />
         </>
     );
 };

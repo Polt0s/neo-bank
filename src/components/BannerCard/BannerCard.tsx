@@ -10,7 +10,7 @@ interface IBannerCard {
     imageCard: string;
     description: string;
     dataParamsCard: TDataParamsCard[];
-    idLink?: string;
+    handleClickLinkButton?: () => void;
 }
 
 export const BannerCard = ({
@@ -19,7 +19,7 @@ export const BannerCard = ({
     imageCard,
     description,
     dataParamsCard,
-    idLink,
+    handleClickLinkButton
 }: IBannerCard) => {
     return (
         <Card background={background} className={styles['Banner-card']}>
@@ -44,7 +44,14 @@ export const BannerCard = ({
                         ))}
                     </Flex>
 
-                    <Button background="blue" colorText="white" width="10rem">Apply for card</Button>
+                    <Button
+                        background="blue"
+                        colorText="white"
+                        width="10rem"
+                        onClick={handleClickLinkButton}
+                    >
+                        Apply for card
+                    </Button>
                 </Box>
 
                 <Box w="50%">

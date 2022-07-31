@@ -9,8 +9,9 @@ import {
     Text
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react';
-import { adminStore } from 'store/admin.module';
-import { NavLink } from 'react-router-dom';
+import { adminStore } from 'store/admin.store';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 
 import { Button, FormInput } from 'shared';
@@ -28,14 +29,21 @@ interface IHomePage {
 }
 
 export const HomePage = ({ routesPaths }: IHomePage) => {
+    const navigate = useNavigate();
+
     return (
-        <main className="Grid-layout">
+        <main>
             <Flex style={{ margin: '7rem 0' }} justifyContent="space-between">
                 <Container margin={0} padding={0}>
-                    <Heading size="lg" fontSize="48px" style={{ marginBottom: '2rem' }}>
+                    <Heading size="lg" fontSize="48px" style={{ marginBottom: '4rem' }}>
                         Choose the design you like and apply for card right now
                     </Heading>
-                    <Button background="blue" colorText="white">Apply for card</Button>
+                    <Button
+                        background="blue"
+                        colorText="white"
+                        onClick={() => navigate(routesPaths['CreditCard'])}
+                    >Apply for card
+                    </Button>
                 </Container>
 
                 <Flex justifyContent="flex-end">

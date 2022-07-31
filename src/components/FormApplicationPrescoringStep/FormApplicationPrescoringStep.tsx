@@ -40,13 +40,14 @@ type TFields = 'lastName' | 'firstName' | 'middleName' | 'email' | 'birthdate' |
 interface IFormApplicationPrescoringStep {
     onSubmit: (values: IPostApplicationRequest) => void;
     routesPaths: Record<string, string>;
+    refLink?: React.RefObject<HTMLDivElement>;
 }
 
 function isValidEmail(email: string) {
     return checkEmail.test(email);
 }
 
-export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths }: IFormApplicationPrescoringStep) => {
+export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }: IFormApplicationPrescoringStep) => {
     const [sliderValue, setSliderValue] = React.useState(150000);
 
     const navigate = useNavigate();
@@ -109,8 +110,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths }: IFormAp
     });
 
     return (
-        <Card className={styles['form-application']} id="formApplication">
-
+        <Card className={styles['form-application']} ref={refLink}>
             <Flex gap={10} marginBottom="2rem">
                 <Container margin={0} padding={0}>
                     <Flex marginBottom="2rem" justifyContent="space-between" alignItems="center">
@@ -331,7 +331,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths }: IFormAp
                             background="blue"
                             colorText="white"
                         >
-                        Continue
+                            Continue
                         </Button>
                     </Flex>
                 </form>
