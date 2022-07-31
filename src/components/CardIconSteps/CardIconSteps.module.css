@@ -1,0 +1,19 @@
+.Block-round {
+    box-sizing: border-box;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 16px;
+    background: rgb(226, 229, 235);
+    border-radius: 5000px;
+    height: 48px;
+    width: unset;
+    min-width: 48px;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+}
+
+.Text {
+    text-align: center;
+}

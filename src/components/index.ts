@@ -5,3 +5,4 @@ export { ListCardFeatures } from './ListCardFeatures';
 export { BannerCard } from './BannerCard';
 export { CurrencyDisplay } from './CurrencyDisplay';
 export { BenefitsCard } from './BenefitsCard';
+export { CardIconSteps } from './CardIconSteps';
