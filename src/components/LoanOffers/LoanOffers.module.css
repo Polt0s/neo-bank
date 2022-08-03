@@ -1,0 +1,8 @@
+.Loan-offer {
+    margin-bottom: 200px;
+}
+
+.Loan-offer__container {
+    display: flex;
+    flex-direction: column;
+}
