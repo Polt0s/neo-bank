@@ -6,14 +6,16 @@ import {
     CompleteIcon,
     RejectIcon
 } from 'shared';
+import { formattedSum } from 'utils';
 
 import SurpriseImage from 'assets/image/SurpriseImage.png';
 
 interface ILoanOffers {
     data: TDataOffers[];
+    onSubmitOffer: (applicationId: string) => void;
 }
 
-export const LoanOffers = ({ data }: ILoanOffers) => {
+export const LoanOffers = ({ data, onSubmitOffer }: ILoanOffers) => {
     return (
         <Box marginBottom="200px">
             <Heading size="lg" marginBottom="2rem" textAlign="center">Your personal offer</Heading>
@@ -32,10 +34,10 @@ export const LoanOffers = ({ data }: ILoanOffers) => {
                             justifyContent="center"
                             marginBottom="4rem"
                         >
-                            <Text>Requested amount: {offer.requestedAmount.toLocaleString('ru')}</Text>
-                            <Text>Total amount: {offer.totalAmount.toLocaleString('ru')}</Text>
+                            <Text>Requested amount: {offer.requestedAmount.toLocaleString('ru')} ₽</Text>
+                            <Text>Total amount: {offer.totalAmount.toLocaleString('ru')} ₽</Text>
                             <Text>For {offer.term} months</Text>
-                            <Text>Monthly payment: {offer.monthlyPayment.toLocaleString('ru')}</Text>
+                            <Text>Monthly payment: {formattedSum(offer.monthlyPayment)} ₽</Text>
                             <Text>Your rate: {offer.rate}%</Text>
 
                             {offer.isInsuranceEnabled ? (
@@ -56,7 +58,7 @@ export const LoanOffers = ({ data }: ILoanOffers) => {
                                     <CompleteIcon />
                                 </Flex>
                             ) : (
-                                <Flex gap={10}>
+                                <Flex gap={2}>
                                     <Text>Salary client</Text>
                                     <RejectIcon />
                                 </Flex>
@@ -69,6 +71,7 @@ export const LoanOffers = ({ data }: ILoanOffers) => {
                                 height="3rem"
                                 background="blue"
                                 colorText="white"
+                                onClick={() => offer.uniqueId && onSubmitOffer(offer.uniqueId)}
                             >
                                 Select
                             </Button>
@@ -89,4 +92,5 @@ type TDataOffers = {
     rate: number; // ставка
     isInsuranceEnabled: boolean; // будет ли страховка
     isSalaryClient: boolean; // зарплатный ли клиент
+    uniqueId?: string;
 }
