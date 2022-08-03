@@ -25,10 +25,7 @@ export const Header = ({ routesPaths, goBackHome }: IHeader) => {
             </Container>
 
             <Stack direction="row" spacing={4} align="center">
-                <Button colorText="blue">
-                    Login
-                </Button>
-                <Button background="blue" colorText="white" className={styles.BtnSign}>Sign up</Button>
+                <Button background="blue" colorText="white" className={styles.BtnSign}>Online bank</Button>
             </Stack>
         </header >
     );
