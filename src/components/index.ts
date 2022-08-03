@@ -6,3 +6,8 @@ export { BannerCard } from './BannerCard';
 export { CurrencyDisplay } from './CurrencyDisplay';
 export { BenefitsCard } from './BenefitsCard';
 export { CardIconSteps } from './CardIconSteps';
+export { FormApplicationScoringStep } from './FormApplicationScoringStep';
+export { SliderBlock } from './SliderBlock';
+export { LoanOffers } from './LoanOffers';
+export { ApplicationStatusMessage } from './ApplicationStatusMessage';
+export { CreditCardDocumentSignUp } from './CreditCardDocumentSignUp';

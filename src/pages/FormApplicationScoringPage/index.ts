@@ -1,0 +1,1 @@
+export { FormApplicationScoringPage } from './FormApplicationScoringPage';
