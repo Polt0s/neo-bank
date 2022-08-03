@@ -1,10 +1,19 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 
-import { BannerCard, BenefitsCard, CardIconSteps } from 'components';
+import {
+    ApplicationStatusMessage,
+    BannerCard,
+    BenefitsCard,
+    CardIconSteps
+} from 'components';
+import { applicationStore } from 'store/application.store';
+import {
+    FormApplicationPrescoringStepContainer,
+    LoanOffersContainer
+} from 'containers';
 
 import cardImage1 from 'assets/image/cardImage1.jpg';
-
-import { FormApplicationPrescoringStepContainer } from 'containers';
 
 import {
     tabsBenefitsCard,
@@ -20,13 +29,22 @@ interface ICreditCardPage {
     routesPaths: Record<string, string>;
 }
 
-export const CreditCardPage = ({ routesPaths }: ICreditCardPage) => {
+export const CreditCardPage = observer(({ routesPaths }: ICreditCardPage) => {
     const refTest = React.useRef<HTMLDivElement>(null);
 
     const handleClickLinkButton = () => {
         if (refTest.current) {
             refTest.current.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
         }
+    };
+
+    const configRenderComponents = {
+        FIRST: <FormApplicationPrescoringStepContainer routesPaths={routesPaths} refLink={refTest} />,
+        SECOND: <LoanOffersContainer />,
+        THIRD: <ApplicationStatusMessage
+            title={'The preliminary decision has been \n sent to your email.'}
+            description="In the letter you can get acquainted with the preliminary decision on the credit card."
+        />
     };
 
     return (
@@ -51,7 +69,7 @@ export const CreditCardPage = ({ routesPaths }: ICreditCardPage) => {
 
             <CardIconSteps items={dataCardIconSteps} />
 
-            <FormApplicationPrescoringStepContainer routesPaths={routesPaths} refLink={refTest} />
+            {configRenderComponents[applicationStore.application.step]}
         </main>
     );
-};
+});

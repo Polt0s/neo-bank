@@ -10,9 +10,9 @@ const tabsBenefitsCard = ['About card', 'Rates and conditions', 'Cashback', 'FAQ
 
 const dataParamsCard = [
     {
-        title: 'Up to 110 days',
+        title: 'Up to 160 days',
         description: 'No percent',
-        tooltip: 'When repaying the full debt up to 110 days.'
+        tooltip: 'When repaying the full debt up to 160 days.'
     },
     {
         title: 'Up to 600 000 ₽',
@@ -34,7 +34,7 @@ const dataAboutCredit = [
     },
     {
         Icon: CalendarIcon,
-        title: 'Up to 110 days',
+        title: 'Up to 160 days',
         description: 'Without percent on the loan',
     },
     {
@@ -61,7 +61,7 @@ const dataRatesAndConditions = [
     },
     {
         header: 'Interest free period',
-        description: '0% up to 110 days',
+        description: '0% up to 160 days',
     },
     {
         header: 'Payment system',
