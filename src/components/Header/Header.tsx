@@ -17,7 +17,7 @@ export const Header = ({ routesPaths, goBackHome }: IHeader) => {
 
             <Container maxW="md">
                 <Flex alignItems="center" gap="10" justifyContent="center">
-                    <Link to={routesPaths['CreditCard']} className={styles.Header__link}>Credit card</Link>
+                    <Link to={routesPaths['Loan']} className={styles.Header__link}>Credit card</Link>
                     <Link to={routesPaths['Product']} className={styles.Header__link}>Product</Link>
                     <Link to={routesPaths['Account']} className={styles.Header__link}>Account</Link>
                     <Text className={styles.Header__link}>Resource</Text>

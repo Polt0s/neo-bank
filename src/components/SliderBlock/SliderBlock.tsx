@@ -41,7 +41,14 @@ export const SliderBlock = ({
             setSliderValue(minSum);
             setValueSum(`${minSum.toLocaleString('ru')}`);
         }
-    }, [isFocus, maxSum, minSum, setSliderValue, sliderValue, valueSum]);
+    }, [
+        isFocus,
+        maxSum,
+        minSum,
+        setSliderValue,
+        sliderValue,
+        valueSum
+    ]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSliderValue(Number(removeSpaces(event.target.value)));
@@ -86,7 +93,11 @@ export const SliderBlock = ({
                 <SliderThumb boxSize={6} bg="#5B35D5" />
             </Slider>
 
-            <Flex justifyContent="space-between" alignItems="center" marginTop="-0.75rem">
+            <Flex
+                justifyContent="space-between"
+                alignItems="center"
+                marginTop="-0.75rem"
+            >
                 <Text color="#786d6d">{minSum.toLocaleString('ru')}</Text>
                 <Text color="#786d6d">{maxSum.toLocaleString('ru')}</Text>
             </Flex>

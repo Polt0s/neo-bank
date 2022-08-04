@@ -11,6 +11,7 @@ interface IBannerCard {
     description: string;
     dataParamsCard: TDataParamsCard[];
     handleClickLinkButton?: () => void;
+    textButton: string;
 }
 
 export const BannerCard = ({
@@ -19,7 +20,8 @@ export const BannerCard = ({
     imageCard,
     description,
     dataParamsCard,
-    handleClickLinkButton
+    handleClickLinkButton,
+    textButton
 }: IBannerCard) => {
     return (
         <Card background={background} className={styles['Banner-card']}>
@@ -48,9 +50,10 @@ export const BannerCard = ({
                         background="blue"
                         colorText="white"
                         width="10rem"
+                        height="3rem"
                         onClick={handleClickLinkButton}
                     >
-                        Apply for card
+                        {textButton}
                     </Button>
                 </Box>
 
