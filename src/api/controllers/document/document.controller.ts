@@ -1,6 +1,6 @@
 import { Controller } from '../config';
 
-import type { IPostDocumentRequest } from './request.types';
+import type { IPostDocumentRequest, IPostDocumentCodeRequest } from './request.types';
 
 class Document extends Controller {
     public constructor() {
@@ -17,8 +17,8 @@ class Document extends Controller {
         return this.post<void>(`/${applicationId}/sign`);
     }
 
-    public async postDocumentSignCode({ applicationId }: IPostDocumentRequest) {
-        return this.post<void>(`/${applicationId}/sign/code`);
+    public async postDocumentSignCode({ applicationId, code }: IPostDocumentCodeRequest) {
+        return this.post<void>(`/${applicationId}/sign/code`, code);
     }
 }
 

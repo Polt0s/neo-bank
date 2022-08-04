@@ -14,8 +14,8 @@ class AdminController extends Controller {
         return this.get<IGetAdminResponse>('base', 'application');
     }
 
-    public async getAdminId({ id }: IGetAdminIdRequest) {
-        return this.get<IGetAdminResponse>('base', `application/${id}`);
+    public async getAdminId({ applicationId }: IGetAdminIdRequest) {
+        return this.get<IGetAdminResponse>('base', `application/${applicationId}`);
     }
 }
 
