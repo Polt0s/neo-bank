@@ -5,52 +5,38 @@ import {
     Select,
     Flex,
     Text,
-    Slider,
-    SliderTrack,
-    SliderFilledTrack,
-    SliderThumb,
     Container,
     Divider,
     Center
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 
-import { Button, Card, FormInput, Label } from 'shared';
-import { checkEmail, onlyNumbers } from 'utils';
+import {
+    Button,
+    Card,
+    FormInput,
+    Label
+} from 'shared';
+import {
+    checkEmail,
+    onlyNumbers,
+    checkBirthdate,
+    isCheckOver18year,
+    reverseBirthdate
+} from 'utils';
+import { SliderBlock } from 'components';
 
-import type { IPostApplicationRequest } from 'api/controllers/application/response.types';
-
-import { useNavigate } from 'react-router';
+import type { IPostApplicationRequest } from 'api';
 
 import styles from './FormApplicationPrescoringStep.module.css';
 
-interface IInitialFormState {
-    term: number;
-    firstName: string;
-    lastName: string;
-    middleName: string;
-    email: string;
-    birthdate: string;
-    passportSeries: string;
-    passportNumber: string;
-}
-
-type TFields = 'lastName' | 'firstName' | 'middleName' | 'email' | 'birthdate' | 'passportSeries' | 'passportNumber'
-
 interface IFormApplicationPrescoringStep {
     onSubmit: (values: IPostApplicationRequest) => void;
-    routesPaths: Record<string, string>;
     refLink?: React.RefObject<HTMLDivElement>;
 }
 
-function isValidEmail(email: string) {
-    return checkEmail.test(email);
-}
-
-export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }: IFormApplicationPrescoringStep) => {
-    const [sliderValue, setSliderValue] = React.useState(150000);
-
-    const navigate = useNavigate();
+export const FormApplicationPrescoringStep = ({ onSubmit, refLink }: IFormApplicationPrescoringStep) => {
+    const [sliderValue, setSliderValue] = React.useState<number>(150000);
 
     const formik = useFormik<IInitialFormState>({
         initialValues: {
@@ -64,7 +50,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
             passportNumber: ''
         },
         validate: (values) => {
-            const errors: any = {};
+            const errors: Record<string, string> = {};
 
             if (!values.lastName.length) {
                 errors.lastName = 'Enter your last name';
@@ -74,16 +60,14 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                 errors.firstName = 'Enter your first name';
             }
 
-            if (!values.middleName.length) {
-                errors.middleName = 'Enter your name';
-            }
-
-            if (!isValidEmail(values.email)) {
+            if (!checkEmail.test(values.email)) {
                 errors.email = 'Incorrect email address';
             }
 
-            if (!values.birthdate.length) {
-                errors.birthdate = 'Enter your date of birth';
+            if (!checkBirthdate.test(values.birthdate) || values.birthdate.length < 10) {
+                errors.birthdate = 'Incorrect date of birth';
+            } else if (!isCheckOver18year(values.birthdate)) { // поправить корректность проверки на возраст
+                errors.birthdate = 'You must be over 18';
             }
 
             if (values.passportSeries.length < 4) {
@@ -93,6 +77,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
             if (values.passportNumber.length < 6) {
                 errors.passportNumber = 'The series must be 6 digits';
             }
+
             return errors;
         },
         validateOnBlur: true,
@@ -100,12 +85,11 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
             const result = {
                 ...values,
                 amount: sliderValue,
-                term: Number(values.term)
+                term: Number(values.term),
+                birthdate: reverseBirthdate(values.birthdate)
             };
 
-            console.log(result);
             onSubmit({ items: result });
-            // navigate(routesPaths['Credit']);
         },
     });
 
@@ -118,28 +102,13 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                         <Text>Step 1 of 4</Text>
                     </Flex>
 
-                    <Box className={styles['form-application__limit']} >
-                        <Label paddingBottom="1rem" htmlFor="amount">Select amount</Label>
-                        <Text size="1.5rem" paddingBottom="0.5rem">{sliderValue.toLocaleString('ru')} ₽</Text>
-                        <Slider
-                            aria-label="slider-ex-2"
-                            colorScheme="#5B35D5"
-                            value={sliderValue}
-                            step={1000}
-                            min={15000}
-                            max={600000}
-                            onChange={(value) => setSliderValue(value)}
-                        >
-                            <SliderTrack>
-                                <SliderFilledTrack bg="#5B35D5" />
-                            </SliderTrack>
-                            <SliderThumb boxSize={6} bg="#5B35D5" />
-                        </Slider>
-                        <Flex justifyContent="space-between" alignItems="center" marginTop="-0.75rem">
-                            <Text color="#786d6d">15 000</Text>
-                            <Text color="#786d6d">600 000</Text>
-                        </Flex>
-                    </Box>
+                    <SliderBlock
+                        sliderValue={sliderValue}
+                        setSliderValue={setSliderValue}
+                        minSum={15000}
+                        maxSum={600000}
+                        step={1000}
+                    />
                 </Container>
 
                 <Center>
@@ -161,7 +130,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                         <Box>
                             <Label htmlFor="lastName" require>Your last name</Label>
                             <FormInput
-                                value={formik.values.lastName}
+                                value={(formik.values.lastName).trim()}
                                 onChange={formik.handleChange}
                                 name="lastName"
                                 id="lastName"
@@ -181,7 +150,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                         <Box>
                             <Label require htmlFor="firstName">Your first name</Label>
                             <FormInput
-                                value={formik.values.firstName}
+                                value={(formik.values.firstName).trim()}
                                 onChange={formik.handleChange}
                                 name="firstName"
                                 id="firstName"
@@ -199,9 +168,9 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                         </Box>
 
                         <Box>
-                            <Label require htmlFor="middleName">Your patronymic</Label>
+                            <Label htmlFor="middleName">Your patronymic</Label>
                             <FormInput
-                                value={formik.values.middleName}
+                                value={(formik.values.middleName).trim()}
                                 onChange={formik.handleChange}
                                 name="middleName"
                                 id="middleName"
@@ -238,7 +207,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                         <Box>
                             <Label require htmlFor="email">Your email</Label>
                             <FormInput
-                                value={formik.values.email}
+                                value={(formik.values.email).trim()}
                                 name="email"
                                 id="email"
                                 onChange={formik.handleChange}
@@ -268,11 +237,11 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                                 isInvalid={Boolean(formik.errors.birthdate)}
                                 isFocus={formik.touched.birthdate}
                                 size="md"
-                                type="date"
                                 background="#f9f5e3"
                                 textError={formik.errors.birthdate}
                                 conditionForShowError={Boolean(formik.errors.birthdate)}
                                 onBlur={formik.handleBlur}
+                                dateMask={true}
                             />
                         </Box>
 
@@ -283,7 +252,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                                 onChange={formik.handleChange}
                                 name="passportSeries"
                                 id="passportSeries"
-                                type="number"
+                                type="text"
                                 focusBorderColor="#5B35D5"
                                 errorBorderColor="#FF5631"
                                 isInvalid={Boolean(formik.errors.passportSeries)}
@@ -294,6 +263,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                                 textError={formik.errors.passportSeries}
                                 conditionForShowError={Boolean(formik.errors.passportSeries)}
                                 onBlur={formik.handleBlur}
+                                maxLength={4}
                             />
                         </Box>
 
@@ -304,7 +274,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                                 onChange={formik.handleChange}
                                 name="passportNumber"
                                 id="passportNumber"
-                                type="number"
+                                type="text"
                                 focusBorderColor="#5B35D5"
                                 errorBorderColor="#FF5631"
                                 isInvalid={Boolean(formik.errors.passportNumber)}
@@ -315,6 +285,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
                                 textError={formik.errors.passportNumber}
                                 conditionForShowError={Boolean(formik.errors.passportNumber)}
                                 onBlur={formik.handleBlur}
+                                maxLength={6}
                             />
                         </Box>
                     </Container>
@@ -339,3 +310,14 @@ export const FormApplicationPrescoringStep = ({ onSubmit, routesPaths, refLink }
         </Card>
     );
 };
+
+interface IInitialFormState {
+    term: number;
+    firstName: string;
+    lastName: string;
+    middleName: string;
+    email: string;
+    birthdate: string;
+    passportSeries: string;
+    passportNumber: string;
+}

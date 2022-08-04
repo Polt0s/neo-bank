@@ -1,8 +1,23 @@
-import { Box, Checkbox, Flex, Link, Text } from '@chakra-ui/react';
+import React from 'react';
+import {
+    Box,
+    Checkbox,
+    Flex,
+    Link,
+    Text
+} from '@chakra-ui/react';
+
 import { Button, PDFIcon } from 'shared';
+
 import document from 'assets/documents/credit-card-offer.pdf';
 
-export const CreditCardDocumentSignUp = () => {
+interface ICreditCardDocumentSignUp {
+    onSubmit: () => void;
+}
+
+export const CreditCardDocumentSignUp = ({ onSubmit }: ICreditCardDocumentSignUp) => {
+    const [isCheckAgree, setIsCheckAgree] = React.useState(false);
+
     return (
         <Box margin="5rem 0">
             <Text
@@ -31,11 +46,15 @@ export const CreditCardDocumentSignUp = () => {
             </Flex>
 
             <Flex justifyContent="flex-end" gap={20}>
-                <Checkbox defaultChecked size="lg">I agree</Checkbox>
+                <Checkbox
+                    defaultChecked size="lg"
+                    isChecked={isCheckAgree} onChange={() => setIsCheckAgree(!isCheckAgree)}>I agree</Checkbox>
                 <Button
+                    disabled={!isCheckAgree}
                     background="blue"
                     colorText="white"
                     width="10rem"
+                    onClick={() => onSubmit()}
                 >
                     Send
                 </Button>

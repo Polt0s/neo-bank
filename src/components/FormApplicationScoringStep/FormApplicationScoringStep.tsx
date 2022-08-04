@@ -6,31 +6,129 @@ import {
     Select,
     Text
 } from '@chakra-ui/react';
+import { useFormik } from 'formik';
 
-import { Card, FormInput, Label, Button } from 'shared';
-import { onlyNumbers } from 'utils';
+import {
+    Card,
+    FormInput,
+    Label,
+    Button
+} from 'shared';
+import {
+    checkBirthdate,
+    onlyNumbers,
+    reverseBirthdate,
+    withoutSpaces
+} from 'utils';
 
-import type { FormikProps } from 'formik';
+import type { IPostApplicationRegistrationRequest } from 'api'; // вынести в types
 
 import styles from './FormApplicationScoringStep.module.css';
 
 interface IFormApplicationScoringStep {
-    formState: FormikProps<IFormApplicationScoringState>;
+    onSubmit: (values: Omit<IPostApplicationRegistrationRequest, 'applicationId'>) => void;
 }
 
-export const FormApplicationScoringStep = ({ formState }: IFormApplicationScoringStep) => {
+export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoringStep) => {
+    const formik = useFormik({
+        initialValues: {
+            gender: '',
+            maritalStatus: '',
+            dependentAmount: '',
+            passportIssueDate: '',
+            passportIssueBranch: '',
+            employmentStatus: '',
+            employerINN: '',
+            salary: '',
+            position: '',
+            workExperienceTotal: '',
+            workExperienceCurrent: ''
+        },
+        validate: (values) => {
+            const errors: Record<string, string> = {};
+
+            if (!values.gender.length) {
+                errors.gender = 'Select one of the options';
+            }
+
+            if (!values.maritalStatus.length) {
+                errors.maritalStatus = 'Select one of the options';
+            }
+
+            if (!values.dependentAmount.length) {
+                errors.dependentAmount = 'Select one of the options';
+            }
+
+            if (!checkBirthdate.test(values.passportIssueDate) || values.passportIssueDate.length < 10) {
+                errors.passportIssueDate = 'Incorrect date of passport issue date';
+            }
+
+            if (values.passportIssueBranch.length < 6) {
+                errors.passportIssueBranch = 'The series must be 6 digits';
+            }
+
+            if (!values.employmentStatus.length) {
+                errors.employmentStatus = 'Select one of the options';
+            }
+
+            if (values.employerINN.length < 12) {
+                errors.employerINN = 'Department code must be 12 digits';
+            }
+
+            if (!values.salary.length) {
+                errors.salary = 'Enter your salary';
+            }
+
+            if (!values.position.length) {
+                errors.position = 'Select one of the options';
+            }
+
+            if (!values.workExperienceTotal.length) {
+                errors.workExperienceTotal = 'Enter your work experience total';
+            }
+
+            if (!values.workExperienceCurrent.length) {
+                errors.workExperienceCurrent = 'Enter your work experience current';
+            }
+
+            return errors;
+
+        },
+        validateOnBlur: true,
+        onSubmit: (values) => {
+            const result = {
+                gender: values.gender,
+                maritalStatus: values.maritalStatus,
+                dependentAmount: Number(values.dependentAmount),
+                passportIssueDate: reverseBirthdate(values.passportIssueDate),
+                passportIssueBranch: values.passportIssueBranch,
+                employment: {
+                    employmentStatus: values.employmentStatus,
+                    employerINN: Number(values.employerINN),
+                    salary: Number(values.salary.replace(withoutSpaces, '')),
+                    position: values.position,
+                    workExperienceTotal: Number(values.workExperienceTotal),
+                    workExperienceCurrent: Number(values.workExperienceCurrent)
+                },
+                account: 11223344556677889900,
+            };
+
+            onSubmit({ items: result });
+        }
+    });
+
     return (
         <Card style={{ marginBottom: 200 }}>
             <Flex gap={10} marginBottom="2rem">
                 <Container margin={0} padding={0}>
                     <Flex marginBottom="2rem" justifyContent="space-between" alignItems="center">
-                        <Heading size="lg">Customize your card</Heading>
+                        <Heading size="lg">Continuation of the application</Heading>
                         <Text>Step 3 of 4</Text>
                     </Flex>
                 </Container>
             </Flex>
 
-            <form onSubmit={formState.handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
                 <Container
                     margin={0}
                     padding={0}
@@ -40,40 +138,40 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                     <Box>
                         <Label htmlFor="gender" require>What's your gender</Label>
                         <Select
-                            value={formState.values.gender}
-                            onChange={formState.handleChange}
+                            value={formik.values.gender}
+                            onChange={formik.handleChange}
                             background="#f9f5e3"
                             placeholder=""
                             name="gender"
                             id="gender"
                             focusBorderColor="#5B35D5"
-                            isInvalid={(formState.touched.gender && Boolean(formState.errors.gender))}
+                            isInvalid={(formik.touched.gender && Boolean(formik.errors.gender))}
                             errorBorderColor="#FF5631"
-                            onBlur={formState.handleBlur}
+                            onBlur={formik.handleBlur}
                         >
                             <option />
                             <option value="MALE">MALE</option>
                             <option value="FEMALE">FEMALE</option>
                         </Select>
 
-                        {(formState.touched.gender && formState.errors.gender) ? (
-                            <Text color="#FF5631">{formState.errors.gender}</Text>
+                        {(formik.touched.gender && formik.errors.gender) ? (
+                            <Text color="#FF5631">{formik.errors.gender}</Text>
                         ) : null}
                     </Box>
 
                     <Box>
-                        <Label htmlFor="maritalStatus" require>What's your marital status</Label>
+                        <Label htmlFor="maritalStatus" require>Your marital status</Label>
                         <Select
-                            value={formState.values.maritalStatus}
-                            onChange={formState.handleChange}
-                            onBlur={formState.handleBlur}
+                            value={formik.values.maritalStatus}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
                             background="#f9f5e3"
                             placeholder=""
                             name="maritalStatus"
                             id="maritalStatus"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={(formState.touched.maritalStatus && Boolean(formState.errors.maritalStatus))}
+                            isInvalid={(formik.touched.maritalStatus && Boolean(formik.errors.maritalStatus))}
                         >
                             <option />
                             <option value="MARRIED">MARRIED</option>
@@ -82,25 +180,24 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                             <option value="WIDOW_WIDOWER">WIDOW WIDOWER</option>
                         </Select>
 
-                        {(formState.touched.maritalStatus && formState.errors.maritalStatus) ? (
-                            <Text color="#FF5631">{formState.errors.maritalStatus}</Text>
+                        {(formik.touched.maritalStatus && formik.errors.maritalStatus) ? (
+                            <Text color="#FF5631">{formik.errors.maritalStatus}</Text>
                         ) : null}
                     </Box>
 
                     <Box>
-                        <Label htmlFor="dependentAmount" require>What's your marital status</Label>
+                        <Label htmlFor="dependentAmount" require>Your number of dependents</Label>
                         <Select
-                            value={formState.values.dependentAmount}
-                            onChange={formState.handleChange}
-                            onBlur={formState.handleBlur}
+                            value={formik.values.dependentAmount}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
                             background="#f9f5e3"
                             placeholder=""
-                            placeContent=""
                             name="dependentAmount"
                             id="dependentAmount"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={(formState.touched.dependentAmount && Boolean(formState.errors.dependentAmount))}
+                            isInvalid={(formik.touched.dependentAmount && Boolean(formik.errors.dependentAmount))}
                         >
                             <option />
                             <option value="1">ONE</option>
@@ -108,8 +205,8 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                             <option value="3">THREE</option>
                         </Select>
 
-                        {(formState.touched.dependentAmount && formState.errors.dependentAmount) ? (
-                            <Text color="#FF5631">{formState.errors.dependentAmount}</Text>
+                        {(formik.touched.dependentAmount && formik.errors.dependentAmount) ? (
+                            <Text color="#FF5631">{formik.errors.dependentAmount}</Text>
                         ) : null}
                     </Box>
                 </Container>
@@ -118,20 +215,20 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                     <Box w="100%">
                         <Label htmlFor="passportIssueDate" require>Date of issue of the passport</Label>
                         <FormInput
-                            value={formState.values.passportIssueDate}
-                            onChange={formState.handleChange}
+                            value={formik.values.passportIssueDate}
+                            onChange={formik.handleChange}
                             name="passportIssueDate"
                             id="passportIssueDate"
                             placeholder="Select Date and Time"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={Boolean(formState.errors.passportIssueDate)}
-                            isFocus={formState.touched.passportIssueDate}
+                            isInvalid={Boolean(formik.errors.passportIssueDate)}
+                            isFocus={formik.touched.passportIssueDate}
                             size="md"
                             background="#f9f5e3"
-                            textError={formState.errors.passportIssueDate}
-                            conditionForShowError={Boolean(formState.errors.passportIssueDate)}
-                            onBlur={formState.handleBlur}
+                            textError={formik.errors.passportIssueDate}
+                            conditionForShowError={Boolean(formik.errors.passportIssueDate)}
+                            onBlur={formik.handleBlur}
                             dateMask={true}
                         />
                     </Box>
@@ -139,21 +236,21 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                     <Box w="100%">
                         <Label htmlFor="passportIssueBranch" require>Division code</Label>
                         <FormInput
-                            value={formState.values.passportIssueBranch}
-                            onChange={formState.handleChange}
+                            value={formik.values.passportIssueBranch}
+                            onChange={formik.handleChange}
                             name="passportIssueBranch"
                             id="passportIssueBranch"
                             type="text"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={Boolean(formState.errors.passportIssueBranch)}
-                            isFocus={formState.touched.passportIssueBranch}
+                            isInvalid={Boolean(formik.errors.passportIssueBranch)}
+                            isFocus={formik.touched.passportIssueBranch}
                             background="#f9f5e3"
                             placeholder="000000"
                             regExp={onlyNumbers}
-                            textError={formState.errors.passportIssueBranch}
-                            conditionForShowError={Boolean(formState.errors.passportIssueBranch)}
-                            onBlur={formState.handleBlur}
+                            textError={formik.errors.passportIssueBranch}
+                            conditionForShowError={Boolean(formik.errors.passportIssueBranch)}
+                            onBlur={formik.handleBlur}
                             maxLength={6}
                         />
                     </Box>
@@ -170,9 +267,9 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                     <Box>
                         <Label htmlFor="employmentStatus" require>Your employment status</Label>
                         <Select
-                            value={formState.values.employmentStatus}
-                            onChange={formState.handleChange}
-                            onBlur={formState.handleBlur}
+                            value={formik.values.employmentStatus}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
                             background="#f9f5e3"
                             placeholder=""
                             placeContent=""
@@ -180,7 +277,7 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                             id="employmentStatus"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={(formState.touched.employmentStatus && Boolean(formState.errors.employmentStatus))}
+                            isInvalid={(formik.touched.employmentStatus && Boolean(formik.errors.employmentStatus))}
                         >
                             <option />
                             <option value="UNEMPLOYED">UNEMPLOYED</option>
@@ -189,29 +286,29 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                             <option value="BUSINESS_OWNER">BUSINESS OWNER</option>
 
                         </Select>
-                        {(formState.touched.employmentStatus && formState.errors.employmentStatus) ? (
-                            <Text color="#FF5631">{formState.errors.employmentStatus}</Text>
+                        {(formik.touched.employmentStatus && formik.errors.employmentStatus) ? (
+                            <Text color="#FF5631">{formik.errors.employmentStatus}</Text>
                         ) : null}
                     </Box>
 
                     <Box>
                         <Label htmlFor="employerINN" require>Your employer INN</Label>
                         <FormInput
-                            value={formState.values.employerINN}
-                            onChange={formState.handleChange}
+                            value={formik.values.employerINN}
+                            onChange={formik.handleChange}
                             name="employerINN"
                             id="employerINN"
                             type="text"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={Boolean(formState.errors.employerINN)}
-                            isFocus={formState.touched.employerINN}
+                            isInvalid={Boolean(formik.errors.employerINN)}
+                            isFocus={formik.touched.employerINN}
                             background="#f9f5e3"
                             placeholder="000000000000"
                             regExp={onlyNumbers}
-                            textError={formState.errors.employerINN}
-                            conditionForShowError={Boolean(formState.errors.employerINN)}
-                            onBlur={formState.handleBlur}
+                            textError={formik.errors.employerINN}
+                            conditionForShowError={Boolean(formik.errors.employerINN)}
+                            onBlur={formik.handleBlur}
                             maxLength={12}
                         />
                     </Box>
@@ -219,21 +316,21 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                     <Box>
                         <Label htmlFor="salary" require>Your salary</Label>
                         <FormInput
-                            value={formState.values.salary}
-                            onChange={formState.handleChange}
+                            value={formik.values.salary}
+                            onChange={formik.handleChange}
                             name="salary"
                             id="salary"
                             type="text"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={Boolean(formState.errors.salary)}
-                            isFocus={formState.touched.salary}
+                            isInvalid={Boolean(formik.errors.salary)}
+                            isFocus={formik.touched.salary}
                             background="#f9f5e3"
                             placeholder="For example 100 000"
                             bigSum={true}
-                            textError={formState.errors.salary}
-                            conditionForShowError={Boolean(formState.errors.salary)}
-                            onBlur={formState.handleBlur}
+                            textError={formik.errors.salary}
+                            conditionForShowError={Boolean(formik.errors.salary)}
+                            onBlur={formik.handleBlur}
                             maxLength={10}
                         />
                     </Box>
@@ -241,9 +338,9 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                     <Box>
                         <Label htmlFor="position" require>Your position</Label>
                         <Select
-                            value={formState.values.position}
-                            onChange={formState.handleChange}
-                            onBlur={formState.handleBlur}
+                            value={formik.values.position}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
                             background="#f9f5e3"
                             placeholder=""
                             placeContent=""
@@ -251,7 +348,7 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                             id="position"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={(formState.touched.position && Boolean(formState.errors.position))}
+                            isInvalid={(formik.touched.position && Boolean(formik.errors.position))}
                         >
                             <option />
                             <option value="WORKER">WORKER</option>
@@ -260,29 +357,29 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                             <option value="OWNER">OWNER</option>
                         </Select>
 
-                        {(formState.touched.position && formState.errors.position) ? (
-                            <Text color="#FF5631">{formState.errors.position}</Text>
+                        {(formik.touched.position && formik.errors.position) ? (
+                            <Text color="#FF5631">{formik.errors.position}</Text>
                         ) : null}
                     </Box>
 
                     <Box>
                         <Label htmlFor="workExperienceTotal" require>Your work experience total</Label>
                         <FormInput
-                            value={formState.values.workExperienceTotal}
-                            onChange={formState.handleChange}
+                            value={formik.values.workExperienceTotal}
+                            onChange={formik.handleChange}
                             name="workExperienceTotal"
                             id="workExperienceTotal"
                             type="text"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={Boolean(formState.errors.workExperienceTotal)}
-                            isFocus={formState.touched.workExperienceTotal}
+                            isInvalid={Boolean(formik.errors.workExperienceTotal)}
+                            isFocus={formik.touched.workExperienceTotal}
                             background="#f9f5e3"
                             placeholder="For example 10"
                             bigSum={true}
-                            textError={formState.errors.workExperienceTotal}
-                            conditionForShowError={Boolean(formState.errors.workExperienceTotal)}
-                            onBlur={formState.handleBlur}
+                            textError={formik.errors.workExperienceTotal}
+                            conditionForShowError={Boolean(formik.errors.workExperienceTotal)}
+                            onBlur={formik.handleBlur}
                             maxLength={2}
                         />
                     </Box>
@@ -290,21 +387,21 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
                     <Box>
                         <Label htmlFor="workExperienceCurrent" require>Your work experience current</Label>
                         <FormInput
-                            value={formState.values.workExperienceCurrent}
-                            onChange={formState.handleChange}
+                            value={formik.values.workExperienceCurrent}
+                            onChange={formik.handleChange}
                             name="workExperienceCurrent"
                             id="workExperienceCurrent"
                             type="text"
                             focusBorderColor="#5B35D5"
                             errorBorderColor="#FF5631"
-                            isInvalid={Boolean(formState.errors.workExperienceCurrent)}
-                            isFocus={formState.touched.workExperienceCurrent}
+                            isInvalid={Boolean(formik.errors.workExperienceCurrent)}
+                            isFocus={formik.touched.workExperienceCurrent}
                             background="#f9f5e3"
                             placeholder="For example 2"
                             bigSum={true}
-                            textError={formState.errors.workExperienceCurrent}
-                            conditionForShowError={Boolean(formState.errors.workExperienceCurrent)}
-                            onBlur={formState.handleBlur}
+                            textError={formik.errors.workExperienceCurrent}
+                            conditionForShowError={Boolean(formik.errors.workExperienceCurrent)}
+                            onBlur={formik.handleBlur}
                             maxLength={2}
                         />
                     </Box>
@@ -329,17 +426,3 @@ export const FormApplicationScoringStep = ({ formState }: IFormApplicationScorin
         </Card>
     );
 };
-
-interface IFormApplicationScoringState {
-    gender: string,
-    maritalStatus: string,
-    dependentAmount: string,
-    passportIssueDate: string,
-    passportIssueBranch: string,
-    employmentStatus: string,
-    employerINN: string,
-    salary: string,
-    position: string,
-    workExperienceTotal: string,
-    workExperienceCurrent: string
-}
