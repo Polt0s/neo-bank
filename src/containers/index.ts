@@ -5,3 +5,4 @@ export { FormApplicationScoringStepContainer } from './FormApplicationScoringSte
 export { LoanOffersContainer } from './LoanOffersContainer';
 export { CreditCardDocumentSignUpContainer } from './CreditCardDocumentSignUpContainer';
 export { CreditCardConfirmationCodeContainer } from './CreditCardConfirmationCodeContainer';
+export { PaymentScheduleContainer } from './PaymentScheduleContainer';
