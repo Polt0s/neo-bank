@@ -3,3 +3,5 @@ export { FormApplicationPrescoringStepContainer } from './FormApplicationPrescor
 export { CurrencyDisplayContainer } from './CurrencyDisplayContainer';
 export { FormApplicationScoringStepContainer } from './FormApplicationScoringStepContainer';
 export { LoanOffersContainer } from './LoanOffersContainer';
+export { CreditCardDocumentSignUpContainer } from './CreditCardDocumentSignUpContainer';
+export { CreditCardConfirmationCodeContainer } from './CreditCardConfirmationCodeContainer';
