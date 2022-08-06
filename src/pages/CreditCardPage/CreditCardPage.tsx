@@ -1,5 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
+import { useNavigate } from 'react-router-dom';
+import { Box } from '@chakra-ui/react';
 
 import {
     ApplicationStatusMessage,
@@ -12,6 +14,7 @@ import {
     FormApplicationPrescoringStepContainer,
     LoanOffersContainer
 } from 'containers';
+import { applicationIdStorage } from 'localStorage';
 
 import cardImage1 from 'assets/image/cardImage1.jpg';
 
@@ -30,21 +33,49 @@ interface ICreditCardPage {
 }
 
 export const CreditCardPage = observer(({ routesPaths }: ICreditCardPage) => {
-    const refTest = React.useRef<HTMLDivElement>(null);
+    const refPrescoringContainer = React.useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
 
     const handleClickLinkButton = () => {
-        if (refTest.current) {
-            refTest.current.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+        if (refPrescoringContainer.current) {
+            refPrescoringContainer.current.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
         }
     };
 
-    const configRenderComponents = {
-        FIRST: <FormApplicationPrescoringStepContainer routesPaths={routesPaths} refLink={refTest} />,
+    const handleClickContinue = (path: string) => {
+        navigate(`${routesPaths['Loan']}/${path}`);
+    };
+
+    const renderLinkButton: Record<string, () => void> = {
+        FIRST: handleClickLinkButton,
+        SECOND: handleClickLinkButton,
+        THIRD: () => handleClickContinue(`${applicationIdStorage.getItem()}`),
+        FOURTH: () => handleClickContinue(`${applicationIdStorage.getItem()}/document`),
+        FIFTH: () => handleClickContinue(`${applicationIdStorage.getItem()}/document/sign`),
+        SIXTH: () => handleClickContinue(`${applicationIdStorage.getItem()}/code`),
+    };
+
+    const renderTextButton: Record<string, string> = {
+        FIRST: 'Apply for card',
+        SECOND: 'Choose an offer',
+        THIRD: 'Continue registration',
+        FOURTH: 'Continue registration',
+        FIFTH: 'Continue registration',
+        SIXTH: 'Continue registration',
+    };
+
+    const configRenderComponents: Record<string, JSX.Element | string> = {
+        FIRST: <FormApplicationPrescoringStepContainer />,
         SECOND: <LoanOffersContainer />,
         THIRD: <ApplicationStatusMessage
             title={'The preliminary decision has been \n sent to your email.'}
             description="In the letter you can get acquainted with the preliminary decision on the credit card."
-        />
+            border={true}
+            margin={true}
+        />,
+        FOURTH: '',
+        FIFTH: '',
+        SIXTH: '',
     };
 
     return (
@@ -56,7 +87,8 @@ export const CreditCardPage = observer(({ routesPaths }: ICreditCardPage) => {
                 dataParamsCard={dataParamsCard}
                 imageCard={cardImage1}
                 background="brown"
-                handleClickLinkButton={handleClickLinkButton}
+                handleClickLinkButton={renderLinkButton[applicationStore.application.step]}
+                textButton={renderTextButton[applicationStore.application.step]}
             />
 
             <BenefitsCard
@@ -69,7 +101,9 @@ export const CreditCardPage = observer(({ routesPaths }: ICreditCardPage) => {
 
             <CardIconSteps items={dataCardIconSteps} />
 
-            {configRenderComponents[applicationStore.application.step]}
+            <Box ref={refPrescoringContainer}>
+                {configRenderComponents[applicationStore.application.step]}
+            </Box>
         </main>
     );
 });

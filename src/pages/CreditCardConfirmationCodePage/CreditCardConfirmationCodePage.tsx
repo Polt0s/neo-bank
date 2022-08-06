@@ -5,6 +5,7 @@ import { ApplicationStatusMessage } from 'components';
 import { CreditCardConfirmationCodeContainer } from 'containers';
 import { applicationStore } from 'store/application.store';
 import { Button } from 'shared';
+import { applicationIdStorage } from 'localStorage';
 
 import SurpriseImage from 'assets/image/SurpriseImage.png';
 
@@ -16,6 +17,7 @@ export const CreditCardConfirmationCodePage = ({ routesPaths }: ICreditCardConfi
     const navigate = useNavigate();
 
     const onGoBackButton = () => {
+        applicationIdStorage.removeItem();
         navigate(routesPaths['Home']);
     };
 
@@ -32,8 +34,8 @@ export const CreditCardConfirmationCodePage = ({ routesPaths }: ICreditCardConfi
                     <img src={SurpriseImage} alt={SurpriseImage} width="150px" height="150px" />
 
                     <ApplicationStatusMessage
-                        title="Congratulations! You have completed the checkout."
-                        description="Your credit card will arrive soon"
+                        title="Congratulations! You have completed your new credit card."
+                        description="Your credit card will arrive soon. Thank you for choosing us!"
                     />
                     <Button
                         background="blue"
