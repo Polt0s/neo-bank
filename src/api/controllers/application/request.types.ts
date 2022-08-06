@@ -6,7 +6,7 @@ export interface IPostApplicationRequest {
         term: number;
         firstName: string;
         lastName: string;
-        middleName: string;
+        middleName: string | null;
         email: string;
         birthdate: string;
         passportSeries: string;

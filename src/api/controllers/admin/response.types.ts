@@ -34,7 +34,7 @@ export interface IGetAdminResponse {
         paymentSchedule: [
             {
                 number: number;
-                date: string | Date;
+                date: string;
                 totalPayment: number;
                 interestPayment: number;
                 debtPayment: number;
