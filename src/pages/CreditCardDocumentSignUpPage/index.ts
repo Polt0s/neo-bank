@@ -1,0 +1,1 @@
+export { CreditCardDocumentSignUpPage } from './CreditCardDocumentSignUpPage';
