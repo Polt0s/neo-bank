@@ -3,15 +3,14 @@ import { Center, Spinner } from '@chakra-ui/react';
 
 import { CreditCardConfirmationCode } from 'components';
 import { documentAPI } from 'api';
-import { applicationIdStorage, stepPrescoringStorage } from 'localStorage';
+import { applicationIdStorage, stepApplicationStorage } from 'localStorage';
 import { applicationStore } from 'store/application.store';
 
 export const CreditCardConfirmationCodeContainer = () => {
     const { mutate, isLoading, isError } = useMutation((code: string) =>
         documentAPI.postDocumentSignCode({ applicationId: Number(applicationIdStorage.getItem()), code: code }), {
         onSuccess: () => {
-            stepPrescoringStorage.removeItem();
-            applicationIdStorage.removeItem();
+            stepApplicationStorage.setItem('FIRST');
             applicationStore.getStatusApplication('FIRST');
         }
     });

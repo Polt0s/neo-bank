@@ -3,7 +3,7 @@ import { Center, Spinner } from '@chakra-ui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { adminAPI, documentAPI } from 'api';
-import { PaymentSchedule } from 'components';
+import { ApplicationStatusMessage, PaymentSchedule } from 'components';
 import { applicationIdStorage, stepApplicationStorage } from 'localStorage';
 import { applicationStore } from 'store/application.store';
 
@@ -15,12 +15,12 @@ export const PaymentScheduleContainer = () => {
     const { mutate, isLoading } = useMutation(() =>
         documentAPI.postDocument({ applicationId: Number(applicationIdStorage.getItem()) }), {
         onSuccess: () => {
-            stepApplicationStorage.setItem('SIXTH');
-            applicationStore.getStatusApplication('SIXTH');
+            stepApplicationStorage.setItem('FIFTH');
+            applicationStore.getStatusApplication('FIFTH');
         }
     });
 
-    const { isError } = useQuery(['admin'], () =>
+    const { isError, status } = useQuery(['admin'], () =>
         adminAPI.getAdminId({ applicationId: Number(applicationIdStorage.getItem()) }), {
         onSuccess: (response) => {
             setDataPaymentSchedule(response.data.credit.paymentSchedule);
@@ -31,9 +31,25 @@ export const PaymentScheduleContainer = () => {
         mutate();
     };
 
+    const configRender: Record<string, JSX.Element | string> = {
+        FOURTH: (
+            <PaymentSchedule
+                onSubmit={onSubmit}
+                dataPaymentSchedule={dataPaymentSchedule}
+                isError={isError}
+            />
+        ),
+        FIFTH: (
+            <ApplicationStatusMessage
+                title="Documents are formed"
+                description="Documents for signing will be sent to your email"
+            />
+        )
+    };
+
     return (
         <>
-            {isLoading ? (
+            {(isLoading || status === 'loading') ? (
                 <Center height="10rem">
                     <Spinner
                         thickness="4px"
@@ -44,11 +60,9 @@ export const PaymentScheduleContainer = () => {
                     />
                 </Center>
             ) : (
-                <PaymentSchedule
-                    onSubmit={onSubmit}
-                    dataPaymentSchedule={dataPaymentSchedule}
-                    isError={isError}
-                />
+                <>
+                    {configRender[applicationStore.application.step]}
+                </>
             )}
         </>
     );

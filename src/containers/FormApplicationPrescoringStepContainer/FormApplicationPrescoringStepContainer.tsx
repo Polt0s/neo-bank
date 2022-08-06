@@ -1,17 +1,22 @@
 import { useMutation } from '@tanstack/react-query';
+import { Center, Spinner } from '@chakra-ui/react';
 
 import { applicationAPI } from 'api';
 import { FormApplicationPrescoringStep } from 'components';
+import { applicationStore } from 'store/application.store';
+import { stepApplicationStorage, viewLoanOffers } from 'localStorage';
 
-import type { IPostApplicationRequest } from 'api/controllers/application/response.types';
+import type { IPostApplicationRequest } from 'api';
 
-interface IFormApplicationPrescoringStepContainer {
-    routesPaths: Record<string, string>;
-    refLink?: React.RefObject<HTMLDivElement>;
-}
-
-export const FormApplicationPrescoringStepContainer = ({ routesPaths, refLink }: IFormApplicationPrescoringStepContainer) => {
-    const { mutate } = useMutation((values: IPostApplicationRequest) => applicationAPI.postApplication(values));
+export const FormApplicationPrescoringStepContainer = () => {
+    const { mutate, isLoading } = useMutation((values: IPostApplicationRequest) => applicationAPI.postApplication(values), {
+        onSuccess: (response) => {
+            applicationStore.getLoanOffers(response.data);
+            viewLoanOffers.setItemAsJson(applicationStore.application.loanOffers);
+            applicationStore.getStatusApplication('SECOND');
+            stepApplicationStorage.setItem('SECOND');
+        }
+    });
 
     const onSubmit = (values: IPostApplicationRequest) => {
         mutate(values);
@@ -19,11 +24,19 @@ export const FormApplicationPrescoringStepContainer = ({ routesPaths, refLink }:
 
     return (
         <>
-            <FormApplicationPrescoringStep
-                onSubmit={onSubmit}
-                routesPaths={routesPaths}
-                refLink={refLink}
-            />
+            {isLoading ? (
+                <Center height="10rem">
+                    <Spinner
+                        thickness="4px"
+                        speed="0.65s"
+                        emptyColor="gray.200"
+                        color="#b4387a"
+                        size="xl"
+                    />
+                </Center>
+            ) : (
+                <FormApplicationPrescoringStep onSubmit={onSubmit} />
+            )}
         </>
     );
 };
