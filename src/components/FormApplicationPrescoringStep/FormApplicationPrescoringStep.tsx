@@ -32,10 +32,9 @@ import styles from './FormApplicationPrescoringStep.module.css';
 
 interface IFormApplicationPrescoringStep {
     onSubmit: (values: IPostApplicationRequest) => void;
-    refLink?: React.RefObject<HTMLDivElement>;
 }
 
-export const FormApplicationPrescoringStep = ({ onSubmit, refLink }: IFormApplicationPrescoringStep) => {
+export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPrescoringStep) => {
     const [sliderValue, setSliderValue] = React.useState<number>(150000);
 
     const formik = useFormik<IInitialFormState>({
@@ -84,6 +83,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit, refLink }: IFormApplic
         onSubmit: (values) => {
             const result = {
                 ...values,
+                middleName: !values.middleName.length ? null : values.middleName,
                 amount: sliderValue,
                 term: Number(values.term),
                 birthdate: reverseBirthdate(values.birthdate)
@@ -94,12 +94,12 @@ export const FormApplicationPrescoringStep = ({ onSubmit, refLink }: IFormApplic
     });
 
     return (
-        <Card className={styles['form-application']} ref={refLink}>
+        <Card className={styles['form-application']}>
             <Flex gap={10} marginBottom="2rem">
                 <Container margin={0} padding={0}>
                     <Flex marginBottom="2rem" justifyContent="space-between" alignItems="center">
                         <Heading size="lg">Customize your card</Heading>
-                        <Text>Step 1 of 4</Text>
+                        <Text>Step 1 of 5</Text>
                     </Flex>
 
                     <SliderBlock

@@ -3,6 +3,7 @@ import {
     Box,
     Checkbox,
     Flex,
+    Heading,
     Link,
     Text
 } from '@chakra-ui/react';
@@ -20,6 +21,11 @@ export const CreditCardDocumentSignUp = ({ onSubmit }: ICreditCardDocumentSignUp
 
     return (
         <Box margin="5rem 0">
+            <Flex alignItems="center" marginBottom="2rem" gap={20}>
+                <Heading size="lg">Signing of documents</Heading>
+                <Text>Step 4 of 5</Text>
+            </Flex>
+
             <Text
                 color="#4F5665"
                 marginBottom="2rem"
@@ -48,7 +54,10 @@ export const CreditCardDocumentSignUp = ({ onSubmit }: ICreditCardDocumentSignUp
             <Flex justifyContent="flex-end" gap={20}>
                 <Checkbox
                     defaultChecked size="lg"
-                    isChecked={isCheckAgree} onChange={() => setIsCheckAgree(!isCheckAgree)}>I agree</Checkbox>
+                    isChecked={isCheckAgree}
+                    onChange={() => setIsCheckAgree(!isCheckAgree)}>
+                    I agree
+                </Checkbox>
                 <Button
                     disabled={!isCheckAgree}
                     background="blue"

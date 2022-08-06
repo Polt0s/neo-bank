@@ -123,7 +123,7 @@ export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoring
                 <Container margin={0} padding={0}>
                     <Flex marginBottom="2rem" justifyContent="space-between" alignItems="center">
                         <Heading size="lg">Continuation of the application</Heading>
-                        <Text>Step 3 of 4</Text>
+                        <Text>Step 2 of 5</Text>
                     </Flex>
                 </Container>
             </Flex>

@@ -6,13 +6,19 @@ interface IApplicationStatusMessage {
     title: string;
     description: string;
     border?: boolean;
+    margin?: boolean;
 }
 
-export const ApplicationStatusMessage = ({ title, description, border }: IApplicationStatusMessage) => (
+export const ApplicationStatusMessage = ({
+    title,
+    description,
+    border,
+    margin
+}: IApplicationStatusMessage) => (
     <Flex
         direction="column"
         alignItems="center"
-        marginBottom="3rem"
+        marginBottom={margin ? '3rem' : '0'}
         className={border ? styles['Block-message'] : ''}
     >
         <Heading
