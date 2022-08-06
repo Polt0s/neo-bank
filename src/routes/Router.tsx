@@ -13,9 +13,12 @@ import {
     CreditCardPage,
     FormApplicationScoringPage,
     HomePage,
-    NotFoundPage
+    NotFoundPage,
+    PaymentSchedulePage
 } from 'pages';
 import { appConfigStore } from 'store/appConfig.store';
+import { applicationStore } from 'store/application.store';
+import { applicationIdStorage } from 'localStorage';
 
 import { PageHOC } from './PageHOC';
 
@@ -39,9 +42,47 @@ export const Router = observer(() => {
         <Routes>
             <Route path={ERouterName.Home} element={PageHOC(HomePage)} />
             <Route path={ERouterName.Loan} element={PageHOC(CreditCardPage)} />
-            <Route path={`${ERouterName.Loan}/:applicationId`} element={PageHOC(FormApplicationScoringPage)} />
-            <Route path={`${ERouterName.Loan}/:applicationId/document/sign`} element={PageHOC(CreditCardDocumentSignUpPage)} />
-            <Route path={`${ERouterName.Loan}/:applicationId/code`} element={PageHOC(CreditCardConfirmationCodePage)} />
+
+            {(applicationStore.application.step === 'THIRD' || applicationStore.application.step === 'FOURTH') && (
+                <>
+                    <Route
+                        path={`${ERouterName.Loan}/${applicationIdStorage.getItem()}`}
+                        element={PageHOC(FormApplicationScoringPage)}
+                    />
+                    <Route path="*" element={<Navigate replace to={ERouterName.Loan} />} />
+                </>
+            )}
+
+            {(applicationStore.application.step === 'FOURTH' || applicationStore.application.step === 'FIFTH') && (
+                <>
+                    <Route
+                        path={`${ERouterName.Loan}/${applicationIdStorage.getItem()}/document`}
+                        element={PageHOC(PaymentSchedulePage)}
+                    />
+                    <Route path="*" element={<Navigate replace to={ERouterName.Loan} />} />
+                </>
+            )}
+
+            {(applicationStore.application.step === 'FIFTH' || applicationStore.application.step === 'SIXTH') && (
+                <>
+                    <Route
+                        path={`${ERouterName.Loan}/${applicationIdStorage.getItem()}/document/sign`}
+                        element={PageHOC(CreditCardDocumentSignUpPage)}
+                    />
+                    <Route path="*" element={<Navigate replace to={ERouterName.Loan} />} />
+                </>
+            )}
+
+            {(applicationStore.application.step === 'SIXTH' || applicationStore.application.step === 'FIRST') && (
+                <>
+                    <Route
+                        path={`${ERouterName.Loan}/${applicationIdStorage.getItem()}/code`}
+                        element={PageHOC(CreditCardConfirmationCodePage)}
+                    />
+                    <Route path="*" element={<Navigate replace to={ERouterName.Loan} />} />
+                </>
+            )}
+
             <Route path={ERouterName.Product} element={<></>} />
             <Route path={ERouterName.Account} element={<></>} />
             <Route path={ERouterName.NotFound} element={PageHOC(NotFoundPage)} />
