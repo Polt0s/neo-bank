@@ -1,17 +1,19 @@
 import { makeAutoObservable } from 'mobx';
 
-import type { IPostApplicationResponse } from 'api/controllers/application/response.types';
-import { uniqueId } from 'utils/uniqueId';
+import { uniqueId } from 'utils';
+import { stepApplicationStorage, viewLoanOffers } from 'localStorage';
+
+import type { IPostApplicationResponse } from 'api';
 
 interface IApplicationStore {
     loanOffers: IPostApplicationResponse[];
-    step: TStatus;
+    step: TStatus | string;
 }
 
 class ApplicationStore {
     application: IApplicationStore = {
-        loanOffers: [],
-        step: 'FIRST',
+        loanOffers: viewLoanOffers.getItemAsJson() || [],
+        step: stepApplicationStorage.getItem() || 'FIRST',
     };
 
     constructor() {
@@ -41,4 +43,4 @@ class ApplicationStore {
 
 export const applicationStore = new ApplicationStore();
 
-export type TStatus = 'FIRST' | 'SECOND' | 'THIRD';
+export type TStatus = 'FIRST' | 'SECOND' | 'THIRD' | 'FOURTH' | 'FIFTH' | 'SIXTH';
