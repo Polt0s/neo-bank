@@ -1,28 +1,30 @@
 import {
-    Box,
-    Container,
     Divider,
     Flex,
+    Grid,
+    GridItem,
     Heading,
     Link,
     Text
 } from '@chakra-ui/react';
 
-import type { TCurrencyList } from 'hooks';
+import { BankIcon, Card } from 'shared';
 
-import { Card } from 'shared';
+import type { TCurrencyList } from 'hooks';
 
 interface ICurrencyDisplay {
     currencyList: TCurrencyList[];
 }
 
 export const CurrencyDisplay = ({ currencyList }: ICurrencyDisplay) => {
+    const currentDate = new Date();
+    const [data] = currentDate.toLocaleString().split(',');
+
     return (
-        <Card background="gray">
+        <Card background="platinum">
             <Flex justifyContent="space-between" alignItems="center">
                 <Heading size="lg">Exchange rate in internet bank</Heading>
-
-                <Text>Operate с 00:00 МСК 23.07.2022</Text>
+                <Text>{`Update every 15 minutes, MSC ${data}`}</Text>
             </Flex>
 
             <Divider color="white" size="20px" margin="1rem 0" />
@@ -30,16 +32,20 @@ export const CurrencyDisplay = ({ currencyList }: ICurrencyDisplay) => {
             <Heading size="md" marginBottom="1rem">Currency</Heading>
             <Divider color="white" size="20px" margin="1rem 0" width="15%" />
 
-            <Container margin={0} padding={0}>
-                {currencyList.map((item) => (
-                    <Box key={item.name} margin="1rem 0">
-                        <Flex gap={20}>
-                            <Heading size="md" color="gray">{item.name}</Heading>
-                            <Heading size="md" color="white">{(item.value).toFixed(2)}</Heading>
-                        </Flex>
-                    </Box>
-                ))}
-            </Container>
+            <Flex justifyContent="space-between" marginBottom="2rem" alignItems="center">
+                <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(12, 1fr)" gap="2rem">
+                    {currencyList.map((item) => (
+                        <GridItem key={item.name} colSpan={4}>
+                            <Flex gap={5}>
+                                <Heading size="md" color="gray">{item.name}:</Heading>
+                                <Heading size="md" color="#2f2222">{(item.value).toFixed(2)}</Heading>
+                            </Flex>
+                        </GridItem>
+                    ))}
+                </Grid>
+
+                <BankIcon />
+            </Flex>
             <Link color="white">All courses</Link>
         </Card>
     );

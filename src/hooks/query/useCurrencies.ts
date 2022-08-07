@@ -9,7 +9,7 @@ interface IUseCurrencies {
     index: number;
 }
 
-export const useCurrencies = (data: IUseCurrencies[]) => {
+export const useCurrencies = (data: IUseCurrencies[], interval: number) => {
     const [currencyList, setCurrencyList] = React.useState<TCurrencyList[]>([]);
 
     const results = useQueries({
@@ -19,7 +19,8 @@ export const useCurrencies = (data: IUseCurrencies[]) => {
                 .then((response) => {
                     setCurrencyList((prev: any) => [...prev, { name: item.from, value: response.data }]);
                 }),
-            staleTime: Infinity
+            staleTime: Infinity,
+            refetchInterval: interval,
         }))
     });
 
