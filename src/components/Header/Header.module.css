@@ -1,5 +1,7 @@
 .Header {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1300px;
     min-height: 4rem;
     display: flex;
     align-items: center;

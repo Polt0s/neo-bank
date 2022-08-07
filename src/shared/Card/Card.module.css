@@ -22,3 +22,11 @@
 .Card__background-ultramarine {
     background-color: #88b3b8a6;
 }
+
+.Card__background-multi {
+    background: linear-gradient(to top, #FEEBC8, #cbd5e0);
+}
+
+.Card__background-platinum {
+    background: linear-gradient(to top, #b2b2b2c4, #f4f4f4d1);
+}

@@ -1,0 +1,18 @@
+.Footer {
+    background: linear-gradient(to bottom, #b2b2b2c4, #f4f4f4d1);
+    padding: 6rem 0;
+}
+
+.Footer__container {
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.Footer__textLink > p:hover {
+    color: #b2a35f;
+}
+
+.Footer__textLink:hover {
+    text-decoration-color: #b2a35f !important;
+}

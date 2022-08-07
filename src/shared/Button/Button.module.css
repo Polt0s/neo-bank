@@ -20,6 +20,7 @@
     text-align: center;
     justify-content: center;
     background-color: #EDF2F7;
+    white-space: normal;
 }
 
 .Button:hover {
