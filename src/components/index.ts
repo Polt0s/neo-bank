@@ -13,3 +13,4 @@ export { ApplicationStatusMessage } from './ApplicationStatusMessage';
 export { CreditCardDocumentSignUp } from './CreditCardDocumentSignUp';
 export { CreditCardConfirmationCode } from './CreditCardConfirmationCode';
 export { PaymentSchedule } from './PaymentSchedule';
+export { Footer } from './Footer';
