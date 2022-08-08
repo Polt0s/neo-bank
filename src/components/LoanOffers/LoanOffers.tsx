@@ -17,12 +17,12 @@ interface ILoanOffers {
 
 export const LoanOffers = ({ data, onSubmitOffer }: ILoanOffers) => {
     return (
-        <Box marginBottom="200px">
+        <Box marginBottom="3rem">
             <Heading size="lg" marginBottom="2rem" textAlign="center">Your personal offer</Heading>
 
             <Flex gap={10}>
                 {data.map((offer, index) => (
-                    <Card key={index}>
+                    <Card key={index} hover={true}>
                         <Center marginBottom="2rem">
                             <img src={SurpriseImage} alt={SurpriseImage} width="150px" height="150px" />
                         </Center>

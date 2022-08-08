@@ -94,7 +94,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
     });
 
     return (
-        <Card className={styles['form-application']}>
+        <Card className={styles['Form-application']}>
             <Flex gap={10} marginBottom="2rem">
                 <Container margin={0} padding={0}>
                     <Flex marginBottom="2rem" justifyContent="space-between" alignItems="center">

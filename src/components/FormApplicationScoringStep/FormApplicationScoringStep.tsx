@@ -118,7 +118,7 @@ export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoring
     });
 
     return (
-        <Card style={{ marginBottom: 200 }}>
+        <Card style={{ marginBottom: '2rem' }}>
             <Flex gap={10} marginBottom="2rem">
                 <Container margin={0} padding={0}>
                     <Flex marginBottom="2rem" justifyContent="space-between" alignItems="center">

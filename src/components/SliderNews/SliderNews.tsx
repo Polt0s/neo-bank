@@ -84,7 +84,7 @@ export const SliderNews = ({ data }: ISliderNews) => {
     }, [activeIndex, length]);
 
     return (
-        <Box>
+        <Box marginBottom="3rem">
             <Heading
                 size="lg"
                 textAlign="center"

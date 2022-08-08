@@ -27,7 +27,7 @@ export const PaymentSchedule = ({ onSubmit, dataPaymentSchedule }: IPaymentSched
     const [isCheckAgree, setIsCheckAgree] = React.useState(false);
 
     return (
-        <Box>
+        <Box width="100%" marginBottom="3rem">
             <Card>
                 <Flex
                     alignItems="center"
@@ -44,7 +44,7 @@ export const PaymentSchedule = ({ onSubmit, dataPaymentSchedule }: IPaymentSched
                             <Tr>
                                 <Th>Number</Th>
                                 <Th>Date</Th>
-                                <Th isNumeric>Total payment</Th>
+                                <Th>Total payment</Th>
                                 <Th>Interest payment</Th>
                                 <Th>Debt payment</Th>
                                 <Th>Remaining debt</Th>

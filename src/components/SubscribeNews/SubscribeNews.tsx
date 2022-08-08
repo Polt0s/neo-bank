@@ -34,7 +34,7 @@ export const SubscribeNews = () => {
             </Flex>
 
             <Center>
-                <Card height="6rem" width="40%">
+                <Card height="6rem" width="40%" style={{ padding: 0 }}>
                     <Flex
                         alignItems="center"
                         justifyContent="space-between"
