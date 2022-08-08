@@ -1,6 +1,6 @@
 export { Header } from './Header';
 export { FormApplicationPrescoringStep } from './FormApplicationPrescoringStep';
-export { SliderReview } from './SliderReview';
+export { SliderNews } from './SliderNews';
 export { ListCardFeatures } from './ListCardFeatures';
 export { BannerCard } from './BannerCard';
 export { CurrencyDisplay } from './CurrencyDisplay';
@@ -14,3 +14,4 @@ export { CreditCardDocumentSignUp } from './CreditCardDocumentSignUp';
 export { CreditCardConfirmationCode } from './CreditCardConfirmationCode';
 export { PaymentSchedule } from './PaymentSchedule';
 export { Footer } from './Footer';
+export { SubscribeNews } from './SubscribeNews';

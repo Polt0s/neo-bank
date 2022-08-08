@@ -1,0 +1,1 @@
+export { SubscribeNews } from './SubscribeNews';
