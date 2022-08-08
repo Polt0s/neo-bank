@@ -1,0 +1,1 @@
+export { SliderNewsContainer } from './SliderNewsContainer';

@@ -1,0 +1,17 @@
+.Slider {
+    overflow: hidden;
+}
+
+.Slider__button-prev {
+    border-radius: 100%;
+    border: 2px solid #003CFF;
+    width: 4rem;
+    height: 4rem;
+    background: white;
+}
+
+.Slider__button-next {
+    border-radius: 100%;
+    width: 4rem;
+    height: 4rem;
+}
