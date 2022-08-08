@@ -1,21 +1,31 @@
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type {
+    AxiosInstance,
+    AxiosRequestConfig,
+    AxiosResponse
+} from 'axios';
 
-import { axiosBase, axiosBaseRapidAPI } from './axios.base';
+import {
+    axiosBase,
+    axiosBaseNewsAPI,
+    axiosBaseRapidAPI
+} from './axios.base';
 
 interface IProps {
     requestUrl?: string;
 }
 
-type TConfig = 'base' | 'rapidAPI';
+type TConfig = 'base' | 'rapidAPI' | 'newsAPI';
 
 interface IConfigRoot {
     base: AxiosInstance;
     rapidAPI: AxiosInstance;
+    newsAPI: AxiosInstance;
 }
 
 const configRoot: IConfigRoot = {
     base: axiosBase,
-    rapidAPI: axiosBaseRapidAPI
+    rapidAPI: axiosBaseRapidAPI,
+    newsAPI: axiosBaseNewsAPI
 };
 
 export abstract class Controller {

@@ -17,4 +17,12 @@ const axiosBaseRapidAPI = axios.create({
     timeout: 1000 * 10,
 });
 
-export { axiosBase, axiosBaseRapidAPI };
+const axiosBaseNewsAPI = axios.create({
+    baseURL: process.env.REACT_APP_NEWSAPI_SERVER_HOST,
+    headers: {
+        'Content-type': 'application/json',
+    },
+    timeout: 1000 * 10,
+});
+
+export { axiosBase, axiosBaseRapidAPI, axiosBaseNewsAPI };
