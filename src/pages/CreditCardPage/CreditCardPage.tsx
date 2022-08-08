@@ -30,9 +30,10 @@ import {
 
 interface ICreditCardPage {
     routesPaths: Record<string, string>;
+    className: string;
 }
 
-export const CreditCardPage = observer(({ routesPaths }: ICreditCardPage) => {
+export const CreditCardPage = observer(({ routesPaths, className }: ICreditCardPage) => {
     const refPrescoringContainer = React.useRef<HTMLDivElement>(null);
     const navigate = useNavigate();
 
@@ -79,14 +80,14 @@ export const CreditCardPage = observer(({ routesPaths }: ICreditCardPage) => {
     };
 
     return (
-        <main>
+        <main className={className}>
             <BannerCard
                 title="Platinum digital credit card"
                 description="Our best credit card. Suitable for everyday spending and shopping.
                 Cash withdrawals and transfers without commission and interest."
                 dataParamsCard={dataParamsCard}
                 imageCard={cardImage1}
-                background="brown"
+                background="multi"
                 handleClickLinkButton={renderLinkButton[applicationStore.application.step]}
                 textButton={renderTextButton[applicationStore.application.step]}
             />

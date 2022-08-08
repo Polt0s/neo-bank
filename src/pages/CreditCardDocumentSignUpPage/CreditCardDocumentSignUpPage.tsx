@@ -1,9 +1,21 @@
+import { Flex } from '@chakra-ui/react';
+
 import { CreditCardDocumentSignUpContainer } from 'containers';
 
-export const CreditCardDocumentSignUpPage = () => {
+interface ICreditCardDocumentSignUpPage {
+    className: string;
+}
+
+export const CreditCardDocumentSignUpPage = ({ className }: ICreditCardDocumentSignUpPage) => {
     return (
-        <main>
-            <CreditCardDocumentSignUpContainer />
+        <main className={className}>
+            <Flex
+                height="100%"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <CreditCardDocumentSignUpContainer />
+            </Flex>
         </main>
     );
 };

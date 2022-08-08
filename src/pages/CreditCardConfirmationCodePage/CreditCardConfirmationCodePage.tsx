@@ -11,9 +11,10 @@ import SurpriseImage from 'assets/image/SurpriseImage.png';
 
 interface ICreditCardConfirmationCodePage {
     routesPaths: Record<string, string>;
+    className: string;
 }
 
-export const CreditCardConfirmationCodePage = ({ routesPaths }: ICreditCardConfirmationCodePage) => {
+export const CreditCardConfirmationCodePage = ({ routesPaths, className }: ICreditCardConfirmationCodePage) => {
     const navigate = useNavigate();
 
     const onGoBackButton = () => {
@@ -22,7 +23,7 @@ export const CreditCardConfirmationCodePage = ({ routesPaths }: ICreditCardConfi
     };
 
     return (
-        <>
+        <main className={className}>
             {applicationStore.application.step === 'FIRST' ? (
                 <Flex
                     height="100%"
@@ -48,6 +49,6 @@ export const CreditCardConfirmationCodePage = ({ routesPaths }: ICreditCardConfi
             ) : (
                 <CreditCardConfirmationCodeContainer />
             )}
-        </>
+        </main>
     );
 };
