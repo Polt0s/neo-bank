@@ -7,6 +7,14 @@
     margin: 0;
 }
 
+.Card-container_hover {
+    border: 2px solid transparent;
+}
+
+.Card-container_hover:hover {
+    border: 2px solid #003CFF;
+}
+
 .Card__background-gray {
  background-color: #7f92aca8;
 }

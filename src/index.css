@@ -34,20 +34,25 @@
 }
 
 #root {
-  background-color: #F7F8FD;
+  background: #f5f4ff;
 }
 
-#grid-layout {
+.Grid-layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto 1fr auto;
+}
+
+.Grid-layout__content {
   width: 90%;
   max-width: 1300px;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: auto;
+  margin-bottom: 3rem;
 }
 
 @media screen and (max-width: 768px) {
   #root {
     width: 100vh;
-    /* height: 100vh; */
   }
 }
