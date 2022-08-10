@@ -111,6 +111,53 @@ const PDF = ({ color }: IIcons) => (
     </svg>
 );
 
+const Bank = ({ color }: IIcons) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none">
+        <path d="M2 22H22" stroke={iconsConfig.colors[color || 'default']} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M3 8L12 3L21 8" stroke={iconsConfig.colors[color || 'default']} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M4 11V19" stroke={iconsConfig.colors[color || 'default']} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M16 11V19" stroke={iconsConfig.colors[color || 'default']} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M20 11V19" stroke={iconsConfig.colors[color || 'default']} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M8 11V19" stroke={iconsConfig.colors[color || 'default']} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M12 11V19" stroke={iconsConfig.colors[color || 'default']} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M3 19H21" stroke={iconsConfig.colors[color || 'default']} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+);
+
+const SendLetter = ({ color }: IIcons) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 29 29" fill="none">
+        <g clipPath="url(#clip0_4620_238)">
+            <path
+                d="M19.2408 6.80702L3.81908 14.3327C3.16937 14.6497 2.76135 15.2958 2.75416 16.0187C2.74703 16.7416 3.1422 17.3956 3.78548 17.7254L8.86596 20.3305L13.4386 15.1535C13.649 14.9152 14.0127 14.8927 14.251 15.1031C14.4892 15.3135 14.5118 15.6773 14.3013 15.9155L9.72873 21.0925L12.9413 25.8123C13.3481 26.41 14.0459 26.7214 14.7624 26.6249C15.4803 26.5283 16.07 26.0426 16.304 25.3599L21.8672 9.12674C22.1205 8.38766 21.9141 7.60725 21.3285 7.09003C20.7429 6.57282 19.943 6.46432 19.2408 6.80702Z"
+                fill={iconsConfig.colors[color || 'default']}
+            />
+        </g>
+        <defs>
+            <clipPath id="clip0_4620_238">
+                <rect width="19.6445" height="19.6445" fill="white" transform="translate(0.961914 15.3105) rotate(-48.5475)" />
+            </clipPath>
+        </defs>
+    </svg>
+);
+
+const Email = ({ color }: IIcons) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none">
+        <g clipPath="url(#clip0_4620_225)">
+            <path d="M15.9089 12.123L23.9999 17.238V6.79199L15.9089 12.123Z" fill={iconsConfig.colors[color || 'default']} />
+            <path d="M0 6.79199V17.238L8.091 12.123L0 6.79199Z" fill={iconsConfig.colors[color || 'default']} />
+            <path d="M22.4999 3.75H1.49992C0.751422 3.75 0.157422 4.308 0.0449219 5.0265L11.9999 12.903L23.9549 5.0265C23.8424 4.308 23.2484 3.75 22.4999 3.75Z"
+                fill={iconsConfig.colors[color || 'default']} />
+            <path d="M14.5351 13.0288L12.4126 14.4268C12.2866 14.5093 12.1441 14.5498 12.0001 14.5498C11.8561 14.5498 11.7136 14.5093 11.5876 14.4268L9.4651 13.0273L0.0480957 18.9838C0.163596 19.6963 0.754596 20.2498 1.5001 20.2498H22.5001C23.2456 20.2498 23.8366 19.6963 23.9521 18.9838L14.5351 13.0288Z"
+                fill={iconsConfig.colors[color || 'default']} />
+        </g>
+        <defs>
+            <clipPath id="clip0_4620_225">
+                <rect width="24" height="24" fill="white" />
+            </clipPath>
+        </defs>
+    </svg>
+);
+
 const CompleteIcon = () => IconHOC({}, Complete);
 const RejectIcon = () => IconHOC({ colors: 'redColor' }, Reject);
 const BagShopIcon = () => IconHOC({ colors: 'grayColor', size: 40 }, BagShop);
@@ -119,6 +166,9 @@ const CardIcon = () => IconHOC({ colors: 'grayColor', size: 40 }, Card);
 const CashIcon = () => IconHOC({ colors: 'grayColor', size: 40 }, Cash);
 const ClockIcon = () => IconHOC({ colors: 'grayColor', size: 40 }, Clock);
 const PDFIcon = () => IconHOC({ colors: 'grayColor', size: 60 }, PDF);
+const BankIcon = () => IconHOC({ colors: 'blackSecondColor', size: 120 }, Bank);
+const SendLetterIcon = () => IconHOC({ colors: 'whiteColor', size: 40 }, SendLetter);
+const EmailIcon = () => IconHOC({ colors: 'violetColor', size: 40 }, Email);
 
 export {
     CompleteIcon,
@@ -128,5 +178,8 @@ export {
     CardIcon,
     CashIcon,
     ClockIcon,
-    PDFIcon
+    PDFIcon,
+    BankIcon,
+    SendLetterIcon,
+    EmailIcon
 };

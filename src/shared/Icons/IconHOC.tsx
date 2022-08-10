@@ -21,7 +21,9 @@ export const iconsConfig: TIconsConfig = {
         redColor: '#FF5631',
         blackColor: 'black',
         whiteColor: 'white',
-        grayColor: '#222222'
+        grayColor: '#222222',
+        blackSecondColor: '#232121',
+        violetColor: '#9092B0',
     }
 };
 
@@ -58,4 +60,6 @@ export type TColors = {
     blackColor: string;
     whiteColor: string
     grayColor: string;
+    blackSecondColor: string;
+    violetColor: string;
 }
