@@ -13,8 +13,6 @@ import { cutText } from 'utils';
 
 import styles from './SliderNews.module.css';
 
-import { checkAnchorTag } from './helpers';
-
 interface ISliderNews {
     data: TDataNews[];
     slidesPerView?: number;
@@ -114,31 +112,29 @@ export const SliderNews = ({ data }: ISliderNews) => {
                 >
                     {data.map((item, index) => (
                         <React.Fragment key={index}>
-                            {(item.urlToImage !== null && !checkAnchorTag(item.description)) ? (
-                                <Card style={{ minWidth: '20rem', maxHeight: '30rem' }}>
-                                    <Image
-                                        marginBottom="2rem"
-                                        height="7.5rem"
-                                        width="100%"
-                                        src={item.urlToImage}
-                                        alt={item.urlToImage}
-                                    />
-                                    <Heading
-                                        textAlign="center"
-                                        marginBottom="2rem"
-                                        size="md"
-                                        height="6.5rem"
-                                    >
-                                        {cutText(item.title, 100)}
-                                    </Heading>
+                            <Card style={{ minWidth: '20rem', maxHeight: '30rem' }}>
+                                <Image
+                                    marginBottom="2rem"
+                                    height="7.5rem"
+                                    width="100%"
+                                    src={item.urlToImage}
+                                    alt={item.urlToImage}
+                                />
+                                <Heading
+                                    textAlign="center"
+                                    marginBottom="2rem"
+                                    size="md"
+                                    height="6.5rem"
+                                >
+                                    {cutText(item.title, 100)}
+                                </Heading>
 
-                                    <Flex>
-                                        <Link href={item.url} target="_blank">
-                                            <Text textAlign="center">{cutText(item.description, 100)}</Text>
-                                        </Link>
-                                    </Flex>
-                                </Card>
-                            ) : null}
+                                <Flex>
+                                    <Link href={item.url} target="_blank">
+                                        <Text textAlign="center">{cutText(item.description, 100)}</Text>
+                                    </Link>
+                                </Flex>
+                            </Card>
                         </React.Fragment>
                     ))}
                 </Flex>

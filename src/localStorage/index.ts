@@ -1,2 +1,3 @@
 export { applicationIdStorage } from './applicationId.storage';
-export { stepPrescoringStorage } from './stepPrescoring.storage';
+export { stepApplicationStorage } from './stepApplication.storage';
+export { viewLoanOffers } from './viewLoanOffers';
