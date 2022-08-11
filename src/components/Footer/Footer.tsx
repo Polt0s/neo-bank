@@ -11,7 +11,7 @@ import neoflexLogo from 'assets/image/neoflexLogo.png';
 
 import styles from './Footer.module.css';
 
-import { dataLink } from './data';
+import { dataLink } from './Footer.data';
 
 export const Footer = () => {
     return (

@@ -6,7 +6,7 @@ import styles from './BannerCard.module.css';
 
 interface IBannerCard {
     title: string;
-    background?: 'gray' | 'brown';
+    background?: 'gray' | 'brown' | 'multi';
     imageCard: string;
     description: string;
     dataParamsCard: TDataParamsCard[];
@@ -38,9 +38,9 @@ export const BannerCard = ({
                     <Flex gap={20} marginBottom="2rem">
                         {dataParamsCard.map((item, index) => (
                             <Flex direction="column" gap={2} key={index}>
-                                <Heading color="white" size="md">{item.title}</Heading>
+                                <Heading color="#3d3d3d" size="md">{item.title}</Heading>
                                 <Tooltip className={styles['Banner-card__tooltip']} label={item.tooltip} aria-label="tooltip">
-                                    <Text className={styles['Banner-card__text-description']} color="white">{item.description}</Text>
+                                    <Text className={styles['Banner-card__text-description']} color="#3d3d3d">{item.description}</Text>
                                 </Tooltip>
                             </Flex>
                         ))}
