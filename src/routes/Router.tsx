@@ -49,7 +49,7 @@ export const Router = observer(() => {
                         path={`${ERouterName.Loan}/${applicationIdStorage.getItem()}`}
                         element={PageHOC(FormApplicationScoringPage)}
                     />
-                    <Route path="*" element={<Navigate replace to={ERouterName.Loan} />} />
+                    <Route path={`${ERouterName.Loan}/*`} element={<Navigate replace to={ERouterName.Loan} />} />
                 </>
             )}
 
@@ -59,7 +59,7 @@ export const Router = observer(() => {
                         path={`${ERouterName.Loan}/${applicationIdStorage.getItem()}/document`}
                         element={PageHOC(PaymentSchedulePage)}
                     />
-                    <Route path="*" element={<Navigate replace to={ERouterName.Loan} />} />
+                    <Route path={`${ERouterName.Loan}/*`} element={<Navigate replace to={ERouterName.Loan} />} />
                 </>
             )}
 
@@ -69,7 +69,7 @@ export const Router = observer(() => {
                         path={`${ERouterName.Loan}/${applicationIdStorage.getItem()}/document/sign`}
                         element={PageHOC(CreditCardDocumentSignUpPage)}
                     />
-                    <Route path="*" element={<Navigate replace to={ERouterName.Loan} />} />
+                    <Route path={`${ERouterName.Loan}/*`} element={<Navigate replace to={ERouterName.Loan} />} />
                 </>
             )}
 
@@ -79,14 +79,13 @@ export const Router = observer(() => {
                         path={`${ERouterName.Loan}/${applicationIdStorage.getItem()}/code`}
                         element={PageHOC(CreditCardConfirmationCodePage)}
                     />
-                    <Route path="*" element={<Navigate replace to={ERouterName.Loan} />} />
+                    <Route path={`${ERouterName.Loan}/*`} element={<Navigate replace to={ERouterName.Loan} />} />
                 </>
             )}
 
             <Route path={ERouterName.Product} element={<></>} />
             <Route path={ERouterName.Account} element={<></>} />
             <Route path={ERouterName.NotFound} element={PageHOC(NotFoundPage)} />
-
             <Route path="*" element={<Navigate replace to={ERouterName.NotFound} />} />
         </Routes>
     );
