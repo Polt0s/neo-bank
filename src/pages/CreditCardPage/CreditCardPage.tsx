@@ -26,7 +26,7 @@ import {
     dataCashbackCard,
     dataFAQCard,
     dataCardIconSteps
-} from './data';
+} from './CreditCard.data';
 
 interface ICreditCardPage {
     routesPaths: Record<string, string>;
