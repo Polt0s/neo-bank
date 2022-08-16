@@ -11,6 +11,7 @@ interface ICard {
     id?: string;
     className?: string;
     background?: TBackground;
+    hover?: boolean;
 }
 
 export const Card = React.forwardRef(({
@@ -21,14 +22,17 @@ export const Card = React.forwardRef(({
     background,
     style,
     className,
+    hover,
     ...rest
-}: ICard, ref: React.ForwardedRef<HTMLDivElement>) => {
+}: ICard, ref?: React.ForwardedRef<HTMLDivElement>) => {
     const configBackground = {
         default: '',
         gray: 'Card__background-gray',
         brown: 'Card__background-brown',
         lightGray: 'Card__background-lightGray',
-        ultramarine: 'Card__background-ultramarine'
+        ultramarine: 'Card__background-ultramarine',
+        multi: 'Card__background-multi',
+        platinum: 'Card__background-platinum'
     };
 
     return (
@@ -36,6 +40,7 @@ export const Card = React.forwardRef(({
             id={id}
             className={cn(
                 styles['Card-container'],
+                hover ? styles['Card-container_hover'] : '',
                 background && styles[configBackground[background]],
                 className,
             )}
@@ -48,4 +53,4 @@ export const Card = React.forwardRef(({
     );
 });
 
-type TBackground = 'default' | 'gray' | 'brown' | 'lightGray' | 'ultramarine';
+type TBackground = 'default' | 'gray' | 'brown' | 'lightGray' | 'ultramarine' | 'multi' | 'platinum';

@@ -17,7 +17,6 @@ interface IFormInput extends InputProps {
     maxLength?: number;
     dateMask?: boolean;
     bigSum?: boolean;
-    slider?: boolean;
 }
 
 export const FormInput = React.forwardRef(({
@@ -31,7 +30,6 @@ export const FormInput = React.forwardRef(({
     maxLength,
     dateMask,
     bigSum,
-    slider,
     ...rest
 }: IFormInput, ref: React.ForwardedRef<HTMLInputElement>) => {
     const getInputNumbersValue = (value: string) => value.replace(onlyNumbers, '');

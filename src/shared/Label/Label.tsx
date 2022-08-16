@@ -9,7 +9,11 @@ interface ILabel extends FormLabelProps {
     htmlFor: string;
 }
 
-export const Label = ({ children, require = false, ...rest }: ILabel) => {
+export const Label = React.memo(({
+    children,
+    require = false,
+    ...rest
+}: ILabel) => {
     return (
         <FormLabel {...rest}>
             <Flex gap={1}>
@@ -19,4 +23,4 @@ export const Label = ({ children, require = false, ...rest }: ILabel) => {
             </Flex>
         </FormLabel>
     );
-};
+});

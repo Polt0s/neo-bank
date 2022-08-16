@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styles from './Logo.module.css';
 
 interface ILogo {
@@ -9,7 +7,7 @@ interface ILogo {
 export const Logo = ({ onClick }: ILogo) => {
     return (
         <h2 className={styles['Logo']} onClick={onClick}>
-            CC
+            NeoBank
         </h2>
     );
 };
