@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Accordion,
     AccordionButton,
@@ -7,7 +8,8 @@ import {
     Box,
     Heading
 } from '@chakra-ui/react';
-import React from 'react';
+
+import { uniqueId } from 'utils';
 
 interface IFAQCard {
     items: TDataFAQCard[];
@@ -17,10 +19,16 @@ export const FAQCard = ({ items }: IFAQCard) => {
     return (
         <Box padding="2rem 0">
             {items.map(({ titleQuestion, list }, index) => (
-                <React.Fragment key={index}>
-                    <Heading size="lg" margin={index !== 0 ? '2rem 0' : '0 0 2rem 0'}>{titleQuestion}</Heading>
+                <React.Fragment key={uniqueId()}>
+                    <Heading size="lg" margin={index !== 0 ? '2rem 0' : '0 0 2rem 0'}>
+                        {titleQuestion}
+                    </Heading>
 
-                    <Accordion allowToggle borderLeft="0.5px solid #e2e8f0" borderRight="0.5px solid #e2e8f0">
+                    <Accordion
+                        allowToggle
+                        borderLeft="0.5px solid #e2e8f0"
+                        borderRight="0.5px solid #e2e8f0"
+                    >
                         {list.map((item, indexList) => (
                             <AccordionItem key={indexList}>
                                 <Heading size="md">

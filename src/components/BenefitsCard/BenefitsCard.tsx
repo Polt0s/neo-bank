@@ -6,6 +6,8 @@ import {
     Tabs
 } from '@chakra-ui/react';
 
+import { uniqueId } from 'utils';
+
 import { AboutCard } from './AboutCard';
 import { RatesAndConditions } from './RatesAndConditions';
 import { CashbackCard } from './CashbackCard';
@@ -35,10 +37,16 @@ export const BenefitsCard = ({
 }: IBenefitsCard) => {
 
     return (
-        <Tabs colorScheme="default" color="#7b7454" marginBottom="3rem">
+        <Tabs
+            colorScheme="default"
+            color="#7b7454"
+            marginBottom="3rem"
+        >
             <TabList>
-                {tabs.map((tab, index) => (
-                    <Tab key={index} className={styles['BenefitsCard__tab']}>{tab}</Tab>
+                {tabs.map((tab) => (
+                    <Tab key={uniqueId()} className={styles['BenefitsCard__tab']}>
+                        {tab}
+                    </Tab>
                 ))}
             </TabList>
 

@@ -1,4 +1,11 @@
-import { Flex, Heading, Text, Center, Box } from '@chakra-ui/react';
+import {
+    Flex,
+    Heading,
+    Text,
+    Center,
+    Box,
+    Image
+} from '@chakra-ui/react';
 
 import {
     Button,
@@ -6,7 +13,7 @@ import {
     CompleteIcon,
     RejectIcon
 } from 'shared';
-import { formattedSum } from 'utils';
+import { formattedSum, uniqueId } from 'utils';
 
 import SurpriseImage from 'assets/image/SurpriseImage.png';
 
@@ -18,13 +25,24 @@ interface ILoanOffers {
 export const LoanOffers = ({ data, onSubmitOffer }: ILoanOffers) => {
     return (
         <Box marginBottom="3rem">
-            <Heading size="lg" marginBottom="2rem" textAlign="center">Your personal offer</Heading>
+            <Heading
+                size="lg"
+                marginBottom="2rem"
+                textAlign="center"
+            >
+                Your personal offer
+            </Heading>
 
             <Flex gap={10}>
-                {data.map((offer, index) => (
-                    <Card key={index} hover={true}>
+                {data.map((offer) => (
+                    <Card key={uniqueId()} hover={true}>
                         <Center marginBottom="2rem">
-                            <img src={SurpriseImage} alt={SurpriseImage} width="150px" height="150px" />
+                            <Image
+                                src={SurpriseImage}
+                                alt={SurpriseImage}
+                                width={150}
+                                height={150}
+                            />
                         </Center>
 
                         <Flex

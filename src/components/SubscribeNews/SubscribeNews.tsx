@@ -23,7 +23,9 @@ export const SubscribeNews = () => {
             <Flex direction="column" alignItems="center">
                 <Text color="#EB801D" marginBottom="2rem">Support</Text>
 
-                <Heading size="lg" marginBottom="1rem">Subscribe Newsletter & get</Heading>
+                <Heading size="lg" marginBottom="1rem">
+                    Subscribe Newsletter & get
+                </Heading>
                 <Heading
                     size="lg"
                     fontWeight="normal"
@@ -34,7 +36,11 @@ export const SubscribeNews = () => {
             </Flex>
 
             <Center>
-                <Card height="6rem" width="40%" style={{ padding: 0 }}>
+                <Card
+                    height="6rem"
+                    width="40%"
+                    style={{ padding: 0 }}
+                >
                     <Flex
                         alignItems="center"
                         justifyContent="space-between"

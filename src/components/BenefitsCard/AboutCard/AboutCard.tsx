@@ -1,6 +1,7 @@
 import { Box, Grid, GridItem, Heading, Text } from '@chakra-ui/react';
 
 import { Card } from 'shared';
+import { uniqueId } from 'utils';
 
 import styles from './About.module.css';
 
@@ -17,7 +18,7 @@ export const AboutCard = ({ items }: IAboutCard) => (
         >
             {items.map(({ Icon, title, description }, index: number) => (
                 <GridItem
-                    key={index}
+                    key={uniqueId()}
                     rowSpan={1}
                     colSpan={index > 2 ? 3 : 2}
                     className={styles['Grid-item']}

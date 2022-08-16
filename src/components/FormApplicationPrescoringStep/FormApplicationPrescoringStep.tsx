@@ -97,7 +97,11 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
         <Card className={styles['Form-application']}>
             <Flex gap={10} marginBottom="2rem">
                 <Container margin={0} padding={0}>
-                    <Flex marginBottom="2rem" justifyContent="space-between" alignItems="center">
+                    <Flex
+                        marginBottom="2rem"
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
                         <Heading size="lg">Customize your card</Heading>
                         <Text>Step 1 of 5</Text>
                     </Flex>
@@ -112,7 +116,11 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
                 </Container>
 
                 <Center>
-                    <Divider variant="dashed" orientation="vertical" bg="#968975b8" />
+                    <Divider
+                        variant="dashed"
+                        orientation="vertical"
+                        bg="#968975b8"
+                    />
                 </Center>
 
                 <Container>
@@ -122,11 +130,20 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
                 </Container>
             </Flex>
 
-            <Container margin={0} padding={0} maxWidth="100%">
+            <Container
+                margin={0}
+                padding={0}
+                maxWidth="100%"
+            >
                 <Heading marginBottom="1.5rem" size="md">Contact Information</Heading>
 
                 <form onSubmit={formik.handleSubmit}>
-                    <Container margin={0} padding={0} maxWidth="100%" className={styles['Form-container']}>
+                    <Container
+                        margin={0}
+                        padding={0}
+                        maxWidth="100%"
+                        className={styles['Form-container']}
+                    >
                         <Box>
                             <Label htmlFor="lastName" require>Your last name</Label>
                             <FormInput

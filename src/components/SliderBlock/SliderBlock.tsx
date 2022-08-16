@@ -70,7 +70,6 @@ export const SliderBlock = ({
                 variant="unstyled"
                 onFocus={handleChangeFocus}
                 onBlur={handleChangeFocus}
-                slider={true}
                 bigSum={true}
             />
 

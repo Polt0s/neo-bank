@@ -1,6 +1,14 @@
-import { Flex, Heading, Text, Box, Tooltip } from '@chakra-ui/react';
+import {
+    Flex,
+    Heading,
+    Text,
+    Box,
+    Tooltip,
+    Image
+} from '@chakra-ui/react';
 
 import { Button, Card } from 'shared';
+import { uniqueId } from 'utils';
 
 import styles from './BannerCard.module.css';
 
@@ -27,20 +35,40 @@ export const BannerCard = ({
         <Card background={background} className={styles['Banner-card']}>
             <Flex>
                 <Box w="50%">
-                    <Heading color="white" size="2xl" marginBottom="2rem">
+                    <Heading
+                        color="white"
+                        size="2xl"
+                        marginBottom="2rem"
+                    >
                         {title}
                     </Heading>
 
-                    <Text color="gray.700" marginBottom="2rem" w="80%">
+                    <Text
+                        color="gray.700"
+                        marginBottom="2rem"
+                        w="80%"
+                    >
                         {description}
                     </Text>
 
                     <Flex gap={20} marginBottom="2rem">
-                        {dataParamsCard.map((item, index) => (
-                            <Flex direction="column" gap={2} key={index}>
-                                <Heading color="#3d3d3d" size="md">{item.title}</Heading>
-                                <Tooltip className={styles['Banner-card__tooltip']} label={item.tooltip} aria-label="tooltip">
-                                    <Text className={styles['Banner-card__text-description']} color="#3d3d3d">{item.description}</Text>
+                        {dataParamsCard.map((item) => (
+                            <Flex
+                                direction="column"
+                                gap={2}
+                                key={uniqueId()}
+                            >
+                                <Heading color="#3d3d3d" size="md">
+                                    {item.title}
+                                </Heading>
+                                <Tooltip
+                                    className={styles['Banner-card__tooltip']}
+                                    label={item.tooltip}
+                                    aria-label="tooltip"
+                                >
+                                    <Text className={styles['Banner-card__text-description']} color="#3d3d3d">
+                                        {item.description}
+                                    </Text>
                                 </Tooltip>
                             </Flex>
                         ))}
@@ -58,8 +86,12 @@ export const BannerCard = ({
                 </Box>
 
                 <Box w="50%">
-                    <Flex h="100%" justifyContent="center" alignItems="center">
-                        <img
+                    <Flex
+                        h="100%"
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Image
                             src={imageCard}
                             width="350px"
                             alt={imageCard}

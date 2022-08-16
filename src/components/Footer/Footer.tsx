@@ -7,6 +7,8 @@ import {
     Divider
 } from '@chakra-ui/react';
 
+import { uniqueId } from 'utils';
+
 import neoflexLogo from 'assets/image/neoflexLogo.png';
 
 import styles from './Footer.module.css';
@@ -33,7 +35,9 @@ export const Footer = () => {
 
                     <Flex direction="column">
                         <Link href="tel:+7 (495) 984 25 13">
-                            <Heading size="lg" marginBottom="0.5rem">+7 (495) 984 25 13</Heading>
+                            <Heading size="lg" marginBottom="0.5rem">
+                                +7 (495) 984 25 13    
+                            </Heading>
                         </Link>
 
                         <Text color="#2d3748">info@neoflex.ru</Text>
@@ -41,8 +45,8 @@ export const Footer = () => {
                 </Flex>
 
                 <Flex gridGap="0.5rem 2rem" wrap="wrap" >
-                    {dataLink.map((item, index) => (
-                        <Link className={styles.Footer__textLink} key={index}>
+                    {dataLink.map((item) => (
+                        <Link className={styles.Footer__textLink} key={uniqueId()}>
                             <Text>{item.text}</Text>
                         </Link>
                     ))}

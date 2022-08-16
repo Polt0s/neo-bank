@@ -1,7 +1,12 @@
-import { Button, Logo } from 'shared';
-import { Container, Flex, Stack, Text } from '@chakra-ui/react';
-
+import {
+    Container,
+    Flex,
+    Stack,
+    Text
+} from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+
+import { Button, Logo } from 'shared';
 
 import styles from './Header.module.css';
 
@@ -16,7 +21,11 @@ export const Header = ({ routesPaths, goBackHome }: IHeader) => {
             <Logo onClick={goBackHome} />
 
             <Container maxW="md">
-                <Flex alignItems="center" gap="10" justifyContent="center">
+                <Flex
+                    alignItems="center"
+                    gap="10"
+                    justifyContent="center"
+                >
                     <Link to={routesPaths['Loan']} className={styles.Header__link}>Credit card</Link>
                     <Link to={routesPaths['Product']} className={styles.Header__link}>Product</Link>
                     <Link to={routesPaths['Account']} className={styles.Header__link}>Account</Link>
@@ -24,8 +33,18 @@ export const Header = ({ routesPaths, goBackHome }: IHeader) => {
                 </Flex>
             </Container>
 
-            <Stack direction="row" spacing={4} align="center">
-                <Button background="blue" colorText="white" className={styles.BtnSign}>Online bank</Button>
+            <Stack
+                direction="row"
+                spacing={4}
+                align="center"
+            >
+                <Button
+                    background="blue"
+                    colorText="white"
+                    className={styles.BtnSign}
+                >
+                    Online bank
+                </Button>
             </Stack>
         </header >
     );

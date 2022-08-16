@@ -21,7 +21,11 @@ export const CreditCardDocumentSignUp = ({ onSubmit }: ICreditCardDocumentSignUp
 
     return (
         <Box margin="5rem 0">
-            <Flex alignItems="center" marginBottom="2rem" gap={20}>
+            <Flex
+                alignItems="center"
+                marginBottom="2rem"
+                gap={20}
+            >
                 <Heading size="lg">Signing of documents</Heading>
                 <Text>Step 4 of 5</Text>
             </Flex>

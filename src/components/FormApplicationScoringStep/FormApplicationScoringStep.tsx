@@ -121,7 +121,11 @@ export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoring
         <Card style={{ marginBottom: '2rem' }}>
             <Flex gap={10} marginBottom="2rem">
                 <Container margin={0} padding={0}>
-                    <Flex marginBottom="2rem" justifyContent="space-between" alignItems="center">
+                    <Flex
+                        marginBottom="2rem"
+                        justifyContent="space-between"
+                        alignItems="center"
+                    >
                         <Heading size="lg">Continuation of the application</Heading>
                         <Text>Step 2 of 5</Text>
                     </Flex>
@@ -200,6 +204,7 @@ export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoring
                             isInvalid={(formik.touched.dependentAmount && Boolean(formik.errors.dependentAmount))}
                         >
                             <option />
+                            <option value="0">ZERO</option>
                             <option value="1">ONE</option>
                             <option value="2">TWO</option>
                             <option value="3">THREE</option>

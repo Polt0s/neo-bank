@@ -112,7 +112,7 @@ export const SliderNews = ({ data }: ISliderNews) => {
                 >
                     {data.map((item, index) => (
                         <React.Fragment key={index}>
-                            <Card style={{ minWidth: '20rem', maxHeight: '30rem' }}>
+                            <Card className={styles['Slider__card']}>
                                 <Image
                                     marginBottom="2rem"
                                     height="7.5rem"

@@ -27,13 +27,30 @@ export const CurrencyDisplay = ({ currencyList }: ICurrencyDisplay) => {
                 <Text>{`Update every 15 minutes, MSC ${data}`}</Text>
             </Flex>
 
-            <Divider color="white" size="20px" margin="1rem 0" />
+            <Divider
+                color="white"
+                size="20px"
+                margin="1rem 0"
+            />
 
             <Heading size="md" marginBottom="1rem">Currency</Heading>
-            <Divider color="white" size="20px" margin="1rem 0" width="15%" />
+            <Divider
+                color="white"
+                size="20px"
+                margin="1rem 0"
+                width="15%"
+            />
 
-            <Flex justifyContent="space-between" marginBottom="2rem" alignItems="center">
-                <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(12, 1fr)" gap="2rem">
+            <Flex
+                justifyContent="space-between"
+                marginBottom="2rem"
+                alignItems="center"
+            >
+                <Grid
+                    templateRows="repeat(2, 1fr)"
+                    templateColumns="repeat(12, 1fr)"
+                    gap="2rem"
+                >
                     {currencyList.map((item) => (
                         <GridItem key={item.name} colSpan={4}>
                             <Flex gap={5}>

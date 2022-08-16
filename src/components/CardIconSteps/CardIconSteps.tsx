@@ -1,4 +1,13 @@
-import { Box, Center, Divider, Flex, Heading, Text } from '@chakra-ui/react';
+import {
+    Box,
+    Center,
+    Divider,
+    Flex,
+    Heading,
+    Text
+} from '@chakra-ui/react';
+
+import { uniqueId } from 'utils';
 
 import styles from './CardIconSteps.module.css';
 
@@ -13,8 +22,12 @@ export const CardIconSteps = ({ items }: ICardIconSteps) => (
         </Center>
 
         <Flex gap={20}>
-            {items.map((item, index) => (
-                <Flex key={index} flexDirection="column" gap={5}>
+            {items.map((item) => (
+                <Flex
+                    key={uniqueId()}
+                    flexDirection="column"
+                    gap={5}
+                >
                     <Flex gap={5} alignItems="center">
                         <div className={styles['Block-round']}>
                             <Heading size="md">{item.step}</Heading>
@@ -22,7 +35,9 @@ export const CardIconSteps = ({ items }: ICardIconSteps) => (
                         <Divider width="100%" borderBottomWidth="2px" />
                     </Flex>
 
-                    <Text className={styles['Text']}>{item.description}</Text>
+                    <Text className={styles['Text']}>
+                        {item.description}
+                    </Text>
                 </Flex>
             ))}
         </Flex>
