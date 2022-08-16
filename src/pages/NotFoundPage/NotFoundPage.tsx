@@ -1,4 +1,4 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
+import { Flex, Heading, Image, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'shared';
@@ -24,7 +24,9 @@ export const NotFoundPage = ({ className }: INotFoundPage) => {
                 justifyContent="space-between"
             >
                 <Flex direction="column">
-                    <Heading marginBottom="1rem" size="lg">Oops.... </Heading>
+                    <Heading marginBottom="1rem" size="lg">
+                        Oops....
+                    </Heading>
                     <Heading
                         marginBottom="1rem"
                         size="lg"
@@ -46,11 +48,11 @@ export const NotFoundPage = ({ className }: INotFoundPage) => {
                 </Flex>
 
                 <Flex justifyContent="center" alignItems="center">
-                    <img
+                    <Image
                         src={NotFoundImage}
                         alt={NotFoundImage}
-                        width="526px"
-                        height="526px"
+                        width={526}
+                        height={526}
                     />
                 </Flex>
             </Flex>

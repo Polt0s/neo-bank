@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react';
+import { Flex, Image } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 import { ApplicationStatusMessage } from 'components';
@@ -32,7 +32,12 @@ export const CreditCardConfirmationCodePage = ({ routesPaths, className }: ICred
                     direction="column"
                     gap={10}
                 >
-                    <img src={SurpriseImage} alt={SurpriseImage} width="150px" height="150px" />
+                    <Image
+                        src={SurpriseImage}
+                        alt={SurpriseImage}
+                        width={150}
+                        height={150}
+                    />
 
                     <ApplicationStatusMessage
                         title="Congratulations! You have completed your new credit card."
