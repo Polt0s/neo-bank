@@ -1,1 +1,1 @@
-export const uniqueId = () => Math.random().toString(30).slice(2);
+export const uniqueId = (): string => Math.random().toString(30).slice(2);

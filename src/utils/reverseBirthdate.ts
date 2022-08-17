@@ -1,1 +1,1 @@
-export const reverseBirthdate = (str: string) => str.split('-').reverse().join('-');
+export const reverseBirthdate = (str: string): string => str.split('-').reverse().join('-');

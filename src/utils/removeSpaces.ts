@@ -1,3 +1,3 @@
 import { withoutSpaces } from './regExp';
 
-export const removeSpaces = (str: string) => str.replace(withoutSpaces, '');
+export const removeSpaces = (str: string): string => str.replace(withoutSpaces, '');

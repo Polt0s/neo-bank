@@ -1,7 +1,11 @@
 import { makeAutoObservable } from 'mobx';
 
+interface IAppConfigStore {
+    currentLocation: string;
+}
+
 class AppConfigStore {
-    appConfig = {
+    appConfig: IAppConfigStore = {
         currentLocation: '',
     };
 
