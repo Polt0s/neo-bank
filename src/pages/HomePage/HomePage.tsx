@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     Box,
     Container,
@@ -6,48 +5,54 @@ import {
     Grid,
     GridItem,
     Heading,
+    Image,
     Text
 } from '@chakra-ui/react';
-import { observer } from 'mobx-react';
-import { adminStore } from 'store/admin.store';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { Navigate, useLocation } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
+import {  useNavigate } from 'react-router-dom';
 
-import { Button, FormInput } from 'shared';
-import { ListCardFeatures } from 'components';
-import { adminAPI } from 'api';
-import { CurrencyDisplayContainer } from 'containers';
+import { Button } from 'shared';
+import { ListCardFeatures, SubscribeNews } from 'components';
+import { CurrencyDisplayContainer, SliderNewsContainer } from 'containers';
 
 import cardImage1 from 'assets/image/cardImage1.jpg';
 import cardImage2 from 'assets/image/cardImage2.jpg';
 import cardImage3 from 'assets/image/cardImage3.jpg';
 import cardImage4 from 'assets/image/cardImage4.jpg';
+import globalMapImage from 'assets/image/GlobalMap.png';
 
 interface IHomePage {
     routesPaths: Record<string, string>;
+    className: string;
 }
 
-export const HomePage = ({ routesPaths }: IHomePage) => {
+export const HomePage = ({ routesPaths, className }: IHomePage) => {
     const navigate = useNavigate();
 
     return (
-        <main>
+        <main className={className}>
             <Flex style={{ margin: '7rem 0' }} justifyContent="space-between">
                 <Container margin={0} padding={0}>
-                    <Heading size="lg" fontSize="48px" style={{ marginBottom: '4rem' }}>
+                    <Heading
+                        size="lg"
+                        fontSize="48px"
+                        marginBottom="4rem"
+                    >
                         Choose the design you like and apply for card right now
                     </Heading>
                     <Button
                         background="blue"
                         colorText="white"
-                        onClick={() => navigate(routesPaths['CreditCard'])}
-                    >Apply for card
+                        onClick={() => navigate(routesPaths['Loan'])}
+                    >Choose the card
                     </Button>
                 </Container>
 
                 <Flex justifyContent="flex-end">
-                    <Grid templateRows="repeat(2, 1fr)" templateColumns="repeat(6, 1fr)" gap={4}>
+                    <Grid
+                        templateRows="repeat(2, 1fr)"
+                        templateColumns="repeat(6, 1fr)"
+                        gap={4}
+                    >
                         <GridItem rowSpan={1} colSpan={3}>
                             <img src={cardImage1} width="250px" alt={cardImage1} />
                         </GridItem>
@@ -67,6 +72,31 @@ export const HomePage = ({ routesPaths }: IHomePage) => {
             <ListCardFeatures />
 
             <CurrencyDisplayContainer />
-        </main>
+
+            <Flex
+                margin="3rem 0"
+                direction="column"
+                alignItems="center"
+                gap={10}
+            >
+                <Box marginBottom="3rem">
+                    <Heading
+                        textAlign="center"
+                        marginBottom="1rem"
+                        size="lg"
+                    >
+                        You can use our services anywhere in the world
+                    </Heading>
+                    <Text textAlign="center">
+                        Withdraw and transfer money online through our application
+                    </Text>
+                </Box>
+                <Image src={globalMapImage} alt={globalMapImage} />
+            </Flex>
+
+            <SliderNewsContainer />
+
+            <SubscribeNews />
+        </main >
     );
 };
