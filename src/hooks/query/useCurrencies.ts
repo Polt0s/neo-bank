@@ -17,7 +17,7 @@ export const useCurrencies = (data: IUseCurrencies[], interval: number) => {
             queryKey: ['currency', item.index],
             queryFn: () => currencyAPI.getCurrency({ from: item.from, to: item.to, q: '1.0' })
                 .then((response) => {
-                    setCurrencyList((prev: any) => [...prev, { name: item.from, value: response.data }]);
+                    setCurrencyList((prev) => [...prev, { name: item.from, value: response.data }]);
                 }),
             staleTime: Infinity,
             refetchInterval: interval,
@@ -29,9 +29,7 @@ export const useCurrencies = (data: IUseCurrencies[], interval: number) => {
     return { currencyList, isLoading };
 };
 
-type TCurrencies = 'USD' | 'EUR';
-
 export type TCurrencyList = {
-    name: TCurrencies;
+    name: string;
     value: number;
 }
