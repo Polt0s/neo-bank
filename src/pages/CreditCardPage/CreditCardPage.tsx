@@ -100,9 +100,9 @@ export const CreditCardPage = observer(({ routesPaths, className }: ICreditCardP
                 dataFAQCard={dataFAQCard}
             />
 
-            <CardIconSteps items={dataCardIconSteps} />
-
             <Box ref={refPrescoringContainer}>
+                <CardIconSteps items={dataCardIconSteps} />
+
                 {configRenderComponents[applicationStore.application.step]}
             </Box>
         </main>

@@ -30,7 +30,7 @@ const dataAboutCredit = [
     {
         Icon: CashIcon,
         title: 'Up to 50 000 ₽',
-        description: 'cash and transfers without commission and percent',
+        description: 'Cash and transfers without commission and percent',
     },
     {
         Icon: CalendarIcon,

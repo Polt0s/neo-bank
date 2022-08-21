@@ -10,7 +10,7 @@ class CurrencyController extends Controller {
     }
 
     public async getCurrency({ ...params }: IGetCurrencyRequest) {
-        return this.get<string>('rapidAPI', undefined, { params });
+        return this.get<number>('rapidAPI', undefined, { params });
     }
 }
 
