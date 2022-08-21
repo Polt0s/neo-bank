@@ -14,21 +14,22 @@ import { useFormik } from 'formik';
 import {
     Button,
     Card,
-    FormInput,
     Label
 } from 'shared';
 import {
     checkEmail,
-    onlyNumbers,
     checkBirthdate,
     isCheckOver18year,
-    reverseBirthdate
+    reverseBirthdate,
+    uniqueId
 } from 'utils';
 import { SliderBlock } from 'components';
 
 import type { IPostApplicationRequest } from 'api';
 
 import styles from './FormApplicationPrescoringStep.module.css';
+
+import { fieldOptions } from './FormApplicationPrescoringStep.data';
 
 interface IFormApplicationPrescoringStep {
     onSubmit: (values: IPostApplicationRequest) => void;
@@ -65,7 +66,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
 
             if (!checkBirthdate.test(values.birthdate) || values.birthdate.length < 10) {
                 errors.birthdate = 'Incorrect date of birth';
-            } else if (!isCheckOver18year(values.birthdate)) { // поправить корректность проверки на возраст
+            } else if (!isCheckOver18year(values.birthdate)) {
                 errors.birthdate = 'You must be over 18';
             }
 
@@ -144,167 +145,50 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
                         maxWidth="100%"
                         className={styles['Form-container']}
                     >
-                        <Box>
-                            <Label htmlFor="lastName" require>Your last name</Label>
-                            <FormInput
-                                value={(formik.values.lastName).trim()}
-                                onChange={formik.handleChange}
-                                name="lastName"
-                                id="lastName"
-                                type="text"
-                                focusBorderColor="#5B35D5"
-                                errorBorderColor="#FF5631"
-                                isInvalid={Boolean(formik.errors.lastName)}
-                                background="#f9f5e3"
-                                placeholder="For example Doe"
-                                isFocus={formik.touched.lastName}
-                                textError={formik.errors.lastName}
-                                conditionForShowError={Boolean(formik.errors.lastName)}
-                                onBlur={formik.handleBlur}
-                            />
-                        </Box>
-
-                        <Box>
-                            <Label require htmlFor="firstName">Your first name</Label>
-                            <FormInput
-                                value={(formik.values.firstName).trim()}
-                                onChange={formik.handleChange}
-                                name="firstName"
-                                id="firstName"
-                                type="text"
-                                focusBorderColor="#5B35D5"
-                                errorBorderColor="#FF5631"
-                                isInvalid={Boolean(formik.errors.firstName)}
-                                background="#f9f5e3"
-                                isFocus={formik.touched.firstName}
-                                placeholder="For example Jhon"
-                                textError={formik.errors.firstName}
-                                conditionForShowError={Boolean(formik.errors.firstName)}
-                                onBlur={formik.handleBlur}
-                            />
-                        </Box>
-
-                        <Box>
-                            <Label htmlFor="middleName">Your patronymic</Label>
-                            <FormInput
-                                value={(formik.values.middleName).trim()}
-                                onChange={formik.handleChange}
-                                name="middleName"
-                                id="middleName"
-                                type="text"
-                                focusBorderColor="#5B35D5"
-                                errorBorderColor="#FF5631"
-                                isInvalid={Boolean(formik.errors.middleName)}
-                                background="#f9f5e3"
-                                placeholder="For example Victorovich"
-                                isFocus={formik.touched.middleName}
-                                textError={formik.errors.middleName}
-                                conditionForShowError={Boolean(formik.errors.middleName)}
-                                onBlur={formik.handleBlur}
-                            />
-                        </Box>
-
-                        <Box>
-                            <Label require htmlFor="term">Select term</Label>
-                            <Select
-                                value={formik.values.term}
-                                onChange={formik.handleChange}
-                                background="#f9f5e3"
-                                placeholder="6 month"
-                                name="term"
-                                id="term"
-                                focusBorderColor="#5B35D5"
-                            >
-                                <option value="12">12 month</option>
-                                <option value="18">18 month</option>
-                                <option value="24">24 month</option>
-                            </Select>
-                        </Box>
-
-                        <Box>
-                            <Label require htmlFor="email">Your email</Label>
-                            <FormInput
-                                value={(formik.values.email).trim()}
-                                name="email"
-                                id="email"
-                                onChange={formik.handleChange}
-                                type="email"
-                                isFocus={formik.touched.email}
-                                isInvalid={Boolean(formik.errors.email)}
-                                focusBorderColor="#5B35D5"
-                                errorBorderColor="#FF5631"
-                                placeholder="test@gmail.com"
-                                background="#f9f5e3"
-                                textError={formik.errors.email}
-                                conditionForShowError={Boolean(formik.errors.email)}
-                                onBlur={formik.handleBlur}
-                            />
-                        </Box>
-
-                        <Box>
-                            <Label require htmlFor="birthdate">Your date of birth</Label>
-                            <FormInput
-                                value={formik.values.birthdate}
-                                onChange={formik.handleChange}
-                                name="birthdate"
-                                id="birthdate"
-                                placeholder="Select Date and Time"
-                                focusBorderColor="#5B35D5"
-                                errorBorderColor="#FF5631"
-                                isInvalid={Boolean(formik.errors.birthdate)}
-                                isFocus={formik.touched.birthdate}
-                                size="md"
-                                background="#f9f5e3"
-                                textError={formik.errors.birthdate}
-                                conditionForShowError={Boolean(formik.errors.birthdate)}
-                                onBlur={formik.handleBlur}
-                                dateMask={true}
-                            />
-                        </Box>
-
-                        <Box>
-                            <Label require htmlFor="passportSeries">Your passport series</Label>
-                            <FormInput
-                                value={formik.values.passportSeries}
-                                onChange={formik.handleChange}
-                                name="passportSeries"
-                                id="passportSeries"
-                                type="text"
-                                focusBorderColor="#5B35D5"
-                                errorBorderColor="#FF5631"
-                                isInvalid={Boolean(formik.errors.passportSeries)}
-                                isFocus={formik.touched.passportSeries}
-                                background="#f9f5e3"
-                                placeholder="0000"
-                                regExp={onlyNumbers}
-                                textError={formik.errors.passportSeries}
-                                conditionForShowError={Boolean(formik.errors.passportSeries)}
-                                onBlur={formik.handleBlur}
-                                maxLength={4}
-                            />
-                        </Box>
-
-                        <Box>
-                            <Label require htmlFor="passportNumber">Your passport number</Label>
-                            <FormInput
-                                value={formik.values.passportNumber}
-                                onChange={formik.handleChange}
-                                name="passportNumber"
-                                id="passportNumber"
-                                type="text"
-                                focusBorderColor="#5B35D5"
-                                errorBorderColor="#FF5631"
-                                isInvalid={Boolean(formik.errors.passportNumber)}
-                                background="#f9f5e3"
-                                placeholder="000000"
-                                regExp={onlyNumbers}
-                                isFocus={formik.touched.passportNumber}
-                                textError={formik.errors.passportNumber}
-                                conditionForShowError={Boolean(formik.errors.passportNumber)}
-                                onBlur={formik.handleBlur}
-                                maxLength={6}
-                            />
-                        </Box>
+                        {fieldOptions.map((field) => (
+                            <Box key={field.key}>
+                                <Label htmlFor={field.key} require={field.key !== 'middleName'}>
+                                    {field.label}
+                                </Label>
+                                {field.component !== Select ? (
+                                    <field.component
+                                        value={formik.values[field.key]}
+                                        onChange={formik.handleChange}
+                                        name={field.key}
+                                        id={field.key}
+                                        type={field.type}
+                                        focusBorderColor="#5B35D5"
+                                        errorBorderColor="#FF5631"
+                                        background="#f9f5e3"
+                                        isInvalid={Boolean(formik.errors[field.key])}
+                                        placeholder={field.placeholder}
+                                        isFocus={formik.touched[field.key]}
+                                        textError={formik.errors[field.key]}
+                                        conditionForShowError={Boolean(formik.errors[field.key])}
+                                        onBlur={formik.handleBlur}
+                                        dateMask={field.key === 'birthdate'}
+                                        maxLength={field.maxLength}
+                                        regExp={field.regExp}
+                                    />
+                                ) : (
+                                    <Select
+                                        value={formik.values[field.key]}
+                                        onChange={formik.handleChange}
+                                        background="#f9f5e3"
+                                        placeholder={field.placeholder}
+                                        name={field.key}
+                                        id={field.key}
+                                        focusBorderColor="#5B35D5"
+                                    >
+                                        {field.options?.map((selectOption) => (
+                                            <option key={uniqueId()} value={selectOption.value}>
+                                                {selectOption.name}
+                                            </option>
+                                        ))}
+                                    </Select>
+                                )}
+                            </Box>
+                        ))}
                     </Container>
 
                     <Flex
