@@ -3,15 +3,25 @@ import cn from 'classnames';
 
 import styles from './Card.module.css';
 
+const configBackground = {
+    default: '',
+    gray: 'Card__background-gray',
+    brown: 'Card__background-brown',
+    lightGray: 'Card__background-lightGray',
+    ultramarine: 'Card__background-ultramarine',
+    multi: 'Card__background-multi',
+    platinum: 'Card__background-platinum'
+};
+
 interface ICard {
-    width?: string;
-    height?: string;
+    width: string;
+    height: string;
     children: React.ReactNode;
-    style?: React.CSSProperties;
-    id?: string;
-    className?: string;
-    background?: TBackground;
-    hover?: boolean;
+    style: React.CSSProperties;
+    id: string;
+    className: string;
+    background: TBackground;
+    hover: boolean;
 }
 
 export const Card = React.forwardRef(({
@@ -24,16 +34,7 @@ export const Card = React.forwardRef(({
     className,
     hover,
     ...rest
-}: ICard, ref?: React.ForwardedRef<HTMLDivElement>) => {
-    const configBackground = {
-        default: '',
-        gray: 'Card__background-gray',
-        brown: 'Card__background-brown',
-        lightGray: 'Card__background-lightGray',
-        ultramarine: 'Card__background-ultramarine',
-        multi: 'Card__background-multi',
-        platinum: 'Card__background-platinum'
-    };
+}: Partial<ICard>, ref?: React.ForwardedRef<HTMLDivElement>) => {
 
     return (
         <div
@@ -53,4 +54,4 @@ export const Card = React.forwardRef(({
     );
 });
 
-type TBackground = 'default' | 'gray' | 'brown' | 'lightGray' | 'ultramarine' | 'multi' | 'platinum';
+type TBackground = keyof (typeof configBackground);

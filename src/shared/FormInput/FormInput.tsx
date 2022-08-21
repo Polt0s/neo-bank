@@ -6,17 +6,18 @@ import type { InputProps } from '@chakra-ui/react';
 import { CompleteIcon, RejectIcon } from 'shared';
 import { onlyNumbers } from 'utils';
 
+import styles from './FormInput.module.css';
+
 interface IFormInput extends InputProps {
-    textError?: string;
-    conditionForShowError?: boolean;
-    isInvalid?: boolean;
-    regExp?: RegExp;
-    onInput?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    type?: React.HTMLInputTypeAttribute;
-    isFocus?: boolean;
-    maxLength?: number;
-    dateMask?: boolean;
-    bigSum?: boolean;
+    textError: string;
+    conditionForShowError: boolean;
+    isInvalid: boolean;
+    regExp: RegExp;
+    type: React.HTMLInputTypeAttribute;
+    isFocus: boolean;
+    maxLength: number;
+    dateMask: boolean;
+    bigSum: boolean;
 }
 
 export const FormInput = React.forwardRef(({
@@ -24,19 +25,22 @@ export const FormInput = React.forwardRef(({
     conditionForShowError,
     isInvalid,
     regExp,
-    onInput,
     isFocus,
     type,
     maxLength,
     dateMask,
     bigSum,
     ...rest
-}: IFormInput, ref: React.ForwardedRef<HTMLInputElement>) => {
+}: Partial<IFormInput>, ref: React.ForwardedRef<HTMLInputElement>) => {
     const getInputNumbersValue = (value: string) => value.replace(onlyNumbers, '');
 
     const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         const inputNumbersValue = getInputNumbersValue(event.target.value);
         let formattedInputValue = '';
+
+        if (type === 'text') {
+            event.target.value = event.target.value.trim();
+        }
 
         if (regExp) {
             event.target.value = event.target.value.replace(regExp, '');
@@ -44,10 +48,6 @@ export const FormInput = React.forwardRef(({
 
         if (bigSum) {
             event.target.value = Number(inputNumbersValue).toLocaleString('ru');
-        }
-
-        if (onInput) {
-            onInput(event);
         }
 
         if (maxLength) {
@@ -87,17 +87,19 @@ export const FormInput = React.forwardRef(({
     };
 
     return (
-        <InputGroup style={{ display: 'flex', flexDirection: 'column' }}>
+        <InputGroup className={styles['Input-group']}>
             <Input
                 isInvalid={isFocus && isInvalid}
                 onInput={handleChangeInput}
-                onKeyDown={handleChangeKeyDown}
+                // onKeyDown={handleChangeKeyDown}
                 type={type}
                 ref={ref}
                 {...rest}
             />
-            {(conditionForShowError && isFocus) && (
+            {(conditionForShowError && isFocus) ? (
                 <Text color="#FF5631">{textError}</Text>
+            ) : (
+                <Text height="1.5rem" />
             )}
 
             {isFocus && (

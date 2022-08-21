@@ -6,12 +6,12 @@ import type { ButtonHTMLAttributes } from 'react';
 import styles from './Button.module.css';
 
 interface IButton extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'> {
-    colorText?: 'white' | 'black' | 'blue';
-    background?: 'blue' | 'red' | 'grey' | 'green' | 'white';
-    isLoading?: boolean;
-    width?: string;
-    height?: string;
-    disabled?: boolean;
+    colorText: 'white' | 'black' | 'blue';
+    background: 'blue' | 'red' | 'grey' | 'green' | 'white';
+    isLoading: boolean;
+    width: string;
+    height: string;
+    disabled: boolean;
 }
 
 export const Button = React.memo(({
@@ -22,7 +22,7 @@ export const Button = React.memo(({
     height,
     disabled,
     ...rest
-}: IButton) => {
+}: Partial<IButton>) => {
     return (
         <button
             type="button"
