@@ -1,4 +1,4 @@
-# neo-back
+# neo-bank
 
 ## Description
 The application is designed for students of the training center. Tests skills in working with HTML, CSS, JavaScript, TypeScript, React and writing tests.
