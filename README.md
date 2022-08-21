@@ -8,7 +8,7 @@ TypeScript, React, Chakra-ui, Query, MobX, Testing-library
 
 ## Run project
 `npm`</br>
-`yarn start`
+`npm start`
 
 ## Run tests
 `npm run test` - run all test
