@@ -15,3 +15,10 @@
 .BtnSign:hover {
     background-color: #7796c0 !important;
 }
+
+.Header__theme-block {
+    border: 1px solid #7796c0;
+    border-radius: 100%;
+    padding: 0.5rem;
+    cursor: pointer;
+}
