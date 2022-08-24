@@ -51,5 +51,10 @@ const ThemeContextProvider = ({ children }: TThemeContextProvider) => {
     );
 };
 
-export { themeConfig, ThemeContext, ThemeContextProvider };
+export {
+    themeConfig,
+    ThemeContext,
+    ThemeContextProvider,
+    currentThemeStorage
+};
 export type { TThemeConfig, TColorMode };

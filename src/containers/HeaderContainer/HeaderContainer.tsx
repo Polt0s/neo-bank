@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Header } from 'components';
-import { themeConfig, ThemeContext } from 'context';
+import { themeConfig, ThemeContext, currentThemeStorage } from 'context';
 import { themeColorMode } from 'localStorage';
 
 interface IHeaderContainer {
@@ -10,7 +10,10 @@ interface IHeaderContainer {
 }
 
 export const HeaderContainer = ({ routesPaths }: IHeaderContainer) => {
-    const [currentColorMode, setCurrentColorMode] = React.useState<'lightColorMode' | 'darkColorMode'>('lightColorMode' || themeColorMode);
+    const [currentColorMode, setCurrentColorMode] = React.useState<
+        'lightColorMode'
+        | 'darkColorMode'
+    >(currentThemeStorage || 'lightColorMode');
 
     const navigate = useNavigate();
     const { stateTheme, setStateTheme } = React.useContext(ThemeContext);
