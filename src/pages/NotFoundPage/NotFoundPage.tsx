@@ -1,7 +1,14 @@
-import { Flex, Heading, Image, Text } from '@chakra-ui/react';
+import React from 'react';
+import {
+    Flex,
+    Heading,
+    Image,
+    Text
+} from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'shared';
+import { ThemeContext } from 'context';
 
 import NotFoundImage from 'assets/image/NotFoundImage.png';
 
@@ -11,6 +18,7 @@ interface INotFoundPage {
 
 export const NotFoundPage = ({ className }: INotFoundPage) => {
     const navigate = useNavigate();
+    const { stateTheme } = React.useContext(ThemeContext);
 
     const onGoBack = () => {
         navigate(-1);
@@ -24,17 +32,22 @@ export const NotFoundPage = ({ className }: INotFoundPage) => {
                 justifyContent="space-between"
             >
                 <Flex direction="column">
-                    <Heading marginBottom="1rem" size="lg">
+                    <Heading
+                        marginBottom="1rem"
+                        size="lg"
+                        color={stateTheme.color}
+                    >
                         Oops....
                     </Heading>
                     <Heading
                         marginBottom="1rem"
                         size="lg"
                         fontWeight="normal"
+                        color={stateTheme.color}
                     >
                         Page  not found
                     </Heading>
-                    <Text marginBottom="1.5rem" color="#4B4B4B">
+                    <Text marginBottom="1.5rem" color={stateTheme.secondaryColor}>
                         {'This Page doesn`t exist or was removed! \nWe suggest you go back.'}
                     </Text>
                     <Button

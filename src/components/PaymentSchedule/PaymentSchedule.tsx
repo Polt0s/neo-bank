@@ -16,6 +16,7 @@ import {
 
 import { Button, Card } from 'shared';
 import { reverseBirthdate } from 'utils';
+import { ThemeContext } from 'context';
 
 interface IPaymentSchedule {
     onSubmit: () => void;
@@ -25,40 +26,41 @@ interface IPaymentSchedule {
 
 export const PaymentSchedule = ({ onSubmit, dataPaymentSchedule }: IPaymentSchedule) => {
     const [isCheckAgree, setIsCheckAgree] = React.useState(false);
+    const { stateTheme } = React.useContext(ThemeContext);
 
     return (
         <Box width="100%" marginBottom="3rem">
-            <Card>
+            <Card background={stateTheme.cardBackground}>
                 <Flex
                     alignItems="center"
                     marginBottom="2rem"
                     gap={20}
                 >
-                    <Heading size="lg">Payment Schedule</Heading>
-                    <Text>Step 3 of 5</Text>
+                    <Heading size="lg" color={stateTheme.color}>Payment Schedule</Heading>
+                    <Text color={stateTheme.secondaryColor}>Step 3 of 5</Text>
                 </Flex>
 
                 <TableContainer>
                     <Table variant="simple">
                         <Thead>
                             <Tr>
-                                <Th>Number</Th>
-                                <Th>Date</Th>
-                                <Th>Total payment</Th>
-                                <Th>Interest payment</Th>
-                                <Th>Debt payment</Th>
-                                <Th>Remaining debt</Th>
+                                <Th color={stateTheme.secondaryColor}>Number</Th>
+                                <Th color={stateTheme.secondaryColor}>Date</Th>
+                                <Th color={stateTheme.secondaryColor}>Total payment</Th>
+                                <Th color={stateTheme.secondaryColor}>Interest payment</Th>
+                                <Th color={stateTheme.secondaryColor}>Debt payment</Th>
+                                <Th color={stateTheme.secondaryColor}>Remaining debt</Th>
                             </Tr>
                         </Thead>
                         <Tbody>
                             {dataPaymentSchedule.map((item, index) => (
                                 <Tr key={index}>
-                                    <Td>{item.number}</Td>
-                                    <Td>{reverseBirthdate(item.date)}</Td>
-                                    <Td>{item.totalPayment}</Td>
-                                    <Td>{item.interestPayment}</Td>
-                                    <Td>{item.debtPayment}</Td>
-                                    <Td>{item.remainingDebt}</Td>
+                                    <Td color={stateTheme.secondaryColor}>{item.number}</Td>
+                                    <Td color={stateTheme.secondaryColor}>{reverseBirthdate(item.date)}</Td>
+                                    <Td color={stateTheme.secondaryColor}>{item.totalPayment}</Td>
+                                    <Td color={stateTheme.secondaryColor}>{item.interestPayment}</Td>
+                                    <Td color={stateTheme.secondaryColor}>{item.debtPayment}</Td>
+                                    <Td color={stateTheme.secondaryColor}>{item.remainingDebt}</Td>
                                 </Tr>
                             ))}
                         </Tbody>
@@ -73,6 +75,7 @@ export const PaymentSchedule = ({ onSubmit, dataPaymentSchedule }: IPaymentSched
                             defaultChecked size="lg"
                             isChecked={isCheckAgree}
                             onChange={() => setIsCheckAgree(!isCheckAgree)}
+                            color={stateTheme.secondaryColor}
                         >
                             I agree with the payment schedule
                         </Checkbox>

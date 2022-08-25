@@ -10,6 +10,7 @@ import {
 
 import { Button, Card } from 'shared';
 import { cutText } from 'utils';
+import { ThemeContext } from 'context';
 
 import styles from './SliderNews.module.css';
 
@@ -26,6 +27,8 @@ export const SliderNews = ({ data }: ISliderNews) => {
         translate: 0,
         transition: 0.45
     });
+
+    const { stateTheme } = React.useContext(ThemeContext);
 
     const scrollWidth = 500;
     const scrollError = 6;
@@ -87,13 +90,14 @@ export const SliderNews = ({ data }: ISliderNews) => {
                 size="lg"
                 textAlign="center"
                 marginBottom="1.5rem"
+                color={stateTheme.color}
             >
                 Current news from the world of finance
             </Heading>
             <Text
                 textAlign="center"
                 marginBottom="3rem"
-                color="#2d3748"
+                color={stateTheme.secondaryColor}
             >
                 {`We update the news feed every 15 minutes. \n
                 You can learn more by clicking on the news you are interested in.`}
@@ -112,7 +116,7 @@ export const SliderNews = ({ data }: ISliderNews) => {
                 >
                     {data.map((item, index) => (
                         <React.Fragment key={index}>
-                            <Card className={styles['Slider__card']}>
+                            <Card className={styles['Slider__card']} background={stateTheme.cardBackground}>
                                 <Image
                                     marginBottom="2rem"
                                     height="7.5rem"
@@ -125,13 +129,16 @@ export const SliderNews = ({ data }: ISliderNews) => {
                                     marginBottom="2rem"
                                     size="md"
                                     height="6.5rem"
+                                    color={stateTheme.color}
                                 >
                                     {cutText(item.title, 100)}
                                 </Heading>
 
                                 <Flex>
                                     <Link href={item.url} target="_blank">
-                                        <Text textAlign="center">{cutText(item.description, 100)}</Text>
+                                        <Text textAlign="center" color={stateTheme.color}>
+                                            {cutText(item.description, 100)}
+                                        </Text>
                                     </Link>
                                 </Flex>
                             </Card>

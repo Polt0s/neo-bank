@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Tab,
     TabList,
@@ -7,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 
 import { uniqueId } from 'utils';
+import { ThemeContext } from 'context';
 
 import { AboutCard } from './AboutCard';
 import { RatesAndConditions } from './RatesAndConditions';
@@ -35,16 +37,22 @@ export const BenefitsCard = ({
     dataCashbackCard,
     dataFAQCard
 }: IBenefitsCard) => {
+    const { stateTheme } = React.useContext(ThemeContext);
 
     return (
         <Tabs
             colorScheme="default"
-            color="#7b7454"
             marginBottom="3rem"
+            borderColor={stateTheme.tabColor.divider}
+
         >
             <TabList>
                 {tabs.map((tab) => (
-                    <Tab key={uniqueId()} className={styles['BenefitsCard__tab']}>
+                    <Tab
+                        key={uniqueId()}
+                        color={stateTheme.tabColor.text}
+                        className={styles['BenefitsCard__tab']}
+                    >
                         {tab}
                     </Tab>
                 ))}

@@ -21,16 +21,20 @@ import {
     uniqueId,
     withoutSpaces
 } from 'utils';
+import { ThemeContext } from 'context';
 
 import type { IPostApplicationRegistrationRequest } from 'api';
 
 import { fieldOptions } from './FormApplicationScoringStep.data';
+
+import styles from './FormApplicationScoringStep.module.css';
 
 interface IFormApplicationScoringStep {
     onSubmit: (values: Omit<IPostApplicationRegistrationRequest, 'applicationId'>) => void;
 }
 
 export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoringStep) => {
+    const { stateTheme } = React.useContext(ThemeContext);
     const formik = useFormik({
         initialValues: {
             gender: '',
@@ -119,7 +123,7 @@ export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoring
     });
 
     return (
-        <Card style={{ marginBottom: '2rem' }}>
+        <Card className={styles['Form-application']} background={stateTheme.cardBackground}>
             <Flex gap={10} marginBottom="2rem">
                 <Container margin={0} padding={0}>
                     <Flex
@@ -127,8 +131,8 @@ export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoring
                         justifyContent="space-between"
                         alignItems="center"
                     >
-                        <Heading size="lg">Continuation of the application</Heading>
-                        <Text>Step 2 of 5</Text>
+                        <Heading size="lg" color={stateTheme.color}>Continuation of the application</Heading>
+                        <Text color={stateTheme.secondaryColor}>Step 2 of 5</Text>
                     </Flex>
                 </Container>
             </Flex>
@@ -147,11 +151,17 @@ export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoring
                                     colSpan={12}
                                     alignSelf="center"
                                 >
-                                    <Heading size="md">Employment</Heading>
+                                    <Heading size="md" color={stateTheme.color}>Employment</Heading>
                                 </GridItem>
                             )}
                             <GridItem rowSpan={1} colSpan={field.spanColumn}>
-                                <Label htmlFor={field.key} require>{field.label}</Label>
+                                <Label
+                                    htmlFor={field.key}
+                                    require
+                                    color={stateTheme.secondaryColor}
+                                >
+                                    {field.label}
+                                </Label>
                                 {field.component !== Select ? (
                                     <field.component
                                         value={formik.values[field.key]}
@@ -172,6 +182,7 @@ export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoring
                                         maxLength={field.maxLength}
                                         regExp={field.regExp}
                                         bigSum={field.key === 'salary'}
+                                        errorColor={stateTheme.errorColor}
                                     />
                                 ) : (
                                     <React.Fragment>
@@ -195,7 +206,9 @@ export const FormApplicationScoringStep = ({ onSubmit }: IFormApplicationScoring
                                         </field.component>
 
                                         {(formik.touched[field.key] && formik.errors[field.key]) && (
-                                            <Text color="#FF5631">{formik.errors[field.key]}</Text>
+                                            <Text color={stateTheme.errorColor}>
+                                                {formik.errors[field.key]}
+                                            </Text>
                                         )}
                                     </React.Fragment>
                                 )}

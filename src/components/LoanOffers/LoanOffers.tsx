@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Flex,
     Heading,
@@ -14,6 +15,7 @@ import {
     RejectIcon
 } from 'shared';
 import { formattedSum, uniqueId } from 'utils';
+import { ThemeContext } from 'context';
 
 import SurpriseImage from 'assets/image/SurpriseImage.png';
 
@@ -23,19 +25,22 @@ interface ILoanOffers {
 }
 
 export const LoanOffers = ({ data, onSubmitOffer }: ILoanOffers) => {
+    const { stateTheme } = React.useContext(ThemeContext);
+
     return (
         <Box marginBottom="3rem">
             <Heading
                 size="lg"
                 marginBottom="2rem"
                 textAlign="center"
+                color={stateTheme.color}
             >
                 Your personal offer
             </Heading>
 
             <Flex gap={10}>
                 {data.map((offer) => (
-                    <Card key={uniqueId()} hover={true}>
+                    <Card key={uniqueId()} hover={true} background={stateTheme.cardBackground}>
                         <Center marginBottom="2rem">
                             <Image
                                 src={SurpriseImage}
@@ -52,32 +57,32 @@ export const LoanOffers = ({ data, onSubmitOffer }: ILoanOffers) => {
                             justifyContent="center"
                             marginBottom="4rem"
                         >
-                            <Text>Requested amount: {offer.requestedAmount.toLocaleString('ru')} ₽</Text>
-                            <Text>Total amount: {offer.totalAmount.toLocaleString('ru')} ₽</Text>
-                            <Text>For {offer.term} months</Text>
-                            <Text>Monthly payment: {formattedSum(offer.monthlyPayment)} ₽</Text>
-                            <Text>Your rate: {offer.rate}%</Text>
+                            <Text color={stateTheme.secondaryColor}>Requested amount: {offer.requestedAmount.toLocaleString('ru')} ₽</Text>
+                            <Text color={stateTheme.secondaryColor}>Total amount: {offer.totalAmount.toLocaleString('ru')} ₽</Text>
+                            <Text color={stateTheme.secondaryColor}>For {offer.term} months</Text>
+                            <Text color={stateTheme.secondaryColor}>Monthly payment: {formattedSum(offer.monthlyPayment)} ₽</Text>
+                            <Text color={stateTheme.secondaryColor}>Your rate: {offer.rate}%</Text>
 
                             {offer.isInsuranceEnabled ? (
                                 <Flex gap={2}>
-                                    <Text>Insurance included</Text>
+                                    <Text color={stateTheme.secondaryColor}>Insurance included</Text>
                                     <CompleteIcon />
                                 </Flex>
                             ) : (
                                 <Flex gap={2}>
-                                    <Text>Insurance included</Text>
+                                    <Text color={stateTheme.secondaryColor}>Insurance included</Text>
                                     <RejectIcon />
                                 </Flex>
                             )}
 
                             {offer.isSalaryClient ? (
                                 <Flex gap={2}>
-                                    <Text>Salary client</Text>
+                                    <Text color={stateTheme.secondaryColor}>Salary client</Text>
                                     <CompleteIcon />
                                 </Flex>
                             ) : (
                                 <Flex gap={2}>
-                                    <Text>Salary client</Text>
+                                    <Text color={stateTheme.secondaryColor}>Salary client</Text>
                                     <RejectIcon />
                                 </Flex>
                             )}
@@ -103,12 +108,12 @@ export const LoanOffers = ({ data, onSubmitOffer }: ILoanOffers) => {
 
 type TDataOffers = {
     applicationId: number;
-    requestedAmount: number; // запрашиваемая сумма
-    totalAmount: number; // итоговая сумма
-    term: number; // количество месяцев
-    monthlyPayment: number; // ежемесячный платёж
-    rate: number; // ставка
-    isInsuranceEnabled: boolean; // будет ли страховка
-    isSalaryClient: boolean; // зарплатный ли клиент
+    requestedAmount: number;
+    totalAmount: number;
+    term: number;
+    monthlyPayment: number;
+    rate: number;
+    isInsuranceEnabled: boolean;
+    isSalaryClient: boolean;
     uniqueId?: string;
 }

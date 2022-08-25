@@ -9,6 +9,7 @@ import {
 } from '@chakra-ui/react';
 
 import { Button, PDFIcon } from 'shared';
+import { ThemeContext } from 'context';
 
 import document from 'assets/documents/credit-card-offer.pdf';
 
@@ -19,6 +20,8 @@ interface ICreditCardDocumentSignUp {
 export const CreditCardDocumentSignUp = ({ onSubmit }: ICreditCardDocumentSignUp) => {
     const [isCheckAgree, setIsCheckAgree] = React.useState(false);
 
+    const { stateTheme } = React.useContext(ThemeContext);
+
     return (
         <Box margin="5rem 0">
             <Flex
@@ -26,14 +29,14 @@ export const CreditCardDocumentSignUp = ({ onSubmit }: ICreditCardDocumentSignUp
                 marginBottom="2rem"
                 gap={20}
             >
-                <Heading size="lg">Signing of documents</Heading>
-                <Text>Step 4 of 5</Text>
+                <Heading size="lg" color={stateTheme.color}>Signing of documents</Heading>
+                <Text color={stateTheme.secondaryColor}>Step 4 of 5</Text>
             </Flex>
 
             <Text
-                color="#4F5665"
                 marginBottom="2rem"
                 fontSize="1.25rem"
+                color={stateTheme.secondaryColor}
             >
                 Information on interest rates under bank deposit agreements with individuals.
                 Center for Corporate Information Disclosure. Information of a professional participant in the securities market.
@@ -50,6 +53,7 @@ export const CreditCardDocumentSignUp = ({ onSubmit }: ICreditCardDocumentSignUp
                     target="_blank"
                     rel="noopener noreferrer"
                     fontSize="1.25rem"
+                    color={stateTheme.secondaryColor}
                 >
                     Information on your card
                 </Link>
@@ -59,7 +63,9 @@ export const CreditCardDocumentSignUp = ({ onSubmit }: ICreditCardDocumentSignUp
                 <Checkbox
                     defaultChecked size="lg"
                     isChecked={isCheckAgree}
-                    onChange={() => setIsCheckAgree(!isCheckAgree)}>
+                    onChange={() => setIsCheckAgree(!isCheckAgree)}
+                    color={stateTheme.secondaryColor}
+                >
                     I agree
                 </Checkbox>
                 <Button

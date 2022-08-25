@@ -7,6 +7,13 @@ import type { Dispatch, SetStateAction } from 'react';
 type TColorMode = {
     background: string;
     color: string;
+    secondaryColor: string;
+    cardBackground: 'default' | 'brown';
+    tabColor: {
+        text: string;
+        divider: string;
+    };
+    errorColor: string;
 }
 
 type TThemeConfig = {
@@ -18,10 +25,24 @@ const themeConfig: TThemeConfig = {
     lightColorMode: {
         background: '#f5f4ff',
         color: '#1C1C1E',
+        secondaryColor: '#4F5665',
+        cardBackground: 'default',
+        tabColor: {
+            text: '#7b7454',
+            divider: '#E2E8F0'
+        },
+        errorColor: '#FF5631'
     },
     darkColorMode: {
         background: '#545456',
-        color: '#FFFFFF',
+        color: '#bfeeff',
+        secondaryColor: '#e9e9e9',
+        cardBackground: 'brown',
+        tabColor: {
+            text: '#FFFFFF',
+            divider: '#7f92aca8'
+        },
+        errorColor: '#ff9d88',
     },
 };
 

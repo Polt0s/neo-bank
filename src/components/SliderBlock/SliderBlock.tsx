@@ -11,6 +11,7 @@ import {
 
 import { FormInput, Label } from 'shared';
 import { removeSpaces } from 'utils';
+import { ThemeContext } from 'context';
 
 import styles from './SliderBlock.module.css';
 
@@ -32,6 +33,7 @@ export const SliderBlock = ({
     const [isFocus, setIsFocus] = React.useState<boolean>(false);
     const [valueSum, setValueSum] = React.useState<string>(String(sliderValue.toLocaleString('ru')));
 
+    const { stateTheme } = React.useContext(ThemeContext);
     React.useEffect(() => {
         if (Number(removeSpaces(valueSum)) > maxSum) {
             setSliderValue(maxSum);
@@ -61,7 +63,13 @@ export const SliderBlock = ({
 
     return (
         <Box className={styles['Slider-block']}>
-            <Label paddingBottom="1rem" htmlFor="amount">Select amount</Label>
+            <Label
+                paddingBottom="1rem"
+                htmlFor="amount"
+                color={stateTheme.secondaryColor}
+            >
+                Select amount
+            </Label>
             <FormInput
                 value={valueSum}
                 onChange={handleChange}
@@ -97,8 +105,8 @@ export const SliderBlock = ({
                 alignItems="center"
                 marginTop="-0.75rem"
             >
-                <Text color="#786d6d">{minSum.toLocaleString('ru')}</Text>
-                <Text color="#786d6d">{maxSum.toLocaleString('ru')}</Text>
+                <Text color={stateTheme.color}>{minSum.toLocaleString('ru')}</Text>
+                <Text color={stateTheme.color}>{maxSum.toLocaleString('ru')}</Text>
             </Flex>
         </Box>
     );

@@ -24,6 +24,7 @@ import {
     uniqueId
 } from 'utils';
 import { SliderBlock } from 'components';
+import { ThemeContext } from 'context';
 
 import type { IPostApplicationRequest } from 'api';
 
@@ -37,6 +38,8 @@ interface IFormApplicationPrescoringStep {
 
 export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPrescoringStep) => {
     const [sliderValue, setSliderValue] = React.useState<number>(150000);
+
+    const { stateTheme } = React.useContext(ThemeContext);
 
     const formik = useFormik<IInitialFormState>({
         initialValues: {
@@ -95,7 +98,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
     });
 
     return (
-        <Card className={styles['Form-application']}>
+        <Card className={styles['Form-application']} background={stateTheme.cardBackground}>
             <Flex gap={10} marginBottom="2rem">
                 <Container margin={0} padding={0}>
                     <Flex
@@ -103,8 +106,8 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
                         justifyContent="space-between"
                         alignItems="center"
                     >
-                        <Heading size="lg">Customize your card</Heading>
-                        <Text>Step 1 of 5</Text>
+                        <Heading size="lg" color={stateTheme.color}>Customize your card</Heading>
+                        <Text color={stateTheme.secondaryColor}>Step 1 of 5</Text>
                     </Flex>
 
                     <SliderBlock
@@ -125,8 +128,20 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
                 </Center>
 
                 <Container>
-                    <Heading marginBottom="1rem" size="md">You have chosen the amount</Heading>
-                    <Text size="1.5rem" paddingBottom="0.5rem">{sliderValue.toLocaleString('ru')} ₽</Text>
+                    <Heading
+                        marginBottom="1rem"
+                        size="md"
+                        color={stateTheme.color}
+                    >
+                        You have chosen the amount
+                    </Heading>
+                    <Text
+                        size="1.5rem"
+                        paddingBottom="0.5rem"
+                        color={stateTheme.secondaryColor}
+                    >
+                        {sliderValue.toLocaleString('ru')} ₽
+                    </Text>
                     <Divider width="40%" />
                 </Container>
             </Flex>
@@ -136,7 +151,13 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
                 padding={0}
                 maxWidth="100%"
             >
-                <Heading marginBottom="1.5rem" size="md">Contact Information</Heading>
+                <Heading
+                    marginBottom="1.5rem"
+                    size="md"
+                    color={stateTheme.color}
+                >
+                    Contact Information
+                </Heading>
 
                 <form onSubmit={formik.handleSubmit}>
                     <Container
@@ -147,7 +168,11 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
                     >
                         {fieldOptions.map((field) => (
                             <Box key={field.key}>
-                                <Label htmlFor={field.key} require={field.key !== 'middleName'}>
+                                <Label
+                                    htmlFor={field.key}
+                                    require={field.key !== 'middleName'}
+                                    color={stateTheme.secondaryColor}
+                                >
                                     {field.label}
                                 </Label>
                                 {field.component !== Select ? (
@@ -169,6 +194,7 @@ export const FormApplicationPrescoringStep = ({ onSubmit }: IFormApplicationPres
                                         dateMask={field.key === 'birthdate'}
                                         maxLength={field.maxLength}
                                         regExp={field.regExp}
+                                        errorColor={stateTheme.errorColor}
                                     />
                                 ) : (
                                     <Select

@@ -14,22 +14,30 @@ import {
     EmailIcon,
     SendLetterIcon
 } from 'shared';
+import { ThemeContext } from 'context';
 
 export const SubscribeNews = () => {
     const [valueEmail, setValueEmail] = React.useState('');
+
+    const { stateTheme } = React.useContext(ThemeContext);
 
     return (
         <Box marginBottom="3rem">
             <Flex direction="column" alignItems="center">
                 <Text color="#EB801D" marginBottom="2rem">Support</Text>
 
-                <Heading size="lg" marginBottom="1rem">
+                <Heading
+                    size="lg"
+                    marginBottom="1rem"
+                    color={stateTheme.color}
+                >
                     Subscribe Newsletter & get
                 </Heading>
                 <Heading
                     size="lg"
                     fontWeight="normal"
                     marginBottom="4rem"
+                    color={stateTheme.color}
                 >
                     Bank News
                 </Heading>

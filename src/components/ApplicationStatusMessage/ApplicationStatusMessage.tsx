@@ -1,4 +1,11 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
+import React from 'react';
+import {
+    Flex,
+    Heading,
+    Text
+} from '@chakra-ui/react';
+
+import { ThemeContext } from 'context';
 
 import styles from './ApplicationStatusMessage.module.css';
 
@@ -14,21 +21,26 @@ export const ApplicationStatusMessage = ({
     description,
     border,
     margin
-}: IApplicationStatusMessage) => (
-    <Flex
-        direction="column"
-        alignItems="center"
-        marginBottom={margin ? '3rem' : '0'}
-        className={border ? styles['Block-message'] : ''}
-    >
-        <Heading
-            textAlign="center"
-            marginBottom="2rem"
-            size="lg"
-        >
-            {title}
-        </Heading>
+}: IApplicationStatusMessage) => {
+    const { stateTheme } = React.useContext(ThemeContext);
 
-        <Text color="#4F5665">{description}</Text>
-    </Flex>
-);
+    return (
+        <Flex
+            direction="column"
+            alignItems="center"
+            marginBottom={margin ? '3rem' : '0'}
+            className={border ? styles['Block-message'] : ''}
+        >
+            <Heading
+                textAlign="center"
+                marginBottom="2rem"
+                size="lg"
+                color={stateTheme.color}
+            >
+                {title}
+            </Heading>
+
+            <Text color={stateTheme.secondaryColor}>{description}</Text>
+        </Flex>
+    );
+};

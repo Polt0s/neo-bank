@@ -8,6 +8,8 @@ import {
     PinInputField
 } from '@chakra-ui/react';
 
+import { ThemeContext } from 'context';
+
 interface ICreditCardConfirmationCode {
     onSubmitCode: (code: string) => void;
     isError: boolean;
@@ -15,6 +17,8 @@ interface ICreditCardConfirmationCode {
 
 export const CreditCardConfirmationCode = ({ onSubmitCode, isError }: ICreditCardConfirmationCode) => {
     const [valueCode, setValueCode] = React.useState<string>('');
+
+    const { stateTheme } = React.useContext(ThemeContext);
 
     React.useEffect(() => {
         if (valueCode.length === 4) {
@@ -33,7 +37,7 @@ export const CreditCardConfirmationCode = ({ onSubmitCode, isError }: ICreditCar
             alignItems="center"
             gap={10}
         >
-            <Heading size="lg">Please enter confirmation code</Heading>
+            <Heading size="lg" color={stateTheme.color}>Please enter confirmation code</Heading>
             <Flex
                 direction="column"
                 gap={2}
@@ -45,15 +49,15 @@ export const CreditCardConfirmationCode = ({ onSubmitCode, isError }: ICreditCar
                         size="lg"
                         onChange={(value: string) => setValueCode(value)}
                     >
-                        <PinInputField />
-                        <PinInputField />
-                        <PinInputField />
-                        <PinInputField />
+                        <PinInputField color={stateTheme.secondaryColor} />
+                        <PinInputField color={stateTheme.secondaryColor} />
+                        <PinInputField color={stateTheme.secondaryColor} />
+                        <PinInputField color={stateTheme.secondaryColor} />
                     </PinInput>
                 </HStack>
 
                 {isError && (
-                    <Text color="#FF5631">Invalid confirmation code</Text>
+                    <Text color={stateTheme.errorColor}>Invalid confirmation code</Text>
                 )}
             </Flex>
         </Flex>

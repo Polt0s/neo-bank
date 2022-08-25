@@ -191,7 +191,7 @@ const BankIcon = () => IconHOC({ colors: 'blackSecondColor', size: 120 }, Bank);
 const SendLetterIcon = () => IconHOC({ colors: 'whiteColor', size: 40 }, SendLetter);
 const EmailIcon = () => IconHOC({ colors: 'violetColor', size: 40 }, Email);
 const SunIcon = () => IconHOC({ colors: 'blackColor' }, Sun);
-const MoonIcon = () => IconHOC({ colors: 'blackColor' }, Moon);
+const MoonIcon = () => IconHOC({ colors: 'whiteColor' }, Moon);
 
 export {
     CompleteIcon,
