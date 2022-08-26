@@ -1,3 +1,4 @@
+import React from 'react';
 import {
     Box,
     Container,
@@ -8,11 +9,13 @@ import {
     Image,
     Text
 } from '@chakra-ui/react';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from 'shared';
 import { ListCardFeatures, SubscribeNews } from 'components';
 import { CurrencyDisplayContainer, SliderNewsContainer } from 'containers';
+import { ThemeContext } from 'context';
+import { uniqueId } from 'utils';
 
 import cardImage1 from 'assets/image/cardImage1.jpg';
 import cardImage2 from 'assets/image/cardImage2.jpg';
@@ -27,6 +30,9 @@ interface IHomePage {
 
 export const HomePage = ({ routesPaths, className }: IHomePage) => {
     const navigate = useNavigate();
+    const { stateTheme } = React.useContext(ThemeContext);
+
+    const arrayImage: string[] = [cardImage1, cardImage2, cardImage3, cardImage4];
 
     return (
         <main className={className}>
@@ -36,6 +42,7 @@ export const HomePage = ({ routesPaths, className }: IHomePage) => {
                         size="lg"
                         fontSize="48px"
                         marginBottom="4rem"
+                        color={stateTheme.color}
                     >
                         Choose the design you like and apply for card right now
                     </Heading>
@@ -53,18 +60,20 @@ export const HomePage = ({ routesPaths, className }: IHomePage) => {
                         templateColumns="repeat(6, 1fr)"
                         gap={4}
                     >
-                        <GridItem rowSpan={1} colSpan={3}>
-                            <img src={cardImage1} width="250px" alt={cardImage1} />
-                        </GridItem>
-                        <GridItem rowSpan={1} colSpan={3}>
-                            <img src={cardImage2} width="250px" alt={cardImage2} />
-                        </GridItem>
-                        <GridItem rowSpan={1} colSpan={3}>
-                            <img src={cardImage3} width="250px" alt={cardImage3} />
-                        </GridItem>
-                        <GridItem rowSpan={1} colSpan={3}>
-                            <img src={cardImage4} width="250px" alt={cardImage4} />
-                        </GridItem>
+                        {arrayImage.map((item) => (
+                            <GridItem
+                                rowSpan={1}
+                                colSpan={3}
+                                key={uniqueId()}
+                            >
+                                <Image
+                                    src={item}
+                                    width="250px"
+                                    alt={item}
+                                    borderRadius="1rem"
+                                />
+                            </GridItem>
+                        ))}
                     </Grid>
                 </Flex>
             </Flex>
@@ -84,10 +93,11 @@ export const HomePage = ({ routesPaths, className }: IHomePage) => {
                         textAlign="center"
                         marginBottom="1rem"
                         size="lg"
+                        color={stateTheme.color}
                     >
                         You can use our services anywhere in the world
                     </Heading>
-                    <Text textAlign="center">
+                    <Text textAlign="center" color={stateTheme.color}>
                         Withdraw and transfer money online through our application
                     </Text>
                 </Box>
