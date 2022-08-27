@@ -3,8 +3,10 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+import { Router } from 'routes';
+import { ThemeContextProvider } from 'context';
+
 import './index.css';
-import { Router } from 'routes/Router';
 
 const queryClient = new QueryClient({
     defaultOptions: {
@@ -22,9 +24,9 @@ root.render(
     <ChakraProvider>
         <BrowserRouter>
             <QueryClientProvider client={queryClient}>
-                <div id="grid-layout">
+                <ThemeContextProvider>
                     <Router />
-                </div>
+                </ThemeContextProvider>
             </QueryClientProvider>
         </BrowserRouter>
     </ChakraProvider>

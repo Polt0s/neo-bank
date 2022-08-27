@@ -4,7 +4,11 @@ import { Center, Spinner } from '@chakra-ui/react';
 import { applicationAPI } from 'api';
 import { LoanOffers } from 'components';
 import { applicationStore } from 'store/application.store';
-import { stepApplicationStorage, applicationIdStorage, viewLoanOffers } from 'localStorage';
+import {
+    stepApplicationStorage,
+    applicationIdStorage,
+    viewLoanOffers
+} from 'localStorage';
 
 import type { IPostApplicationApplyRequest } from 'api';
 
