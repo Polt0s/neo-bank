@@ -18,6 +18,7 @@ interface IFormInput extends InputProps {
     maxLength: number;
     dateMask: boolean;
     bigSum: boolean;
+    errorColor: string;
 }
 
 export const FormInput = React.forwardRef(({
@@ -30,6 +31,7 @@ export const FormInput = React.forwardRef(({
     maxLength,
     dateMask,
     bigSum,
+    errorColor,
     ...rest
 }: Partial<IFormInput>, ref: React.ForwardedRef<HTMLInputElement>) => {
     const getInputNumbersValue = (value: string) => value.replace(onlyNumbers, '');
@@ -97,7 +99,7 @@ export const FormInput = React.forwardRef(({
                 {...rest}
             />
             {(conditionForShowError && isFocus) ? (
-                <Text color="#FF5631">{textError}</Text>
+                <Text color={errorColor}>{textError}</Text>
             ) : (
                 <Text height="1.5rem" />
             )}
