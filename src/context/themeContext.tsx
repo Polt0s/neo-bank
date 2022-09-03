@@ -62,8 +62,11 @@ type TThemeContextProvider = {
     children: React.ReactNode;
 }
 
+const getSystemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const currentTheme = getSystemTheme ? 'darkColorMode' : 'lightColorMode';
+
 const ThemeContextProvider = ({ children }: TThemeContextProvider) => {
-    const [stateTheme, setStateTheme] = React.useState<TColorMode>(themeConfig[currentThemeStorage] || themeConfig.lightColorMode);
+    const [stateTheme, setStateTheme] = React.useState<TColorMode>(themeConfig[currentThemeStorage] || themeConfig[currentTheme]);
 
     return (
         <ThemeContext.Provider value={{ stateTheme, setStateTheme }}>
