@@ -3,7 +3,7 @@ import { Controller } from '../config';
 import type { IGetNewsRequest } from './request.types';
 import type { INewsResponse } from './response.types';
 
-const KEY = '5149d4ca63514e0a8e61b6578de47e21';
+const KEY = process.env.REACT_APP_NEWSAPI_KEY;
 
 class NewsController extends Controller {
     constructor() {
