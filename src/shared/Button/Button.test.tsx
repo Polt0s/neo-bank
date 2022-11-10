@@ -15,7 +15,7 @@ describe('Button', () => {
         );
 
         const button = screen.getByRole('button');
-    
+
         expect(button).toBeDisabled();
     });
 
@@ -25,7 +25,7 @@ describe('Button', () => {
                 background="blue"
                 colorText="white"
             >
-                    Online bank
+                Online bank
             </Button>
         );
 
