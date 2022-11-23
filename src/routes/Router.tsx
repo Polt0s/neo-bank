@@ -28,6 +28,7 @@ export enum ERouterName {
     CreditCard = '/credit-card',
     Loan = '/loan',
     Product = '/product',
+    Resource = '/resource',
     NotFound = '/not-found'
 }
 
@@ -85,6 +86,7 @@ export const Router = observer(() => {
 
             <Route path={ERouterName.Product} element={<></>} />
             <Route path={ERouterName.Account} element={<></>} />
+            <Route path={ERouterName.Resource} element={<></>} />
             <Route path={ERouterName.NotFound} element={PageHOC(NotFoundPage)} />
             <Route path="*" element={<Navigate replace to={ERouterName.NotFound} />} />
         </Routes>

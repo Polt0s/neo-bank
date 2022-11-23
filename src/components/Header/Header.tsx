@@ -1,10 +1,11 @@
+import React from 'react';
 import {
     Container,
     Flex,
     Stack,
     Text
 } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import {
     Button,
@@ -12,6 +13,7 @@ import {
     MoonIcon,
     SunIcon
 } from 'shared';
+import { uniqueId } from 'utils';
 
 import type { TColorMode } from 'context';
 
@@ -32,6 +34,22 @@ export const Header = ({
     stateTheme,
     currentColorMode
 }: IHeader) => {
+    const [currentPath, setCurrentPath] = React.useState<string>('');
+
+    const location = useLocation();
+
+    const pathList: Array<TNamePath> = ['Loan', 'Product', 'Account', 'Resource'];
+
+    React.useEffect(() => {
+        const getPath = getCurrentPathName(location.pathname);
+        setCurrentPath(getPath);
+    }, [location.pathname]);
+
+    const getCurrentPathName = (path: string): string => {
+        const rootPath = 1;
+        return path.split('/')[rootPath];
+    };
+
     return (
         <header className={styles['Header']}>
             <Logo onClick={goBackHome} />
@@ -41,24 +59,15 @@ export const Header = ({
                     gap="10"
                     justifyContent="center"
                 >
-                    <Link to={routesPaths['Loan']}>
-                        <Text className={styles.Header__link} color={stateTheme.color}>
-                            Credit card
-                        </Text>
-                    </Link>
-                    <Link to={routesPaths['Product']}>
-                        <Text className={styles.Header__link} color={stateTheme.color}>
-                            Product
-                        </Text>
-                    </Link>
-                    <Link to={routesPaths['Account']}>
-                        <Text className={styles.Header__link} color={stateTheme.color}>
-                            Account
-                        </Text>
-                    </Link>
-                    <Text className={styles.Header__link} color={stateTheme.color}>
-                        Resource
-                    </Text>
+                    {pathList.map((item) => (
+                        <Link to={routesPaths[item]} key={uniqueId()}>
+                            <Text className={styles.Header__link}
+                                color={currentPath === item.toLowerCase() ? '#B2A35F' : stateTheme.color}
+                            >
+                                {item === 'Loan' ? 'Credit card' : item}
+                            </Text>
+                        </Link>
+                    ))}
                 </Flex>
             </Container>
 
@@ -88,3 +97,5 @@ export const Header = ({
         </header>
     );
 };
+
+type TNamePath = 'Loan' | 'Product' | 'Account' | 'Resource';
