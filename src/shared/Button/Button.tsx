@@ -7,7 +7,7 @@ import styles from './Button.module.css';
 
 interface IButton extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'> {
     colorText: 'white' | 'black' | 'blue';
-    background: 'blue' | 'red' | 'grey' | 'green' | 'white';
+    background: 'blue' | 'red' | 'grey' | 'green' | 'white' | 'red';
     isLoading: boolean;
     width: string;
     height: string;
