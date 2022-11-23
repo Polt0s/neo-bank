@@ -4,7 +4,7 @@
 
 .Table__tr {
     vertical-align: baseline;
-    border-top: 1px solid #7f92aca8;
+    border-top: 1px solid var(--light-blue);
     margin-top: 2rem;
 }
 
@@ -14,5 +14,5 @@
 
 .Table__td-text {
     white-space: break-spaces;
-    color: #434343e3
+    color: var(--gray-secondary);
 }

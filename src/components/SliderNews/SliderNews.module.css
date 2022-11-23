@@ -9,7 +9,7 @@
 
 .Slider__button-prev {
     border-radius: 100%;
-    border: 2px solid #003CFF;
+    border: 2px solid var(--main-blue);
     width: 4rem;
     height: 4rem;
     background: white;

@@ -1,5 +1,5 @@
 .Block-message {
-    border: 1px groove #5B35D5;
+    border: 1px groove var(--main-violet);
     border-radius: 10px;
     padding: 1.5rem;
 }

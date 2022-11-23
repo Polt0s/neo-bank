@@ -9,15 +9,15 @@
 }
 
 .Header__link:hover {
-    color: #b2a35f
+    color: var(--main-yellow);
 }
 
 .BtnSign:hover {
-    background-color: #7796c0 !important;
+    background-color: var(--secondary-blue) !important;
 }
 
 .Header__theme-block {
-    border: 1px solid #7796c0;
+    border: 1px solid var(--secondary-blue);
     border-radius: 100%;
     padding: 0.5rem;
     cursor: pointer;

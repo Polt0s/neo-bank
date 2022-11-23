@@ -56,3 +56,13 @@
     width: 100vh;
   }
 }
+
+/* variables */
+:root {
+  --main-blue: #003CFF;
+  --secondary-blue: #7796c0;
+  --light-blue: #7f92aca8;
+  --main-violet: #5B35D5;
+  --secondary-gray: #434343e3;
+  --main-yellow: #b2a35f;
+}

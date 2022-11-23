@@ -9,6 +9,6 @@
 }
 
 .Grid-item__text {
-    color: #434343e3;
+    color: var(--secondary-gray);
     min-height: 3.5rem;
 }

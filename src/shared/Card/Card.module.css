@@ -12,11 +12,11 @@
 }
 
 .Card-container_hover:hover {
-    border: 2px solid #003CFF;
+    border: 2px solid var(--main-blue);
 }
 
 .Card__background-gray {
- background-color: #7f92aca8;
+ background-color: var(--light-blue);
 }
 
 .Card__background-brown {

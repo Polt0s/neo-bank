@@ -25,11 +25,11 @@
 
 .Button:hover {
     background: #e2e8f0;
-    background-color: #7796c0;
+    background-color: var(--secondary-blue);
 }
 
 .Background-blue {
-    background-color: #003CFF;
+    background-color: var(--main-blue);
 }
 
 .Background-grey {
@@ -38,7 +38,11 @@
 
 .Background-disabled {
     cursor: not-allowed;
-    background-color: #7796c0;
+    background-color: var(--secondary-blue);
+}
+
+.Background-red {
+    background-color: #d93737b5;
 }
 
 .Color-black {
@@ -50,5 +54,5 @@
 }
 
 .Color-blue {
-    color: #003CFF;
+    color: var(--main-blue);
 }

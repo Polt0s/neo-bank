@@ -10,9 +10,9 @@
 }
 
 .Footer__textLink > p:hover {
-    color: #b2a35f;
+    color: var(--main-yellow);
 }
 
 .Footer__textLink:hover {
-    text-decoration-color: #b2a35f !important;
+    text-decoration-color: var(--main-yellow) !important;
 }
