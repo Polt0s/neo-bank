@@ -2,21 +2,35 @@ import React from 'react';
 import { Center, Spinner } from '@chakra-ui/react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-import { adminAPI, documentAPI } from 'api';
+import { adminAPI, applicationAPI, documentAPI } from 'api';
 import { ApplicationStatusMessage, PaymentSchedule } from 'components';
 import { applicationIdStorage, stepApplicationStorage } from 'localStorage';
 import { applicationStore } from 'store/application.store';
 
 import type { TDataPayment } from 'components/PaymentSchedule';
+import type { NavigateFunction } from 'react-router';
 
-export const PaymentScheduleContainer = () => {
+interface IPaymentScheduleContainer {
+    navigate: NavigateFunction;
+    routesPaths: Record<string, string>;
+}
+
+export const PaymentScheduleContainer = ({ navigate, routesPaths }: IPaymentScheduleContainer) => {
     const [dataPaymentSchedule, setDataPaymentSchedule] = React.useState<TDataPayment[]>([]);
+    const [isStatusDeny, setIsStatusDeny] = React.useState<boolean>(false);
 
     const { mutate, isLoading } = useMutation(() =>
         documentAPI.postDocument({ applicationId: Number(applicationIdStorage.getItem()) }), {
         onSuccess: () => {
             stepApplicationStorage.setItem('FIFTH');
             applicationStore.getStatusApplication('FIFTH');
+        }
+    });
+
+    const postApplicationDeny = useMutation(() =>
+        applicationAPI.postApplicationDeny({ applicationId: Number(applicationIdStorage.getItem()) }), {
+        onSuccess: () => {
+            setIsStatusDeny(true);
         }
     });
 
@@ -27,8 +41,19 @@ export const PaymentScheduleContainer = () => {
         }
     });
 
+    const onClickGoHome = () => {
+        stepApplicationStorage.removeItem();
+        applicationIdStorage.removeItem();
+        applicationStore.getStatusApplication('FIRST');
+        navigate(routesPaths['Home']);
+    };
+
     const onSubmit = () => {
         mutate();
+    };
+
+    const onSubmitDenyApplication = () => {
+        postApplicationDeny.mutate();
     };
 
     const configRender: Record<string, JSX.Element | string> = {
@@ -37,6 +62,10 @@ export const PaymentScheduleContainer = () => {
                 onSubmit={onSubmit}
                 dataPaymentSchedule={dataPaymentSchedule}
                 isError={isError}
+                onSubmitDenyApplication={onSubmitDenyApplication}
+                isLoadingForStatusDeny={postApplicationDeny.isLoading}
+                isStatusDeny={isStatusDeny}
+                onClickGoHome={onClickGoHome}
             />
         ),
         FIFTH: (

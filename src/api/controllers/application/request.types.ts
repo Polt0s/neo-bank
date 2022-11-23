@@ -17,11 +17,11 @@ export interface IPostApplicationRequest {
 export interface IPostApplicationRegistrationRequest {
     items: {
         gender: 'MALE' | 'FEMALE' | string;
-        maritalStatus: 'MARRIED' | 'DIVORCED' | 'SINGLE' | 'WIDOW_WIDOWER' | string; // улучшить способ индексации
-        dependentAmount: number; // сколько иждевенцев
+        maritalStatus: 'MARRIED' | 'DIVORCED' | 'SINGLE' | 'WIDOW_WIDOWER' | string;
+        dependentAmount: number;
         passportIssueDate: string;
         passportIssueBranch: string;
-        employment: { // информация о занятости
+        employment: {
             employmentStatus: 'UNEMPLOYED' | 'SELF_EMPLOYED' | 'EMPLOYED' | 'BUSINESS_OWNER' | string,
             employerINN: number,
             salary: number,
@@ -29,11 +29,15 @@ export interface IPostApplicationRegistrationRequest {
             workExperienceTotal: number,
             workExperienceCurrent: number
         },
-        account: number; // hard code
+        account: number;
     }
     applicationId: number;
 }
 
 export interface IPostApplicationApplyRequest {
     items: Omit<IPostApplicationResponse, 'uniqueId'>;
+}
+
+export type TPostApplicationId = {
+    applicationId: number;
 }

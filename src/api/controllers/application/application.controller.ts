@@ -3,7 +3,8 @@ import { Controller } from '../config';
 import type {
     IPostApplicationApplyRequest,
     IPostApplicationRegistrationRequest,
-    IPostApplicationRequest
+    IPostApplicationRequest,
+    TPostApplicationId
 } from './request.types';
 import type { IPostApplicationResponse } from './response.types';
 
@@ -24,6 +25,10 @@ class ApplicationController extends Controller {
 
     public async putApplicationRegistration({ items, applicationId }: IPostApplicationRegistrationRequest) {
         return this.put(`/registration/${applicationId}`, { ...items });
+    }
+
+    public async postApplicationDeny({applicationId}: TPostApplicationId) {
+        return this.post(`/${applicationId}/deny`);
     }
 }
 
