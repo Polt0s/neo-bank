@@ -1,12 +1,12 @@
 import React from 'react';
 import { Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react';
 
-import type { InputProps } from '@chakra-ui/react';
-
 import { CompleteIcon, RejectIcon } from 'shared';
 import { onlyNumbers } from 'utils';
 
 import styles from './FormInput.module.css';
+
+import type { InputProps } from '@chakra-ui/react';
 
 interface IFormInput extends InputProps {
     textError: string;

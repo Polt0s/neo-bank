@@ -15,9 +15,9 @@ import {
 } from 'shared';
 import { uniqueId } from 'utils';
 
-import type { TColorMode } from 'context';
-
 import styles from './Header.module.css';
+
+import type { TColorMode } from 'context';
 
 interface IHeader {
     routesPaths: Record<string, string>;

@@ -26,11 +26,11 @@ import {
 import { SliderBlock } from 'components';
 import { ThemeContext } from 'context';
 
-import type { IPostApplicationRequest } from 'api';
-
 import styles from './FormApplicationPrescoringStep.module.css';
 
 import { fieldOptions } from './FormApplicationPrescoringStep.data';
+
+import type { IPostApplicationRequest } from 'api';
 
 interface IFormApplicationPrescoringStep {
     onSubmit: (values: IPostApplicationRequest) => void;

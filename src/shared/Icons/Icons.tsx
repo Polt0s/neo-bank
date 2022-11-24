@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
-import React from 'react';
-
 import { IconHOC, iconsConfig } from './IconHOC';
+
 import type { TColors } from './IconHOC';
 
 export interface IIcons {

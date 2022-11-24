@@ -15,12 +15,12 @@ import { RatesAndConditions } from './RatesAndConditions';
 import { CashbackCard } from './CashbackCard';
 import { FAQCard } from './FAQCard';
 
+import styles from './BenefitsCard.module.css';
+
 import type { TDataAboutCard } from './AboutCard';
 import type { TDataRatesAndConditions } from './RatesAndConditions';
 import type { TDataCashbackCard } from './CashbackCard';
 import type { TDataFAQCard } from './FAQCard';
-
-import styles from './BenefitsCard.module.css';
 
 interface IBenefitsCard {
     tabs: string[];

@@ -1,14 +1,15 @@
+import {
+    axiosBase,
+    axiosBaseNewsAPI,
+    axiosBaseRapidAPI
+} from './axios.base';
+
 import type {
     AxiosInstance,
     AxiosRequestConfig,
     AxiosResponse
 } from 'axios';
 
-import {
-    axiosBase,
-    axiosBaseNewsAPI,
-    axiosBaseRapidAPI
-} from './axios.base';
 
 interface IProps {
     requestUrl?: string;

@@ -23,11 +23,12 @@ import {
 } from 'utils';
 import { ThemeContext } from 'context';
 
-import type { IPostApplicationRegistrationRequest } from 'api';
-
 import { fieldOptions } from './FormApplicationScoringStep.data';
 
 import styles from './FormApplicationScoringStep.module.css';
+
+import type { IPostApplicationRegistrationRequest } from 'api';
+
 
 interface IFormApplicationScoringStep {
     onSubmit: (values: Omit<IPostApplicationRegistrationRequest, 'applicationId'>) => void;

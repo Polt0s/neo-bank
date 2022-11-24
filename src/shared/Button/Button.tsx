@@ -1,9 +1,9 @@
 import React from 'react';
 import cn from 'classnames';
 
-import type { ButtonHTMLAttributes } from 'react';
-
 import styles from './Button.module.css';
+
+import type { ButtonHTMLAttributes } from 'react';
 
 interface IButton extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'disabled'> {
     colorText: 'white' | 'black' | 'blue';

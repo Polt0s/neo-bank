@@ -2,9 +2,10 @@ import { Select } from '@chakra-ui/react';
 
 import { FormInput } from 'shared';
 
+import { onlyNumbers } from 'utils';
+
 import type { SelectField } from '@chakra-ui/react';
 import type { HTMLInputTypeAttribute } from 'react';
-import { onlyNumbers } from 'utils';
 
 interface IFieldOptions {
     component: TComponent;
