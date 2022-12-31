@@ -1,12 +1,16 @@
 import React from 'react';
+import cn from 'classnames';
 
 import { IIcons } from './Icons';
 
+import styles from './Icons.module.css';
+
 interface IIconHOC {
-    size?: number;
-    colors?: keyof TColors;
-    containerClassName?: string;
-    containerStyle?: React.CSSProperties;
+    size: number;
+    colors: keyof TColors;
+    containerClassName: string;
+    containerStyle: React.CSSProperties;
+    cursor: boolean;
 }
 
 export const iconsConfig: TIconsConfig = {
@@ -27,7 +31,13 @@ export const iconsConfig: TIconsConfig = {
     }
 };
 
-export const IconHOC = ({ size, colors, containerClassName, containerStyle }: IIconHOC, Icon: ({ color }: IIcons) => JSX.Element) => {
+export const IconHOC = ({
+    size,
+    colors,
+    containerClassName,
+    containerStyle,
+    cursor,
+}: Partial<IIconHOC>, Icon: ({ color }: IIcons) => JSX.Element) => {
     return (
         <div
             style={{
@@ -35,7 +45,7 @@ export const IconHOC = ({ size, colors, containerClassName, containerStyle }: II
                 height: size || iconsConfig.sizes.height,
                 flexShrink: 0, ...containerStyle
             }}
-            className={containerClassName}
+            className={cn(containerClassName, cursor ? styles['Icon-cursor'] : '')}
         >
             <Icon color={colors} />
         </div>

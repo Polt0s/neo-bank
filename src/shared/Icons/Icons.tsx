@@ -1,11 +1,16 @@
 /* eslint-disable max-len */
 import { IconHOC, iconsConfig } from './IconHOC';
 
+import styles from './Icons.module.css';
+
 import type { TColors } from './IconHOC';
 
 export interface IIcons {
     color?: keyof TColors;
+    onClick?: () => void;
+    cursor?: boolean;
 }
+
 const Complete = ({ color }: IIcons) => (
     <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 25 25" fill="none">
         <path
@@ -178,6 +183,36 @@ const Moon = ({ color }: IIcons) => (
     </svg>
 );
 
+export const ArrayDropDown = ({ onClick, cursor }: IIcons) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        onClick={onClick}
+        className={cursor ? styles['Icon-cursor'] : ''}
+    >
+        <path d="M11.8079 14.7695L8.09346 10.3121C7.65924 9.79109 8.02976 9 8.70803 9L15.292 9C15.9702 9 16.3408 9.79108 15.9065 10.3121L12.1921 14.7695C12.0921 14.8895 11.9079 14.8895 11.8079 14.7695Z"
+            fill="#222222" />
+    </svg>
+);
+
+export const ArrayDropUp = ({ onClick, cursor }: IIcons) => (
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        onClick={onClick}
+        className={cursor ? styles['Icon-cursor'] : ''}
+    >
+        <path d="M12.1921 9.23047L15.9065 13.6879C16.3408 14.2089 15.9702 15 15.292 15L8.70803 15C8.02976 15 7.65924 14.2089 8.09346 13.6879L11.8079 9.23047C11.9079 9.11053 12.0921 9.11053 12.1921 9.23047Z"
+            fill="#222222" />
+    </svg>
+);
+
 const CompleteIcon = () => IconHOC({}, Complete);
 const RejectIcon = () => IconHOC({ colors: 'redColor' }, Reject);
 const BagShopIcon = () => IconHOC({ colors: 'grayColor', size: 40 }, BagShop);
@@ -191,6 +226,8 @@ const SendLetterIcon = () => IconHOC({ colors: 'whiteColor', size: 40 }, SendLet
 const EmailIcon = () => IconHOC({ colors: 'violetColor', size: 40 }, Email);
 const SunIcon = () => IconHOC({ colors: 'blackColor' }, Sun);
 const MoonIcon = () => IconHOC({ colors: 'whiteColor' }, Moon);
+const ArrayDropDownIcon = () => IconHOC({ colors: 'grayColor' }, ArrayDropDown);
+const ArrayDropUpIcon = () => IconHOC({ colors: 'grayColor' }, ArrayDropUp);
 
 export {
     CompleteIcon,
@@ -205,5 +242,7 @@ export {
     SendLetterIcon,
     EmailIcon,
     SunIcon,
-    MoonIcon
+    MoonIcon,
+    ArrayDropDownIcon,
+    ArrayDropUpIcon
 };
