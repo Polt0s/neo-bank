@@ -6,3 +6,4 @@ export { formattedSum } from './formattedSum';
 export { uniqueId } from './uniqueId';
 export { cutText } from './cutText';
 export { checkAnchorTag } from './checkAnchorTag';
+export { setFirstLetterUpper } from './setFirstLetterUpper';
